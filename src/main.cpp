@@ -9,8 +9,7 @@ using namespace std;
 
 // g++ - o test main.cpp WordMachine.cpp Animal.cpp Plant.cpp Product.cpp MiscConfig.cpp BuildingRecipe.cpp
 
-      int
-      main()
+int main()
 {
     WordMachine machine("Configuration\\config\\recipe.txt");
     std::vector<BuildingRecipe> recipes = machine.readRecipes();

@@ -1,11 +1,13 @@
 #ifndef WORDMACHINE_HPP
 #define WORDMACHINE_HPP
 
+#include "Exception.hpp"
 #include "..\\Plant\\Plant.hpp"
 #include "..\\Animal\\Animal.hpp"
 #include "..\\Product\\Product.hpp"
 #include "..\\Configuration\\MiscConfig.hpp"
 #include "..\\Building\\BuildingRecipe.hpp"
+
 
 
 #include <string>
