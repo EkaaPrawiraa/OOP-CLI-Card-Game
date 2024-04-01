@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-// g++ - o test main.cpp WordMachine.cpp Animal.cpp Plant.cpp Product.cpp MiscConfig.cpp BuildingRecipe.cpp
+// g++ - o test main.cpp WordMachine.cpp AnimalConfig.cpp PlantConfig.cpp ProductConfig.cpp MiscConfig.cpp BuildingRecipeConfig.cpp
 
 int main()
 {
