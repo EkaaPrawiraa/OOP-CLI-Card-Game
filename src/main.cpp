@@ -1,8 +1,8 @@
-#include "Plant\Plant.hpp"
+#include "Configuration\PlantConfig.hpp"
 #include "Utility\WordMachine.hpp"
-#include "Product\Product.hpp"
+#include "Configuration\ProductConfig.hpp"
 #include "Configuration\MiscConfig.hpp"
-#include "Building\BuildingRecipe.hpp"
+#include "Configuration\BuildingRecipeConfig.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -13,7 +13,7 @@ int main()
 {
     WordMachine machine("Configuration\\config\\recipe.txt");
 
-    std::vector<BuildingRecipe> recipes = machine.readRecipes();
+    std::vector<BuildingRecipeConfig> recipes = machine.readRecipes();
 
     for (const auto &recipe : recipes)
     {

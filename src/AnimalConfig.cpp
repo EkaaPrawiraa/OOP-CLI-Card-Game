@@ -1,10 +1,10 @@
-#include "Animal\Animal.hpp"
+#include "Configuration\AnimalConfig.hpp"
 #include <iostream>
 
-Animal::Animal(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int weightToHarvest, int price)
+AnimalConfig::AnimalConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int weightToHarvest, int price)
     : id(id), kodeHuruf(kodeHuruf), name(name), type(type), weightToHarvest(weightToHarvest), price(price) {}
 
-void Animal::display() const
+void AnimalConfig::display() const
 {
     std::cout << "ID: " << id << ", "
               << "Kode Huruf: " << kodeHuruf << ", "

@@ -1,13 +1,13 @@
-#include "Building/BuildingRecipe.hpp"
+#include "Configuration/BuildingRecipeConfig.hpp"
 #include <iostream>
 
 Material::Material(const std::string &name, int quantity)
     : name(name), quantity(quantity) {}
 
-BuildingRecipe::BuildingRecipe(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials)
+BuildingRecipeConfig::BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials)
     : id(id), kodeHuruf(kodeHuruf), name(name), price(price), materials(materials) {}
 
-void BuildingRecipe::display() const
+void BuildingRecipeConfig::display() const
 {
     std::cout << "ID: " << id << ", "
               << "Kode Huruf: " << kodeHuruf << ", "

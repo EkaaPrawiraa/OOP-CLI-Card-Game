@@ -3,7 +3,7 @@
 
 #include <string>
 
-class Product
+class ProductConfig
 {
 public:
     int id;
@@ -14,7 +14,7 @@ public:
     int addedWeight;
     int price;
 
-    Product(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, const std::string &origin, int addedWeight, int price);
+    ProductConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, const std::string &origin, int addedWeight, int price);
     void display() const;
 };
 

@@ -1,19 +1,19 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef PLANT_HPP
+#define PLANT_HPP
 
 #include <string>
 
-class Animal
+class PlantConfig
 {
 public:
     int id;
     std::string kodeHuruf;
     std::string name;
     std::string type;
-    int weightToHarvest;
+    int durationToHarvest;
     int price;
 
-    Animal(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int weightToHarvest, int price);
+    PlantConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int durationToHarvest, int price);
     void display() const;
 };
 

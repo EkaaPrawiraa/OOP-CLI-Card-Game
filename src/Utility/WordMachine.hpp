@@ -2,13 +2,11 @@
 #define WORDMACHINE_HPP
 
 #include "Exception.hpp"
-#include "..\\Plant\\Plant.hpp"
-#include "..\\Animal\\Animal.hpp"
-#include "..\\Product\\Product.hpp"
+#include "..\\Configuration\\PlantConfig.hpp"
+#include "..\\Configuration\\AnimalConfig.hpp"
+#include "..\\Configuration\\ProductConfig.hpp"
 #include "..\\Configuration\\MiscConfig.hpp"
-#include "..\\Building\\BuildingRecipe.hpp"
-
-
+#include "..\\Configuration\\BuildingRecipeConfig.hpp"
 
 #include <string>
 #include <vector>
@@ -22,11 +20,11 @@ private:
 public:
     WordMachine(const std::string &filename);
     ~WordMachine();
-    std::vector<Plant> readPlants();
-    std::vector<Animal> readAnimals();
-    std::vector<Product> readProducts();
+    std::vector<PlantConfig> readPlants();
+    std::vector<AnimalConfig> readAnimals();
+    std::vector<ProductConfig> readProducts();
     MiscConfig readConfig();
-    std::vector<BuildingRecipe> readRecipes();
+    std::vector<BuildingRecipeConfig> readRecipes();
 };
 
 #endif 

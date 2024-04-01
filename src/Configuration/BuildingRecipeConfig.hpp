@@ -12,7 +12,7 @@ struct Material
     Material(const std::string &name, int quantity);
 };
 
-class BuildingRecipe
+class BuildingRecipeConfig
 {
 public:
     int id;
@@ -21,7 +21,7 @@ public:
     int price;
     std::vector<Material> materials;
 
-    BuildingRecipe(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
+    BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
     void display() const;
 };
 

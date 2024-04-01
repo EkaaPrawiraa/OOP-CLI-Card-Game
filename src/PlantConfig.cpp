@@ -1,10 +1,10 @@
-#include "Plant\Plant.hpp"
+#include "Configuration\PlantConfig.hpp"
 #include <iostream>
 
-Plant::Plant(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int durationToHarvest, int price)
+PlantConfig::PlantConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int durationToHarvest, int price)
     : id(id), kodeHuruf(kodeHuruf), name(name), type(type), durationToHarvest(durationToHarvest), price(price) {}
 
-void Plant::display() const
+void PlantConfig::display() const
 {
     std::cout << "ID: " << id << ", "
               << "Kode Huruf: " << kodeHuruf << ", "

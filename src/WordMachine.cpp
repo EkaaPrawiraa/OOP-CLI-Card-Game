@@ -21,9 +21,9 @@ WordMachine::~WordMachine()
     }
 }
 
-vector<Plant> WordMachine::readPlants()
+vector<PlantConfig> WordMachine::readPlants()
 {
-    vector<Plant> plants;
+    vector<PlantConfig> plants;
     string line;
 
     while (getline(file, line))
@@ -43,9 +43,9 @@ vector<Plant> WordMachine::readPlants()
 
     return plants;
 }
-vector<Animal> WordMachine::readAnimals()
+vector<AnimalConfig> WordMachine::readAnimals()
 {
-    vector<Animal> animals;
+    vector<AnimalConfig> animals;
     string line;
 
     while (getline(file, line))
@@ -65,9 +65,9 @@ vector<Animal> WordMachine::readAnimals()
 
     return animals;
 }
-vector<Product> WordMachine::readProducts()
+vector<ProductConfig> WordMachine::readProducts()
 {
-    vector<Product> products;
+    vector<ProductConfig> products;
     string line;
 
     while (getline(file, line))
@@ -99,9 +99,9 @@ MiscConfig WordMachine::readConfig()
 
     return MiscConfig(winningMoney, winningWeight, storageRows, storageCols, landRows, landCols, farmRows, farmCols);
 }
-vector<BuildingRecipe> WordMachine::readRecipes()
+vector<BuildingRecipeConfig> WordMachine::readRecipes()
 {
-    vector<BuildingRecipe> recipes;
+    vector<BuildingRecipeConfig> recipes;
     string line;
 
     while (getline(file, line))
