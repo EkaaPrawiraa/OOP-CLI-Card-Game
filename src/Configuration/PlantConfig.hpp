@@ -1,18 +1,11 @@
-#ifndef PLANT_HPP
-#define PLANT_HPP
+#ifndef PLANTCONFIG_HPP
+#define PLANTCONFIG_HPP
 
 #include <string>
 
 class PlantConfig
 {
 public:
-    int id;
-    std::string kodeHuruf;
-    std::string name;
-    std::string type;
-    int durationToHarvest;
-    int price;
-
     PlantConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int durationToHarvest, int price);
     void display() const;
     int getid();
@@ -21,6 +14,14 @@ public:
     std::string gettype();
     int getdurationtoharvest();
     int getprice();
+
+private:
+    int id;
+    std::string kodeHuruf;
+    std::string name;
+    std::string type;
+    int durationToHarvest;
+    int price;
 };
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef ANIMALCONFIG_HPP
+#define ANIMALCONFIG_HPP
 
 #include <string>
 
