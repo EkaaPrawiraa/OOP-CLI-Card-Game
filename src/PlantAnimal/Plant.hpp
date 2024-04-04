@@ -1,7 +1,9 @@
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
+#include <vector>
 #include <string>
+#include "..\Configuration\PlantConfig.hpp"
 using namespace std;
 class Plant {
     public:
@@ -25,6 +27,7 @@ class Plant {
         int price;
         int umur;
         string location;
+        vector<PlantConfig> Plants;
 };
 
 class MaterialPlant : public Plant {

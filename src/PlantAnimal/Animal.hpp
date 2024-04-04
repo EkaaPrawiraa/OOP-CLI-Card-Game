@@ -2,6 +2,9 @@
 #define ANIMAL_HPP
 
 #include <string>
+#include "..\\Configuration\\AnimalConfig.hpp"
+#include "..\\Utility\\WordMachine.hpp"
+#include <vector>
 using namespace std;
 
 class Animal {
@@ -25,6 +28,7 @@ protected:
     int price;
     int berat;
     string location;
+    vector<AnimalConfig> Animals;
 };
 
 class Herbivora : public Animal {
