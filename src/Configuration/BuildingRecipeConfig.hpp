@@ -15,14 +15,20 @@ struct Material
 class BuildingRecipeConfig
 {
 public:
+
+    BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
+    void display() const;
+    int getid();
+    std::string getcode();
+    std::string getname();
+    int getprice();
+    std::vector<Material> getmaterials();
+private:
     int id;
     std::string kodeHuruf;
     std::string name;
     int price;
     std::vector<Material> materials;
-
-    BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
-    void display() const;
 };
 
 #endif

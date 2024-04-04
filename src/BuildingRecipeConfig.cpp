@@ -20,3 +20,18 @@ void BuildingRecipeConfig::display() const
         std::cout << "- " << material.name << ": " << material.quantity << std::endl;
     }
 }
+int BuildingRecipeConfig::getid(){
+    return id;
+}
+std::string BuildingRecipeConfig::getcode(){
+    return kodeHuruf;
+}
+std::string BuildingRecipeConfig::getname(){
+    return name;
+}
+int BuildingRecipeConfig::getprice(){
+    return price;
+}
+std::vector<Material> BuildingRecipeConfig::getmaterials(){
+    return materials;
+}
