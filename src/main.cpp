@@ -11,15 +11,15 @@ using namespace std;
 
 int main()
 {
-    WordMachine machine("Configuration\\config\\recipe.txt");
+    WordMachine machine("Configuration\\config\\plant.txt");
 
-    std::vector<BuildingRecipeConfig> recipes = machine.readRecipes();
+    // std::vector<BuildingRecipeConfig> recipes = machine.readRecipes();
 
-    for (const auto &recipe : recipes)
-    {
-        recipe.display();
-        std::cout << "------------------------" << std::endl;
-    }
+    // for (const auto &recipe : recipes)
+    // {
+    //     recipe.display();
+    //     std::cout << "------------------------" << std::endl;
+    // }
     // ---------config-------------//
     // MiscConfig config = machine.readConfig();
 
@@ -42,12 +42,12 @@ int main()
 
     // ---------Plants-------------//
 
-    // std::vector<Plant> plants = machine.readPlants();
+    std::vector<PlantConfig> plants = machine.readPlants();
 
-    // for (const auto &plant : plants)
-    // {
-    //     plant.display();
-    // }
+    for (const auto &plant : plants)
+    {
+        plant.display();
+    }
     return 0;
 }
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE

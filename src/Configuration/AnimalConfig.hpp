@@ -15,6 +15,12 @@ public:
 
     AnimalConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int weightToHarvest, int price);
     void display() const;
+    int getid();
+    std::string getcode();
+    std::string getname();
+    std::string gettype();
+    int getweighttoharvest();
+    int getprice();
 };
 
 #endif
