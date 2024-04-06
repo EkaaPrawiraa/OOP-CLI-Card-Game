@@ -56,4 +56,13 @@ void Farmer::ternak(int baris, int kolom)
     cout<<"\nDengan hati-hati, kamu meletakkan seekor"<< hewanTerpilih <<" di kandang"<<endl;
     cout<<hewanTerpilih<<" telah menjadi peliharaanmu sekarang!"<<endl;
 }
-void Farmer::memberiPangan
+void Farmer::memberiPangan()
+{}
+void Farmer::menjual()
+{}
+void Farmer::membeli(){}
+int Farmer::calculate_tax(){
+    int KTKP = 11;
+    
+
+}
