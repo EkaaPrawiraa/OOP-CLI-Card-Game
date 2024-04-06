@@ -1,9 +1,10 @@
 #include "Role/Role.hpp"
 
-Role::Role(string username, float weight, int uang, inventory invent){
+Role::Role(string username, float weight, int uang, Matrix invent){
     this->username = username;
     this->weight = weight;
     this->gulden = uang;
+    this->invent=invent;
 }
 Role::~Role(){}
 void Role::next(){

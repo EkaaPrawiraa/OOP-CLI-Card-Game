@@ -8,10 +8,10 @@ private:
     std::string username;
     int gulden;
     float weight;
-    Inventory invent;
+    Matrix invent;
 
 public:
-    Role(string username, float weight, int uang, inventory invent);
+    Role(string username, float weight, int uang, Matrix invent);
     virtual ~Role();
     virtual void next();
     void cetak_penyimpanan(int baris, int kolom);

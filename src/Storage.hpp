@@ -54,6 +54,24 @@ public:
             std::cout << "+" << std::endl;
         }
     }
+    void setfirstempty(string value){
+        bool done=false;
+        for (char c = 'A'; c < 'A' + cols; ++c) {
+            for (std::string& val : matrix[c]){
+                if (val=="   "){
+                    val=value;
+                    done=true;
+                    break;
+                }
+            }
+            if (done){
+                break;
+            }
+        }
+        if (!done){
+            // THROW EXCEPTION STORAGE PENUH
+        }
+    }
 };
 
 #endif
