@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <cmath>
 using namespace std;
 Farmer::Farmer(string username,int gulden,float weight,inventory invent):Role( username, gulden,weight,invent){
 }
@@ -61,8 +62,51 @@ void Farmer::memberiPangan()
 void Farmer::menjual()
 {}
 void Farmer::membeli(){}
+
 int Farmer::calculate_tax(){
     int KTKP = 11;
-    
+    int KKP=0;
+    int pajak;
+    int netoKekayaan =0;
+    // hitung neto kekayaan
+    KKP=netoKekayaan-KTKP;
+    // atur jika gulden kurang tapi kekaayaan banyak
+    if (KKP<= 0)
+    {
+        pajak=0;
+    }
+    else if (KKP<=6)
+    {
+        pajak = 0.05;
+    }
+    else if (KKP <=25)
+    {
+        pajak = 0.15;
+    }
+    else if (KKP <=50)
+    {
+        pajak = 0.25;
+    }
+    else if (KKP <=500)
+    {
+        pajak = 0.30;
+    }
+    else
+    {
+        pajak = 0.35;
+    }
+
+    int bayarPajak = round(pajak * KKP) ;
+    if (getGulden()-bayarPajak<0)
+    {
+        bayarPajak=getGulden();
+        setGulden(0);
+        return bayarPajak;
+    }
+    else
+    {
+        setGulden(getGulden()-bayarPajak);
+        return bayarPajak;
+    }
 
 }

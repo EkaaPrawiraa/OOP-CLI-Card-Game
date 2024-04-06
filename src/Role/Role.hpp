@@ -18,6 +18,10 @@ public:
     virtual void membeli();
     virtual void menjual();
     virtual int calculate_tax()=0;
+    int getGulden();
+    float getWeight();
+    void setGulden(int );
+    void setWeight(float);
 };
 
 
