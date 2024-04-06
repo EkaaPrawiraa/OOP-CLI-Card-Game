@@ -1,6 +1,7 @@
 #ifndef ROLE_HPP
 #define ROLE_HPP
 #include <string>
+using namespace std;
 class Role{
 private:
     std::string username;
@@ -9,6 +10,8 @@ private:
     Inventory invent;
 
 public:
+    Role(string username,int gulden,float weight,inventory invent);
+    ~Role();
     virtual void next();
     void cetak_penyimpanan();
     void makan();
