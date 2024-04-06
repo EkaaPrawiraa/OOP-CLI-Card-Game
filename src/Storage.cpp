@@ -5,24 +5,24 @@
 #include <vector>
 #include <map>
 #include <string>
-template<typename T>
+// template<typename T>
 class Matrix {
 private:
     int rows;
     int cols;
-    std::map<char, std::vector<T>> matrix;
+    std::map<char, std::vector<std::string>> matrix;
 
 public:
     // Constructor with default values for rows and cols
     Matrix(int rows = 0, int cols = 0) : rows(rows), cols(cols) {
         // Initialize the matrix with empty strings
         for (char c = 'A'; c < 'A' + cols; ++c) {
-            matrix[c] = std::vector<T>(rows);
+            matrix[c] = std::vector<std::string>(rows);
         }
     }
 
     // Method to insert element into the matrix
-    void set(char key, int index, T value) {
+    void set(char key, int index, std::string value) {
         matrix[key][index-1]=value;
     }
 
@@ -56,9 +56,9 @@ public:
     }
 };
 int main(){
-    Matrix<int> a(8,8);
-    a.set('A', 7, 12);
-    a.display("INT");
+    Matrix a(8,8);
+    a.set('A', 7, "");
+    a.display("");
     return 0;
 }
 
