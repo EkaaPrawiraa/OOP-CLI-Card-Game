@@ -1,4 +1,4 @@
-#include "Role/Petani.hpp"
+#include "Role\\Petani.hpp"
 
 Petani::Petani(string username, float weight, int uang, Matrix item, vector<Plant> p, Matrix P) : Role(username, weight, uang, item), plant(p), P(P){}
 
@@ -6,7 +6,7 @@ Petani::Petani(string username, float weight, int uang, Matrix item, vector<Plan
 Petani::~Petani(){}
 
 // Virtual function implementations
-void Petani::next() {}
+void Petani::next(){}
 void Petani::membeli() {}
 void Petani::menjual() {}
 int Petani::calculate_tax() {
