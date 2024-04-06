@@ -1,6 +1,7 @@
 #ifndef ROLE_HPP
 #define ROLE_HPP
 #include <string>
+using namespace std;
 class Role{
 private:
     std::string username;
