@@ -36,6 +36,10 @@ string Plant::getlocation() const {
 int Plant::getumur() const {
     return umur;
 }
+string Plant::getKode() const
+{
+    return kodeHuruf;
+}
 
 // MaterialPlant class implementation
 MaterialPlant::MaterialPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)

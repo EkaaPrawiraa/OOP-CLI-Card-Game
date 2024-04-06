@@ -12,6 +12,7 @@ class Plant {
         ~Plant();
         void display() const;
         string getname() const;
+        string getKode() const;
         std::string gettype();
         int getdurationtoharvest();
         int getprice();
@@ -19,7 +20,8 @@ class Plant {
         int getumur() const;
         int getprice() const;
 
-    protected:
+    private:
+        static int ID;
         string kodeHuruf;
         string name;
         string type;
