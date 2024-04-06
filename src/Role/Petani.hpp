@@ -13,7 +13,7 @@ class Petani : public Role{
         Matrix L;
 
     public:
-        Petani(string username, float weight, int uang, inventory invent);
+        Petani(string username, float weight, int uang, Matrix invent);
         virtual ~Petani();
         virtual void next();
         virtual void membeli();

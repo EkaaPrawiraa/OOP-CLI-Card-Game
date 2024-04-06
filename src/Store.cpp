@@ -134,4 +134,38 @@ void Store::display(){
     
 }
 
+int Store::getPriceBuilding(const string kode) {
+    for (const auto& building : buildings) {
+        if (building.getKode() == kode) {
+            return building.getHarga();
+        }
+    }
+    return -1; // Mengembalikan -1 jika kode tidak ditemukan
+}
 
+int Store::getPricePlant(const string kode) {
+    for (const auto& plant : plants) {
+        if (plant.getKode() == kode) {
+            return plant.getprice();
+        }
+    }
+    return -1; // Mengembalikan -1 jika kode tidak ditemukan
+}
+
+int Store::getPriceAnimal(const string kode) {
+    for (const auto& animal : animals) {
+        if (animal.getkode() == kode) {
+            return animal.getprice();
+        }
+    }
+    return -1; // Mengembalikan -1 jika kode tidak ditemukan
+}
+
+int Store::getPricProduct(const string kode) {
+    for (const auto& product : products) {
+        if (product.getkodeHuruf() == kode) {
+            return product.getprice();
+        }
+    }
+    return -1; // Mengembalikan -1 jika kode tidak ditemukan
+}

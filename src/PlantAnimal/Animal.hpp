@@ -14,6 +14,7 @@ public:
     ~Animal();
 
     string getname() const;
+    string getkode() const;
     string gettype();
     int getweighttoharvest();
     int getprice() const;

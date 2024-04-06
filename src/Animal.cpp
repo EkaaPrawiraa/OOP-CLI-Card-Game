@@ -27,10 +27,12 @@ int Animal::getweighttoharvest() {
     return weightToHarvest;
 }
 
-int Animal::getprice() {
+int Animal::getprice() const {
     return price;
 }
-
+string Animal::getkode() const{
+    return kodeHuruf;
+}
 int Animal::getberat() {
     return berat;
 }

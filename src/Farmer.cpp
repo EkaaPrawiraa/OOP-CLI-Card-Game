@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
-Farmer::Farmer(string username,int gulden,float weight,inventory invent):Role( username, gulden,weight,invent){
+Farmer::Farmer(string username,int gulden,float weight,Matrix invent):Role( username, gulden,weight,invent){
 }
 Farmer::~Farmer(){}
 

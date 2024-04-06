@@ -1,6 +1,6 @@
 #include "Role/Petani.hpp"
 
-Petani::Petani(string username, float weight, int uang, inventory item) : Role(username, weight, uang, item) {}
+Petani::Petani(string username, float weight, int uang, Matrix item) : Role(username, weight, uang, item) {}
 
 // Destructor implementation
 Petani::~Petani(){}
