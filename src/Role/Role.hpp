@@ -3,6 +3,7 @@
 #include <string>
 #include "Storage.hpp"
 using namespace std;
+
 class Role{
 private:
     std::string username;

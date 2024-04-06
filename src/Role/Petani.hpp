@@ -4,7 +4,7 @@
 #include <iostream>
 #include "PlantAnimal\\Plant.hpp"
 #include "Role.hpp"
-#include "..\\Storage.hpp"
+#include "..\\Storage\\Storage.hpp"
 
 using namespace std;
 class Petani : public Role{
