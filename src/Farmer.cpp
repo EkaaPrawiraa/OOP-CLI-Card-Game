@@ -8,8 +8,7 @@ Farmer::Farmer(string username,int gulden,float weight,Matrix invent):Role( user
 }
 Farmer::~Farmer(){}
 
-void Farmer::setMatrix(Matrix P, int row, int col){
-    F = Matrix(row,col);
+void Farmer::setMatrix(){
     for(int i =0; i < Animals.size(); i++){
         pair<char, int> index = Animals.at(i).getColumnAndRowIndex(Animals.at(i).getlocation());
         F.set(index.first, index.second, Animals.at(i).getlocation());

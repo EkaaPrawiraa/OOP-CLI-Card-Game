@@ -1,6 +1,6 @@
 #include "Role/Petani.hpp"
 
-Petani::Petani(string username, float weight, int uang, Matrix item) : Role(username, weight, uang, item) {}
+Petani::Petani(string username, float weight, int uang, Matrix item, vector<Plant> p, Matrix P) : Role(username, weight, uang, item), plant(p), P(P){}
 
 // Destructor implementation
 Petani::~Petani(){}
@@ -15,12 +15,8 @@ int Petani::calculate_tax() {
 }
 
 // Non-virtual function implementations
-void Petani::CetakLadang(int row, int col){
-    for(int i = 0; i < row;i++){
-        for(int j =0; j < col; j++){
-
-        }
-    }
+void Petani::CetakLadang(){
+    P.display("Ladang");
 }
 void Petani::Tanam(){
     
@@ -28,10 +24,9 @@ void Petani::Tanam(){
 void Petani::Memanen(){
 
 }
-void Petani::setMatrix(Matrix P, int row, int col){
-    P = Matrix(row, col);
+void Petani::setMatrix(){
     for(int i =0; i < plant.size(); i++){
         pair<char, int> index = plant.at(i).getColumnAndRowIndex(plant.at(i).getlocation());
-        P.set(index.first, index.second, plant.at(i).getlocation());
+        P.set(index.first, index.second, plant.at(i).getKode());
     }
 }

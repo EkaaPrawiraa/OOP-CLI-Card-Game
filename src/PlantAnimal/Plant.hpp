@@ -19,7 +19,7 @@ class Plant {
         string getlocation() const;
         int getumur() const;
         int getprice() const;
-        pair<char, int> getColumnAndRowIndex(const string& location) const;
+        pair<char, int> getColumnAndRowIndex(const std::string& location) const;
 
     private:
         static int ID;

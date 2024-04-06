@@ -41,9 +41,9 @@ string Plant::getKode() const
     return kodeHuruf;
 }
 
-pair<char, int> getColumnAndRowIndex(const string& location) {
+pair<char, int> Plant::getColumnAndRowIndex(const string& location) const{
     char column = location[0]; 
-    int row = stoi(location.substr(1)) - 1; 
+    int row = stoi(location.substr(1)); 
     return make_pair(column, row);
 }
 

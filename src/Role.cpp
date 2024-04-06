@@ -4,7 +4,6 @@ Role::Role(string username, float weight, int uang, Matrix invent){
     this->username = username;
     this->weight = weight;
     this->gulden = uang;
-    this->invent=invent;
 }
 Role::~Role(){}
 void Role::next(){

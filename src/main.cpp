@@ -3,6 +3,11 @@
 #include "Configuration\ProductConfig.hpp"
 #include "Configuration\MiscConfig.hpp"
 #include "Configuration\BuildingRecipeConfig.hpp"
+#include "PlantAnimal/Plant.hpp"
+// #include "PlantAnimal/Animal.hpp"
+#include "Role/Petani.hpp"
+// #include "Role/Farmer.hpp"
+#include "Storage.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -43,11 +48,20 @@ int main()
     // ---------Plants-------------//
 
     std::vector<PlantConfig> plants = machine.readPlants();
+    Plant sample(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest()-2, plants.at(0).getprice(), 2, "C02");
+    std::vector<Plant> plant;
+    plant.push_back(sample);
 
-    for (const auto &plant : plants)
-    {
-        plant.display();
-    }
-    return 0;
+    Matrix invent(5,5);
+    Matrix p(8,8);//Matriks Ladang
+    Petani p1("Cupi", 5.0, 50, invent, plant, p);
+    p1.setMatrix();
+    p1.CetakLadang();
+    // for (const auto &plant : plants)
+    // {
+    //     plant.display();
+    // }
+    // return 0;
+
 }
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE

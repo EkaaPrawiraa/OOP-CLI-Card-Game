@@ -15,7 +15,7 @@ private:
 public:
     Farmer(string username,int gulden,float weight,Matrix invent);
     ~Farmer();
-    void setMatrix(Matrix F, int row, int col);
+    void setMatrix();
     void cetakPeternakan(int baris, int kolom);
     void ternak(int baris, int kolom);
     virtual void memberiPangan(int baris, int kolom);
