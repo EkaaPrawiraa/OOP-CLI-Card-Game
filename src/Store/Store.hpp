@@ -15,7 +15,24 @@ class Store{
 
 
     public:
+    Store();
+    Store(const vector<Building> &buildings,const vector<Plant> &plants,const vector<Animal> &animals,const vector<Product> &products);
+    ~Store();
 
-
-
+    // add ketika ada yang menjual barang ke store
+    void addBuilding(const Building addedBuilding);
+    void addPlant(const Plant addedPlant);
+    void addAnimal(const Animal addedAnimal);
+    void addProduct(const Product addedProduct);
+    // delete ketika ada yang membeli barang dari store
+    void deleteBuilding(const Building);
+    void deletePlant(const Plant);
+    void deleteAnimal(const Animal);
+    void deleteProduct(const Product);
+    // set harga barang
+    int getPriceBuilding(const string kode);
+    int getPricePlant(const string kode);
+    int getPriceAnimal(const string kode);
+    int getPricProduct(const string kode);
+    void display();
 };

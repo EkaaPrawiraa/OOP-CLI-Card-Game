@@ -16,7 +16,7 @@ public:
     string getname() const;
     string gettype();
     int getweighttoharvest();
-    int getprice();
+    int getprice() const;
     int getberat();
     string getlocation();
     pair<char, int> getColumnAndRowIndex(const string& location) const;

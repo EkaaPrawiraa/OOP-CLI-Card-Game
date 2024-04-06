@@ -2,7 +2,9 @@
 #define PRODUCT_HPP
 #include <string>
 #include <vector>
-#include "../Configuration/ProductConfig.hpp"
+#include "..\\Configuration\ProductConfig.hpp"
+
+using namespace std;
 class Product {
 private:
     std::string kodeHuruf;
@@ -15,12 +17,12 @@ private:
 public:
     Product(std::string kodehuruf, const std::vector<ProductConfig>& vec);
 
-    std::string getkodeHuruf();
-    std::string getname();
-    std::string gettipe();
-    std::string getorigin();
-    int getadded_weight();
-    int getprice();
+    std::string getkodeHuruf() const;
+    std::string getname()  const;
+    std::string gettipe()  const;
+    std::string getorigin()  const;
+    int getadded_weight()  const;
+    int getprice()  const;
 };
 
 
