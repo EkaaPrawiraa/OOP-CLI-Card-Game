@@ -2,15 +2,18 @@
 #define PETANI_HPP
 #include <string>
 #include <iostream>
-#include "PlantAnimal/Plant.hpp"
+#include "PlantAnimal\\Plant.hpp"
 #include "Role.hpp"
+#include "..\\Storage.hpp"
+
 using namespace std;
 class Petani : public Role{
     private:
         vector<Plant> plant;
+        Matrix L;
 
     public:
-        Petani(string username, float weight, int uang);
+        Petani(string username, float weight, int uang, inventory invent);
         virtual ~Petani();
         virtual void next();
         virtual void membeli();
@@ -19,6 +22,7 @@ class Petani : public Role{
         void Tanam();
         void Memanen();
         virtual int calculate_tax()=0;
+        void setMatrix(Matrix P);
 };
 
 

@@ -1,6 +1,7 @@
 #ifndef ROLE_HPP
 #define ROLE_HPP
 #include <string>
+#include "Storage.hpp"
 using namespace std;
 class Role{
 private:
@@ -10,7 +11,7 @@ private:
     Inventory invent;
 
 public:
-    Role(string username, float weight, int uang);
+    Role(string username, float weight, int uang, inventory invent);
     virtual ~Role();
     virtual void next();
     void cetak_penyimpanan(int baris, int kolom);
@@ -22,6 +23,7 @@ public:
     float getWeight();
     void setGulden(int );
     void setWeight(float);
+    void setMatrix(Matrix P);
 };
 
 

@@ -2,7 +2,7 @@
 #define PLANT_HPP
 
 #include <vector>
-#include <string>
+#include <iostream>
 #include "..\Configuration\PlantConfig.hpp"
 using namespace std;
 class Plant {
@@ -19,6 +19,7 @@ class Plant {
         string getlocation() const;
         int getumur() const;
         int getprice() const;
+        pair<char, int> getColumnAndRowIndex(const string& location) const;
 
     private:
         static int ID;

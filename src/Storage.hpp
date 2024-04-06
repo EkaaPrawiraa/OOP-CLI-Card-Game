@@ -55,11 +55,5 @@ public:
         }
     }
 };
-int main(){
-    Matrix a(8,8);
-    a.set('A', 7, "ABC");
-    a.display("");
-    return 0;
-}
 
 #endif

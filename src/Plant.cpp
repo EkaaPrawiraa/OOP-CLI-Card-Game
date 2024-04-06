@@ -41,6 +41,12 @@ string Plant::getKode() const
     return kodeHuruf;
 }
 
+pair<char, int> getColumnAndRowIndex(const string& location) {
+    char column = location[0]; 
+    int row = stoi(location.substr(1)) - 1; 
+    return make_pair(column, row);
+}
+
 // MaterialPlant class implementation
 MaterialPlant::MaterialPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
