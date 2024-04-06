@@ -13,42 +13,42 @@ private:
     std::map<char, std::vector<std::string>> matrix;
 
 public:
-    // Constructor with default values for rows and cols
+
     Matrix(int rows = 0, int cols = 0) : rows(rows), cols(cols) {
-        // Initialize the matrix with empty strings
+
         for (char c = 'A'; c < 'A' + cols; ++c) {
-            matrix[c] = std::vector<std::string>(rows);
+            matrix[c] = std::vector<std::string>(rows, "   ");
         }
     }
 
-    // Method to insert element into the matrix
+
     void set(char key, int index, std::string value) {
         matrix[key][index-1]=value;
     }
 
-    // Method to display the matrix
+
     void display(std::string tipe) const {
         std::cout << "     ================[ "<<tipe<<" ]==================" << std::endl << std::endl;
         std::cout << "        ";
-        for (char c = 'A'; c < 'A' + this->cols; ++c) { // Qualify cols with 'this->'               
+        for (char c = 'A'; c < 'A' + this->cols; ++c) {            
             std::cout << "  " << c << "   ";
         }
         std::cout << std::endl;
         std::cout << "     +-----";
-        for (int i = 0; i < this->cols; ++i) { // Qualify cols with 'this->'
+        for (int i = 0; i < this->cols; ++i) {
             std::cout << "+-----";
         }
         std::cout << "+" << std::endl;
 
-        // Loop for rows
-        for (int i = 0; i < this->rows; ++i) { // Qualify rows with 'this->'
+
+        for (int i = 0; i < this->rows; ++i) { 
             std::cout << "  " << std::setw(2) << i+1 << " |";
-            // Loop for columns
-            for (char c = 'A'; c < 'A' + this->cols; ++c) { // Qualify cols with 'this->'
-                std::cout << std::setw(5) << this->matrix.at(c)[i] << " |"; // Qualify matrix with 'this->'
+
+            for (char c = 'A'; c < 'A' + this->cols; ++c) {
+                std::cout << std::setw(5) << this->matrix.at(c)[i] << " |"; 
             }
             std::cout << std::endl << "     +-----";
-            for (int i = 0; i < this->cols; ++i) { // Qualify cols with 'this->'
+            for (int i = 0; i < this->cols; ++i) { 
                 std::cout << "+-----";
             }
             std::cout << "+" << std::endl;
@@ -57,7 +57,7 @@ public:
 };
 int main(){
     Matrix a(8,8);
-    a.set('A', 7, "");
+    a.set('A', 7, "ABC");
     a.display("");
     return 0;
 }
