@@ -13,8 +13,8 @@ private:
 public:
     Farmer(string username,int gulden,float weight,inventory invent);
     ~Farmer();
-    void cetakPeternakan();
-    void ternak();
+    void cetakPeternakan(int baris, int kolom);
+    void ternak(int baris, int kolom);
     virtual void memberiPangan();
     virtual void menjual();
     virtual void membeli();

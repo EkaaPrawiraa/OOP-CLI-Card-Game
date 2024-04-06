@@ -13,7 +13,7 @@ public:
     Role(string username, float weight, int uang);
     virtual ~Role();
     virtual void next();
-    void cetak_penyimpanan();
+    void cetak_penyimpanan(int baris, int kolom);
     void makan();
     virtual void membeli();
     virtual void menjual();
