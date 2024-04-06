@@ -1,21 +1,21 @@
-#ifndef USER_HPP
-#define USER_HPP
+#ifndef PETANI_HPP
+#define PETANI_HPP
 #include <string>
 #include <iostream>
 #include "PlantAnimal/Plant.hpp"
 #include "Role.hpp"
 using namespace std;
-class User : public Role{
+class Petani : public Role{
     private:
         vector<Plant> plant;
 
     public:
-        User(string username, float weight, int uang);
-        virtual ~User();
+        Petani(string username, float weight, int uang);
+        virtual ~Petani();
         virtual void next();
         virtual void membeli();
         virtual void menjual();
-        void CetakLadang();
+        void CetakLadang(int row, int col);
         void Tanam();
         void Memanen();
         virtual int calculate_tax()=0;
