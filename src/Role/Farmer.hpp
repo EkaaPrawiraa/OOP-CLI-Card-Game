@@ -15,7 +15,7 @@ public:
     ~Farmer();
     void cetakPeternakan(int baris, int kolom);
     void ternak(int baris, int kolom);
-    virtual void memberiPangan();
+    virtual void memberiPangan(int baris, int kolom);
     virtual void menjual();
     virtual void membeli();
     int calculate_tax();
