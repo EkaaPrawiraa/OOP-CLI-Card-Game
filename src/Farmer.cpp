@@ -57,10 +57,33 @@ void Farmer::ternak(int baris, int kolom)
     cout<<"\nDengan hati-hati, kamu meletakkan seekor"<< hewanTerpilih <<" di kandang"<<endl;
     cout<<hewanTerpilih<<" telah menjadi peliharaanmu sekarang!"<<endl;
 }
-void Farmer::memberiPangan()
-{}
+void Farmer::memberiPangan(int baris, int kolom)
+{
+    string petak;
+    string slot;
+    int beratAkhir;
+    string hewanTerpilih;
+    cout<<"Pilih petak kandang yang akan ditinggali"<<endl;
+    cetakPeternakan(baris,kolom);
+    cout<<"Petak kandang: "<<endl;
+    cin >>petak;
+    // validasi pemilihan
+    cout<<"Kamu memilih "<< hewanTerpilih <<" untuk diberi makan."<<endl;
+    cout<<"Pilih pangan yang akan diberikan"<<endl;
+
+    cetak_penyimpanan(baris, kolom);
+    cout << "Slot: ";
+    cin >>slot;
+
+    // validasi tiap input
+    cout<<hewanTerpilih<<" sudah diberi makan dan beratnya menjadi "<<beratAkhir<<endl;
+
+
+}
 void Farmer::menjual()
-{}
+{
+
+}
 void Farmer::membeli(){}
 
 int Farmer::calculate_tax(){

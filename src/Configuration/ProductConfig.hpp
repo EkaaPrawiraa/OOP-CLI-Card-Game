@@ -1,5 +1,5 @@
-#ifndef PRODUCT_HPP
-#define PRODUCT_HPP
+#ifndef PRODUCTCONFIG_HPP
+#define PRODUCTCONFIG_HPP
 
 #include <string>
 
