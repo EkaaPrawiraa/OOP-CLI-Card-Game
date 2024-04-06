@@ -28,9 +28,10 @@ void Petani::Tanam(){
 void Petani::Memanen(){
 
 }
-void Petani::setMatrix(Matrix P){
+void Petani::setMatrix(Matrix P, int row, int col){
+    P = Matrix(row, col);
     for(int i =0; i < plant.size(); i++){
         pair<char, int> index = plant.at(i).getColumnAndRowIndex(plant.at(i).getlocation());
-    
+        P.set(index.first, index.second, plant.at(i).getlocation());
     }
 }

@@ -8,6 +8,13 @@ Farmer::Farmer(string username,int gulden,float weight,inventory invent):Role( u
 }
 Farmer::~Farmer(){}
 
+void Farmer::setMatrix(Matrix P, int row, int col){
+    F = Matrix(row,col);
+    for(int i =0; i < Animals.size(); i++){
+        pair<char, int> index = Animals.at(i).getColumnAndRowIndex(Animals.at(i).getlocation());
+        F.set(index.first, index.second, Animals.at(i).getlocation());
+    }
+}
 void Farmer::cetakPeternakan(int baris,int kolom){
     std::cout << "================[ Peternakan ]===================\n";
     // std::cout << "   A     B     C     D     E     F     G\n";

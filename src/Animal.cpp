@@ -9,6 +9,11 @@ Animal::Animal(const Animal& other)
 
 Animal::~Animal() {}
 
+pair<char, int> getColumnAndRowIndex(const string& location) {
+    char column = location[0]; 
+    int row = stoi(location.substr(1)) - 1; 
+    return make_pair(column, row);
+}
 
 string Animal::getname() const {
     return name;

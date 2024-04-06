@@ -1,6 +1,6 @@
 #include "Role/Role.hpp"
 
-Role::Role(string username, float weight, int uang){
+Role::Role(string username, float weight, int uang, inventory invent){
     this->username = username;
     this->weight = weight;
     this->gulden = uang;

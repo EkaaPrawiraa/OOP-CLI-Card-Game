@@ -19,6 +19,7 @@ public:
     int getprice();
     int getberat();
     string getlocation();
+    pair<char, int> getColumnAndRowIndex(const string& location) const;
 
 protected:
     string kodeHuruf;

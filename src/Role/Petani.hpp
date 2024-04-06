@@ -22,7 +22,7 @@ class Petani : public Role{
         void Tanam();
         void Memanen();
         virtual int calculate_tax()=0;
-        void setMatrix(Matrix P);
+        void setMatrix(Matrix P, int row, int col);
 };
 
 
