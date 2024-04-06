@@ -9,6 +9,8 @@ private:
     Inventory invent;
 
 public:
+    Role(string username, float weight, int uang);
+    virtual ~Role();
     virtual void next();
     void cetak_penyimpanan();
     void makan();
