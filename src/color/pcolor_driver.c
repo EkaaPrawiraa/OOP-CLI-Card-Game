@@ -11,9 +11,15 @@ Modified at: 23/10/2023
 
 int main()
 {
-    print_red('R');
-    print_green('G');
-    print_blue('B');
+    char a = 'T';
+    char b = 'E';
+    char c = 'K';
+
+    print_red(a);
+    print_red(b);
+    print_red(c);
+
     printf("\n");
     return 0;
 }
+

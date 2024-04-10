@@ -7,12 +7,12 @@
 // #include "PlantAnimal/Animal.hpp"
 #include "Role/Petani.hpp"
 // #include "Role/Farmer.hpp"
-#include "Storage.hpp"
+#include "Storage\\Storage.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
 
-// g++ - o test main.cpp WordMachine.cpp AnimalConfig.cpp PlantConfig.cpp ProductConfig.cpp MiscConfig.cpp BuildingRecipeConfig.cpp
+// g++ -o test main.cpp WordMachine.cpp AnimalConfig.cpp PlantConfig.cpp ProductConfig.cpp MiscConfig.cpp BuildingRecipeConfig.cpp
 
 int main()
 {
@@ -48,14 +48,22 @@ int main()
     // ---------Plants-------------//
 
     std::vector<PlantConfig> plants = machine.readPlants();
-    Plant sample(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest()-2, plants.at(0).getprice(), 2, "C02");
+    Plant sample(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C02");
+    Plant sample1(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C03");
+    Plant sample2(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C04");
+    Plant sample3(plants.at(1).getcode(), plants.at(1).getname(), plants.at(1).gettype(), plants.at(1).getdurationtoharvest(), plants.at(1).getprice(), 10, "A04");
     std::vector<Plant> plant;
     plant.push_back(sample);
+    plant.push_back(sample1);
+    plant.push_back(sample2);
+    plant.push_back(sample3);
 
     Matrix invent(5,5);
-    Matrix p(8,8);//Matriks Ladang
-    Petani p1("Cupi", 5.0, 50, invent, plant, p);
+    Matrix ladang(8,8);//Matriks Ladang
+    Petani p1("Cupi", 5.0, 50, invent, plant, ladang);
     p1.setMatrix();
+    p1.CetakLadang();
+    p1.Memanen();
     p1.CetakLadang();
     // for (const auto &plant : plants)
     // {
