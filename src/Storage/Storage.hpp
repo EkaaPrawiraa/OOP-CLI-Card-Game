@@ -10,11 +10,12 @@
 #include <stdexcept>
 #include "..\\color\\pcolor.h" //Untuk print display
 
-class Matrix {
+class Matrix
+{
 private:
     int rows;
     int cols;
-    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> matrix; //KODE, COLOR, NamaTanaman ini kalau untuk matrix ladang, sesuain aja sama matrix kalian
+    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> matrix; // KODE, COLOR, NamaTanaman ini kalau untuk matrix ladang, sesuain aja sama matrix kalian
     static int count;
 
 public:
@@ -32,6 +33,8 @@ public:
     std::vector<std::pair<std::string, int>> getCodeCounts();
 
     void display(std::string tipe) const;
+    bool isFull();
+    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> getMatrix();
+    void deleteString(std::string);
 };
-
-#endif 
+#endif

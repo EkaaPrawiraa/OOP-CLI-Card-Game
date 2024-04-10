@@ -1,10 +1,11 @@
 #ifndef ROLE_HPP
 #define ROLE_HPP
 #include <string>
-#include "..\\Storage\\Storage.hpp"
+#include "../Storage/Storage.hpp"
 using namespace std;
 
-class Role{
+class Role
+{
 private:
     std::string username;
     int gulden;
@@ -19,13 +20,13 @@ public:
     void makan();
     virtual void membeli();
     virtual void menjual();
-    virtual int calculate_tax()=0;
+    virtual int calculate_tax() = 0;
     int getGulden();
     float getWeight();
-    void setGulden(int );
+    void setGulden(int);
     void setWeight(float);
     void setMatrix(Matrix P);
+    Matrix getInventory();
 };
-
 
 #endif

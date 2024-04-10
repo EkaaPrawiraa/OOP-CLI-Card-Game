@@ -3,6 +3,7 @@
 
 #include "Configuration/BuildingRecipeConfig.hpp"
 #include "Utility/WordMachine.hpp"
+#include "../src/Store/Store.hpp"
 #include "Role.hpp"
 #include "Farmer.hpp"
 #include "Petani.hpp"
@@ -19,7 +20,7 @@ private:
 public:
     void pungutPajak(std::vector<Role>);
     void bangunBangunan(vector<BuildingRecipeConfig>);
-    void tambahPemain(std::vector<Role>);
+    void tambahPemain(std::vector<Role>, std::vector<Plant>);
 };
 
 #endif

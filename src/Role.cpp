@@ -1,35 +1,40 @@
 #include "Role/Role.hpp"
 
-Role::Role(string username, float weight, int uang, Matrix invent){
+Role::Role(string username, float weight, int uang, Matrix invent)
+{
     this->username = username;
     this->weight = weight;
     this->gulden = uang;
 }
-Role::~Role(){}
-void Role::next(){
-
+Role::~Role() {}
+void Role::next()
+{
 }
-void Role::cetak_penyimpanan(int baris, int kolom){
-
+void Role::cetak_penyimpanan(int baris, int kolom)
+{
 }
-void Role::makan(){
-
+void Role::makan()
+{
 }
-void Role::membeli(){
-
+void Role::membeli()
+{
 }
-void Role::menjual(){
-
+void Role::menjual()
+{
 }
-int Role::getGulden(){
-
+int Role::getGulden()
+{
 }
-float Role::getWeight(){
-
+float Role::getWeight()
+{
 }
-void Role::setGulden(int ){
-
+void Role::setGulden(int)
+{
 }
-void Role::setWeight(float){
-
+void Role::setWeight(float)
+{
+}
+Matrix Role::getInventory()
+{
+    return invent;
 }

@@ -1,4 +1,4 @@
-#include "../src/Role/Walikota.hpp"
+#include "Role/Walikota.hpp"
 
 int calculate_tax()
 {
@@ -14,8 +14,9 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     }
 }
 
-void Walikota::tambahPemain(std::vector<Role> daftarPemain)
+void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> tanaman)
 {
+    Matrix *tempMatriks = new Matrix(); // parameter matriks (inventory, plant)
     if (getGulden() < 50)
     {
         std::cout << "Uang tidak cukup!" << std::endl;
@@ -30,14 +31,15 @@ void Walikota::tambahPemain(std::vector<Role> daftarPemain)
         std::cin >> nama;
         if (jenis == "peternak")
         {
-            daftarPemain.push_back(Farmer(nama, 50, 40, Inventory));
+            daftarPemain.push_back(Farmer(nama, 50, 40, *tempMatriks));
             std::cout << "Pemain baru ditambahkan!" << std::endl;
             std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
         }
         else if (jenis == "petani")
         {
-            daftarPemain.push_back(Petani(nama, 50, 40, Inventory))
-                << "Pemain baru ditambahkan!" << std::endl;
+            Role *tempPetani = new Petani(nama, 50, 40, *tempMatriks, tanaman, *tempMatriks);
+            daftarPemain.push_back(*tempPetani);
+            std::cout << "Pemain baru ditambahkan!" << std::endl;
             std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
         }
         else
@@ -49,6 +51,8 @@ void Walikota::tambahPemain(std::vector<Role> daftarPemain)
 
 void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
 {
+    Matrix inventory = getInventory();
+    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> inventoryMap = inventory.getMatrix();
     std::cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
     for (const auto &BuildingRecipeConfig : recipes)
     {
@@ -60,11 +64,11 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
     std::cin >> kodehuruf;
     bool ditemukan = false;
     bool cukupMaterial = true;
-    for (auto &BuildingRecipeConfig : recipes)
+    for (int i = 0; i < recipes.size(); i++)
     {
-        if (BuildingRecipeConfig.getcode() == kodehuruf)
+        if (recipes[i].getcode() == kodehuruf)
         {
-            tempBuilding = new BuildingRecipeConfig(BuildingRecipeConfig); // g ada cc
+            tempBuilding = new BuildingRecipeConfig(recipes[i]); // g ada cc
             ditemukan = true;
             break;
         }
@@ -77,13 +81,16 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
     {
         std::vector<Material> materials = tempBuilding->getmaterials();
         std::vector<Material> copyMaterials = tempBuilding->getmaterials();
-        for (auto std::string : Inventory)
+        for (int i = 0; i < inventory.getRows(); i++)
         {
-            for (auto &material : copyMaterials)
+            for (int j = 0; j < inventory.getCols(); j++)
             {
-                if (material == string)
+                for (auto &material : copyMaterials)
                 {
-                    material.quantity -= 1;
+                    if (material.name == inventoryMap[i][j]) // blm bener, bingung struktur matriks yang bener
+                    {
+                        material.quantity -= 1;
+                    }
                 }
             }
         }
@@ -108,28 +115,29 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
         }
         else
         {
-            if (Inventory.isFull()) // penuh, blm ada fungsinya
+            if (inventory.isFull()) // penuh
             {
-                std::cout << "Tidak ada tempat pada inventory"
+                std::cout << "Tidak ada tempat pada inventory";
             }
             else
             {
-                Inventory.insert(tempBuilding); // blm ada fungsinya
-                for (auto &material : materials)
+                inventory.setfirstempty(tempBuilding->getcode()); // masukkan dalam inventory
+                // prosedur menghapus material pada inventory yang dibutuhkan untuk membangun
+                for (int i = 0; i < inventory.getRows(); i++)
                 {
-                    while (material.quantity != 0)
+                    for (int j = 0; j < inventory.getCols(); j++)
                     {
-                        for (auto std::string : Inventory)
+                        for (auto &material : materials)
                         {
-                            if (material.name == string)
+                            if (material.name == inventoryMap[i][j]) // blm bener, bingung struktur matriks yang bener
                             {
-                                string.delete(); // hapus dari inventory, blm ada fungsinya
+                                inventory.deleteString(material.name);
                                 material.quantity -= 1;
                             }
                         }
                     }
                 }
-                std::cout << tempBuilding->getcode << "berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
+                std::cout << tempBuilding->getcode() << "berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
             }
         }
     }
