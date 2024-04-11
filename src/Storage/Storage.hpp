@@ -17,6 +17,7 @@ private:
     int cols;
     std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> matrix; // KODE, COLOR, NamaTanaman ini kalau untuk matrix ladang, sesuain aja sama matrix kalian
     static int count;
+    std::string createHeader(std::string type) const;
 
 public:
     Matrix(int rows = 0, int cols = 0);
@@ -36,6 +37,5 @@ public:
     bool isFull();
     std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> getMatrix();
     void deleteString(std::string);
-    std::string createHeader(std::string type) const;
 };
 #endif
