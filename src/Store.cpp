@@ -88,9 +88,9 @@ void Store::deleteProduct(const Product deletedProduct)
 void Store::display(){
     cout << "Selamat datang di toko!!" << endl;
     cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+    
     map<string, int> countMap;
 
-   
     for (const auto& building : buildings) {
         countMap[building.getNama()]++;
     }
@@ -139,11 +139,18 @@ void Store::display(){
             }
         }
 
-        cout << count << ". " << kode << " - " << price << " (" << qty << ")" << endl;
+        cout << count << ". " << kode << " - " << price;
+        
+        // Menampilkan kuantitas jika lebih dari 1
+        if (qty > 1) {
+            cout << " (" << qty << ")";
+        }
+        
+        cout << endl;
         count++;
     }
-    
 }
+
 
 int Store::getPriceBuilding(const string kode) {
     for (const auto& building : buildings) {

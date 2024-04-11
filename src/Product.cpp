@@ -20,3 +20,7 @@ Product::Product(std::string kodehuruf, const std::vector<ProductConfig>& vec) {
         throw std::invalid_argument("ProductConfig with kodeHuruf " + kodehuruf + " not found");
     }
 }
+
+bool Product::operator==(const Product& other) const {
+        return this->kodeHuruf == other.kodeHuruf;
+    }

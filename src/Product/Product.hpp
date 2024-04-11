@@ -23,6 +23,7 @@ public:
     std::string getorigin()  const;
     int getadded_weight()  const;
     int getprice()  const;
+    bool operator==(const Product& other) const;
 };
 
 
