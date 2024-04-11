@@ -300,8 +300,3 @@ int Store::getJumlah(string kode) {
     return jumlah;
 }
 
-int Store::sellItem(string kode,bool buildingorproduct){
-    bool buildingorproduct = true; 
-    // if builfing its true
-    
-}

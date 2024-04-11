@@ -43,6 +43,5 @@ class Store{
     int getPriceProduct(const string kode);
     int getJumlah(string kode);
     int buyItem(const string kode,const int quantity,const int usersmoney);
-    int sellItem(const string kode,bool);
     void display();
 };

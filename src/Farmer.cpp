@@ -116,6 +116,9 @@ void Farmer::menjual(Store Toko)
         int totalPrice=0;
         // validasi apkah petak ada isinya
 
+        // check barang yang dijual apa biar tau manggil fungsi delete yang mana
+        
+
         cout<<"Barang Anda berhasil dijual! Uang Anda bertambah "<<totalPrice<<" gulden!"<<endl;
 
     }
