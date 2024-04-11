@@ -145,6 +145,7 @@ void Matrix::display(std::string tipe) const
     // Menampilkan matriks dengan penataan rapih
     
     std::cout << std::endl;
+    std::cout << "     ";
     std::cout << createHeader(tipe)<<std::endl
               << std::endl;
     std::cout << "      ";
@@ -240,9 +241,9 @@ void Matrix::deleteString(std::string text)
 }
 
 std::string Matrix::createHeader(std::string type) const{
-    int width = (6 * type.length()) + 1;
-    int ladangWidth = width - 6; // 20 is the length of "[ Ladang ]"
-    int equalSignsWidth = (ladangWidth -4 ) / 2; // Deducting two '=' for [ and ] brackets
+    int width = (6 * cols) + 1;
+    int ladangWidth = width - type.length();
+    int equalSignsWidth = (ladangWidth -4 ) / 2;
     std::string header = std::string(equalSignsWidth, '=') + "[ "+ type+ " ]" + std::string(equalSignsWidth, '=') + std::string(width % 2, '=');
     return header;
 }
