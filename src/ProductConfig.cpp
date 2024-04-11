@@ -1,4 +1,4 @@
-#include "Configuration\ProductConfig.hpp"
+#include "Configuration/ProductConfig.hpp"
 #include <iostream>
 
 ProductConfig::ProductConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, const std::string &origin, int addedWeight, int price)

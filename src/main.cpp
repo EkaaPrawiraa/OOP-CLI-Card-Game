@@ -1,13 +1,13 @@
-#include "Configuration\PlantConfig.hpp"
-#include "Utility\WordMachine.hpp"
-#include "Configuration\ProductConfig.hpp"
-#include "Configuration\MiscConfig.hpp"
-#include "Configuration\BuildingRecipeConfig.hpp"
+#include "Configuration/PlantConfig.hpp"
+#include "Utility/WordMachine.hpp"
+#include "Configuration/ProductConfig.hpp"
+#include "Configuration/MiscConfig.hpp"
+#include "Configuration/BuildingRecipeConfig.hpp"
 #include "PlantAnimal/Plant.hpp"
 // #include "PlantAnimal/Animal.hpp"
 #include "Role/Petani.hpp"
 // #include "Role/Farmer.hpp"
-#include "Storage\\Storage.hpp"
+#include "Storage//Storage.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-    WordMachine machine("Configuration\\config\\plant.txt");
+    WordMachine machine("Configuration//config//plant.txt");
 
     // std::vector<BuildingRecipeConfig> recipes = machine.readRecipes();
 

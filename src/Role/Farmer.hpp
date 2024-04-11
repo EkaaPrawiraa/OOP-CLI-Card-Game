@@ -1,11 +1,21 @@
 #ifndef FARMER_HPP
 #define FARMER_HPP
 
-#include "..\\PlantAnimal\\Animal.hpp"
+// #include "..//PlantAnimal//Animal.hpp"
+// #include "Role.hpp"
+// #include "..//Storage//Storage.hpp"
+// #include <string>
+// #include <vector>
+// #include "..//Store//Store.hpp"
+
+#include "../Store/Store.hpp"
+#include "../PlantAnimal/Animal.hpp"
 #include "Role.hpp"
-#include "..\\Storage\\Storage.hpp"
+#include "../Storage/Storage.hpp"
 #include <string>
 #include <vector>
+
+
 using namespace std;
 
 class Farmer : public Role{
@@ -19,8 +29,8 @@ public:
     void cetakPeternakan(int baris, int kolom);
     void ternak(int baris, int kolom);
     virtual void memberiPangan(int baris, int kolom);
-    virtual void menjual();
-    virtual void membeli();
+    virtual void menjual(Store Toko);
+    virtual void membeli(Store Toko);
     int calculate_tax();
 };
 

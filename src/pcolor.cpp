@@ -7,7 +7,7 @@ Modified at: 23/10/2023
 **/
 
 #include <stdio.h>
-#include "color\\pcolor.hpp"
+#include "color/pcolor.hpp"
 
 
 std::string colorize(char c, const std::string& color) {

@@ -1,8 +1,12 @@
-#include "..\\PlantAnimal\\Plant.hpp"
-#include "..\\PlantAnimal\\Animal.hpp"
-#include "..\\Product\\Product.hpp"
-#include "..\\Building\\Building.hpp"
+// #include "..//PlantAnimal//Plant.hpp"
+// #include "..//PlantAnimal//Animal.hpp"
+// #include "..//Product//Product.hpp"
+// #include "..//Building//Building.hpp"
 #include <vector>
+#include "../PlantAnimal/Plant.hpp"
+#include "../PlantAnimal/Animal.hpp"
+#include "../Product/Product.hpp"
+#include "../Building/Building.hpp"
 
 using namespace std;
 
@@ -12,10 +16,13 @@ class Store{
     vector<Plant> plants;
     vector<Animal> animals;
     vector<Product> products;
+    // berisi nama barang, harga, dan kuantiti barng
+    // vector < tuple<string,int,int> > items;
+
 
 
     public:
-    Store();
+    Store(const vector<Plant> &plants,const vector<Animal> &animals);
     Store(const vector<Building> &buildings,const vector<Plant> &plants,const vector<Animal> &animals,const vector<Product> &products);
     ~Store();
 
@@ -33,6 +40,9 @@ class Store{
     int getPriceBuilding(const string kode);
     int getPricePlant(const string kode);
     int getPriceAnimal(const string kode);
-    int getPricProduct(const string kode);
+    int getPriceProduct(const string kode);
+    int getJumlah(string kode);
+    int buyItem(const string kode,const int quantity,const int usersmoney);
+    int sellItem(const string kode,bool);
     void display();
 };

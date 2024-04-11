@@ -1,4 +1,4 @@
-#include "Store\Store.hpp"
+#include "Store/Store.hpp"
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -6,7 +6,13 @@
 
 using namespace std;
 
-Store::Store(){}
+// buat startgame karna plant dan animal tak hingga jumlahnya
+Store::Store(const vector<Plant> &plants,const vector<Animal> &animals ){
+    this->plants=plants;
+    this->animals=animals;
+}
+
+// buat dari state txt
 Store::Store(const vector<Building> &buildings,const vector<Plant> &plants,const vector<Animal> &animals,const vector<Product> &products)
 {
     this->buildings=buildings;
@@ -15,7 +21,12 @@ Store::Store(const vector<Building> &buildings,const vector<Plant> &plants,const
     this->products=products;
 }
 
-Store::~Store(){}
+Store::~Store(){
+    this->buildings.clear();
+    this->plants.clear();
+    this->animals.clear();
+    this->products.clear();
+}
 
 void Store::addBuilding(const Building addedBuilding)
 {
@@ -161,11 +172,136 @@ int Store::getPriceAnimal(const string kode) {
     return -1; // Mengembalikan -1 jika kode tidak ditemukan
 }
 
-int Store::getPricProduct(const string kode) {
+int Store::getPriceProduct(const string kode) {
     for (const auto& product : products) {
         if (product.getkodeHuruf() == kode) {
             return product.getprice();
         }
     }
     return -1; // Mengembalikan -1 jika kode tidak ditemukan
+}
+
+int Store::buyItem(const string  kode, int quantity,int usersmoney)
+{
+    bool quantityEnough = true;
+    int totalHarga =0;
+    if (quantity <= 0 || usersmoney <= 0) {
+        cout << "Quantity dan uang harus lebih dari 0." << endl;
+        return 0;
+    }
+    for (Plant& plant : plants){
+        if (plant.getKode() == kode)
+        {
+            totalHarga = plant.getprice()*quantity;
+            goto exitLoop;
+        }
+    }
+    for (Animal& animal : animals) {
+        if (animal.getkode() == kode)
+        {
+            totalHarga = animal.getprice()*quantity;
+            goto exitLoop;
+        }
+    for (Product& product : products)
+    {
+        if (product.getkodeHuruf() == kode)
+        {
+            if (getJumlah(product.getkodeHuruf())<quantity)
+            {
+                quantityEnough = false;
+                goto exitLoop;
+            }
+            totalHarga = product.getprice()*quantity;
+            if (totalHarga>usersmoney)
+            {
+                cout<<"Uang Anda kurang, gulden yang dibutuhkan : "<<totalHarga<<endl;
+                return 0;
+            }
+            deleteProduct(product);
+            goto exitLoop;
+        }
+    }
+    for (Building& building : buildings)
+    {
+        if (building.getKode() == kode)
+        {
+            if (getJumlah(building.getKode())<quantity)
+            {
+                quantityEnough = false;
+                goto exitLoop;
+            }
+            totalHarga = building.getHarga()*quantity;
+            if (totalHarga>usersmoney)
+            {
+                cout<<"Uang Anda kurang, gulden yang dibutuhkan : "<<totalHarga<<endl;
+                return 0;
+            }
+            deleteBuilding(building);
+            goto exitLoop;
+        }
+    }
+    exitLoop:
+    if (!quantityEnough){
+        // UNTUK QUANTITY ASKED MODE THAN THE STORE HAS
+        cout<<"Quantity barang yang ingin dibeli tidak cukup."<<endl;
+        return 0;
+    }
+    else if (totalHarga == 0){
+        // untuk kode tidak ditemukan
+        cout <<"Kode barang tidak terdapat di toko."<<endl;
+        return 0;
+    }
+    else{
+        return totalHarga;
+    }
+}
+
+
+int Store::getJumlah(string kode) {
+    int jumlah = 0;
+    // Periksa jumlah building
+    for (const Building& building : buildings) {
+        if (building.getKode() == kode) {
+            jumlah++;
+        }
+    }
+    if (jumlah>0)
+    {
+        return jumlah;
+    }
+    // Periksa jumlah plant
+    for (const Plant& plant : plants) {
+        if (plant.getKode() == kode) {
+            jumlah++;
+        }
+    }
+    if (jumlah>0)
+    {
+        return jumlah;
+    }
+    // Periksa jumlah animal
+    for (const Animal& animal : animals) {
+        if (animal.getkode() == kode) {
+            jumlah++;
+        }
+    }
+    if (jumlah>0)
+    {
+        return jumlah;
+    }
+
+    // Periksa jumlah product
+    for (const Product& product : products) {
+        if (product.getkodeHuruf() == kode) {
+            jumlah++;
+        }
+    }
+
+    return jumlah;
+}
+
+int Store::sellItem(string kode,bool buildingorproduct){
+    bool buildingorproduct = true; 
+    // if builfing its true
+    
 }

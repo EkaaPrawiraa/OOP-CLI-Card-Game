@@ -1,4 +1,4 @@
-#include "Role\Farmer.hpp"
+#include "Role/Farmer.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -86,11 +86,116 @@ void Farmer::memberiPangan(int baris, int kolom)
 
 
 }
-void Farmer::menjual()
+void Farmer::menjual(Store Toko)
 {
+    // validasi tidak bisa menjual bangunan jika bukan walikota
+    if (invent.CountElement()==0)
+    {
+        cout<<"Penyimpanan Anda kosong tidak bisa melakukan penjualan"<<endl;
+    }
+    else{
+        invent.display();
+        cout<<"Silahkan pilih petak yang ingin Anda jual!"<<endl;
+        cout <<"Petak : ";
+        string slotInput;
+        getline(std::cin,slotInput);
+
+        // Membuat stringstream dari input untuk memproses token
+        std::stringstream ss(slotInput);
+        std::string token;
+        std::vector<std::string> tokens;
+
+        // Memproses token dari stringstream
+        while (std::getline(ss, token, ',')) {
+            // Menghapus spasi tambahan dari token
+            token.erase(0, token.find_first_not_of(" "));
+            token.erase(token.find_last_not_of(" ") + 1);
+
+            tokens.push_back(token);
+        }
+        int totalPrice=0;
+        // validasi apkah petak ada isinya
+
+        cout<<"Barang Anda berhasil dijual! Uang Anda bertambah "<<totalPrice<<" gulden!"<<endl;
+
+    }
+}
+void Farmer::membeli(Store Toko){
+    if (invent.isFull())
+    {
+        cout <<"Penyimpanan Anda Penuh tidak bisa melakukan pembelian"<<endl;
+    }
+    else{
+        cout << "Selamat datang di toko!!"<<endl;
+        cout <<"Berikut merupakan hal yang dapat Anda Beli"<<endl;
+        Toko.display();
+        cout<<"\n\n";
+        cout <<"Uang Anda : "<<this->gulden<<endl;
+        cout<<"Slot penyimpanan tersedia: "<<invent.getSize()-invent.CountElement()<<endl;
+        string boughtItem;
+        cout<<"Kode barang yang ingin dibeli : ";
+        cin>>boughtItem;
+        int quantity = 0;
+        cout<<"Kuantitas : ";
+        cin >>quantity;
+        while(invent.CountElement()+quantity>invent.getSize())
+        {
+            cout<<"Penyimpanan anda tidak cukup!"<<endl;
+            cout<<"Sisa penyimpanan : "<<invent.getSize()-invent.CountElement()<<endl;
+            cout<<"Kuantitas : ";
+            cin >>quantity;
+        }
+        
+        int totalpaid = Toko.buyItem(boughtItem,quantity,);
+        if (totalpaid>0)
+        {
+            this->gulden -= totalpaid;
+            cout<<endl;
+            cout <<"Selamat Anda berhasil membeli "<<quantity<<" "<<boughtItem<<". Uang Anda tersisa "<<this->gulden<<" gulden."<<endl;
+            cout<<endl;
+            cout<<"Pilih slot untuk menyimpan barang yang Anda beli!"<<endl;
+            // belum tau cetak penyimpanan
+            invent.display();
+            // atur cetak penyimpanan
+            cout<<endl;
+
+            cout<<"Petak slot: ";
+            string slotInput;
+            getline(std::cin,slotInput);
+
+            // Membuat stringstream dari input untuk memproses token
+            std::stringstream ss(slotInput);
+            std::string token;
+            std::vector<std::string> tokens;
+
+            // Memproses token dari stringstream
+            while (std::getline(ss, token, ',')) {
+                // Menghapus spasi tambahan dari token
+                token.erase(0, token.find_first_not_of(" "));
+                token.erase(token.find_last_not_of(" ") + 1);
+
+                tokens.push_back(token);
+            }
+
+            // nungguin gimana cara simpen ke penyimpanan
+            // check tiap slot apkah telah diisi atau belum
+
+            // jika gagal{}
+
+            // jika berhasil
+            cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
+
+        }
+        
+
+        
+    }
+    
+
+    
+
 
 }
-void Farmer::membeli(){}
 
 int Farmer::calculate_tax(){
     int KTKP = 11;

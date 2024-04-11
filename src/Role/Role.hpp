@@ -7,10 +7,12 @@ using namespace std;
 class Role
 {
 private:
+    
+protected:
+    Matrix invent;
     std::string username;
     int gulden;
     float weight;
-    Matrix invent;
 
 public:
     Role(string username, float weight, int uang, Matrix invent);

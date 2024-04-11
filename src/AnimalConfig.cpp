@@ -1,4 +1,4 @@
-#include "Configuration\AnimalConfig.hpp"
+#include "Configuration/AnimalConfig.hpp"
 #include <iostream>
 
 AnimalConfig::AnimalConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int weightToHarvest, int price)

@@ -1,4 +1,4 @@
-#include "Role\\Petani.hpp"
+#include "Role/Petani.hpp"
 #include <iostream>
 #include <set>
 Petani::Petani(string username, float weight, int uang, Matrix item, vector<Plant> p, Matrix P) : Role(username, weight, uang, item), plant(p), P(P){}

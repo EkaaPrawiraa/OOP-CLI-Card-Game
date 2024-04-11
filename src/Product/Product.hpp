@@ -2,7 +2,7 @@
 #define PRODUCT_HPP
 #include <string>
 #include <vector>
-#include "..\\Configuration\ProductConfig.hpp"
+#include "../Configuration/ProductConfig.hpp"
 
 using namespace std;
 class Product {

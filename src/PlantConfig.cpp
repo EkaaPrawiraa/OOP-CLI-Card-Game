@@ -1,4 +1,4 @@
-#include "Configuration\PlantConfig.hpp"
+#include "Configuration/PlantConfig.hpp"
 #include <iostream>
 
 PlantConfig::PlantConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int durationToHarvest, int price)

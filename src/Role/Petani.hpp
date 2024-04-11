@@ -2,9 +2,10 @@
 #define PETANI_HPP
 #include <string>
 #include <iostream>
-#include "..\\PlantAnimal\\Plant.hpp"
+#include "../PlantAnimal/Plant.hpp"
 #include "Role.hpp"
-#include "..\\Storage\Storage.hpp"
+#include "../Storage/Storage.hpp"
+
 
 using namespace std;
 class Petani : public Role{

@@ -2,8 +2,8 @@
 #define ANIMAL_HPP
 
 #include <string>
-#include "..\\Configuration\\AnimalConfig.hpp"
-#include "..\\Utility\\WordMachine.hpp"
+#include "../Configuration/AnimalConfig.hpp"
+#include "../Utility/WordMachine.hpp"
 #include <vector>
 using namespace std;
 

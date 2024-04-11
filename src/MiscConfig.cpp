@@ -1,4 +1,4 @@
-#include "Configuration\MiscConfig.hpp"
+#include "Configuration/MiscConfig.hpp"
 #include <iostream>
 
 MiscConfig::MiscConfig() : winningMoney(0), winningWeight(0), storageRows(0), storageCols(0), landRows(0), landCols(0), farmRows(0), farmCols(0) {}

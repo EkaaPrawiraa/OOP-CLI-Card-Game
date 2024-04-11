@@ -1,4 +1,4 @@
-#include "Utility\WordMachine.hpp"
+#include "Utility/WordMachine.hpp"
 #include <fstream>
 #include <sstream>
 #include <iostream>

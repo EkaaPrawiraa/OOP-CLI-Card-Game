@@ -8,7 +8,7 @@
 #include <string>
 #include <iomanip>
 #include <stdexcept>
-#include "..\\color\\pcolor.hpp" //Untuk print display
+#include "../color/pcolor.hpp" //Untuk print display
 
 class Matrix
 {

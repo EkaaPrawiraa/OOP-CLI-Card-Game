@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-#include "..\Configuration\PlantConfig.hpp"
+#include "../Configuration/PlantConfig.hpp"
 using namespace std;
 class Plant {
     public:
