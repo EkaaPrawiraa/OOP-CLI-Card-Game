@@ -36,5 +36,6 @@ public:
     bool isFull();
     std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> getMatrix();
     void deleteString(std::string);
+    std::string createHeader(std::string type) const;
 };
 #endif

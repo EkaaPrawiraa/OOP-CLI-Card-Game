@@ -2,6 +2,7 @@
 
 int Matrix::count = 0;
 
+
 Matrix::Matrix(int rows, int cols) : rows(rows), cols(cols)
 {
     for (char c = 'A'; c < 'A' + cols; ++c)
@@ -142,18 +143,20 @@ void Matrix::display(std::string tipe) const
     }
 
     // Menampilkan matriks dengan penataan rapih
-    std::cout << "     ================[ " << tipe << " ]==================" << std::endl
+    
+    std::cout << std::endl;
+    std::cout << createHeader(tipe)<<std::endl
               << std::endl;
-    std::cout << "        ";
+    std::cout << "      ";
     for (char c = 'A'; c < 'A' + cols; ++c)
     {
-        std::cout << "  " << c << std::setw(column_widths[c - 'A'] + 1);
+        std::cout << "  " << c << std::setw(column_widths[c - 'A'] + 2);
     }
     std::cout << std::endl
               << "     +";
     for (int i = 0; i < cols; ++i)
     {
-        std::cout << std::string(column_widths[i] + 3, '-');
+        std::cout << std::string(column_widths[i] + 2, '-');
         std::cout << "+";
     }
     std::cout << std::endl;
@@ -190,7 +193,7 @@ void Matrix::display(std::string tipe) const
                   << "     +";
         for (int j = 0; j < cols; ++j)
         {
-            std::cout << std::string(column_widths[j] + 3, '-');
+            std::cout << std::string(column_widths[j] + 2, '-');
             std::cout << "+";
         }
         std::cout << std::endl;
@@ -234,4 +237,12 @@ void Matrix::deleteString(std::string text)
             }
         }
     }
+}
+
+std::string Matrix::createHeader(std::string type) const{
+    int width = (6 * type.length()) + 1;
+    int ladangWidth = width - 6; // 20 is the length of "[ Ladang ]"
+    int equalSignsWidth = (ladangWidth -4 ) / 2; // Deducting two '=' for [ and ] brackets
+    std::string header = std::string(equalSignsWidth, '=') + "[ "+ type+ " ]" + std::string(equalSignsWidth, '=') + std::string(width % 2, '=');
+    return header;
 }
