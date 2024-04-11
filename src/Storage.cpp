@@ -170,14 +170,14 @@ void Matrix::display(std::string tipe) const
             {
                 for (char ch : currentValue)
                 {
-                    print_green(ch);
+                    std::cout<<print_green(ch);
                 }
             }
             else if (currentColor == "red")
             {
                 for (char ch : currentValue)
                 {
-                    print_red(ch);
+                    std::cout<<print_red(ch);
                 }
             }
             else
