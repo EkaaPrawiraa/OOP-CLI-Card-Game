@@ -109,7 +109,7 @@ vector<BuildingRecipeConfig> WordMachine::readRecipes()
         istringstream iss(line);
         int id, price;
         string kodeHuruf, name, materialName;
-        vector<Material> materials;
+        vector<std::tuple<std::string, int>> materials;
 
         if (!(iss >> id >> kodeHuruf >> name >> price))
         {
@@ -125,7 +125,7 @@ vector<BuildingRecipeConfig> WordMachine::readRecipes()
                 throw FileException("Format file plants tidak sesuai.");
                 break;
             }
-            materials.push_back(Material(materialName, quantity));
+            materials.push_back(std::make_tuple(materialName, quantity));
         }
 
         recipes.emplace_back(id, kodeHuruf, name, price, materials);
