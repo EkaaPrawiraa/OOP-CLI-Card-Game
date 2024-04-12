@@ -9,6 +9,9 @@
 #include <iomanip>
 #include <stdexcept>
 #include "../color/pcolor.hpp" //Untuk print display
+#include "../item/Item.hpp"
+#include "../item/Plant.hpp"
+#include "../item/Animal.hpp" 
 template<typename T>
 class Matrix {
 private:
@@ -35,7 +38,7 @@ public:
     std::map<int, std::map<char, T>> getmatrix();
 };
 
-
+#include "../Storage.cpp"
 
 
 #endif
