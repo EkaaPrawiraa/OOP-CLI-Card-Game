@@ -5,7 +5,7 @@
 #include "../Storage/Storage.hpp"
 #include "../item/Item.hpp"
 #include "../item/Product.hpp"
-// #include "../item/Animal.hpp"
+#include "../item/Animal.hpp"
 // #include "../item/Building.hpp"
 #include "../item/Plant.hpp"
 using namespace std;

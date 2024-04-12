@@ -72,9 +72,9 @@ string Animal::getclassname(){
 
 // Omnivora::~Omnivora() {}
 
-int Omnivora::gethasilpanen() {
-    return hasilpanen;
-}
+// int Omnivora::gethasilpanen() {
+//     return hasilpanen;
+// }
 
 bool Animal::operator==(const Animal& other) const {
     return (this->kodeHuruf == other.kodeHuruf) &&
@@ -83,8 +83,8 @@ bool Animal::operator==(const Animal& other) const {
            (this->weightToHarvest == other.weightToHarvest) &&
            (this->price == other.price) &&
            (this->berat == other.berat) &&
-           (this->location == other.location) &&
-           (this->Animals == other.Animals);
+           (this->location == other.location);
+        //    (this->Animals == other.Animals);
 }
 
 Animal& Animal::operator=(const Animal& other) {
@@ -96,7 +96,7 @@ Animal& Animal::operator=(const Animal& other) {
         this->price = other.price;
         this->berat = other.berat;
         this->location = other.location;
-        this->Animals = other.Animals;
+        // this->Animals = other.Animals;
     }
     return *this;
 }

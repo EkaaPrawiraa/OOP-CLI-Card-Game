@@ -2,9 +2,8 @@
 #define PETANI_HPP
 #include <string>
 #include <iostream>
-#include "..\\item\\Plant.hpp"
 #include "Role.hpp"
-#include "..\\Storage\\Storage.hpp"
+#include "../Storage/Storage.hpp"
 
 
 using namespace std;
@@ -13,7 +12,7 @@ class Petani : public Role{
         Matrix<Plant*> Ladang;
 
     public:
-        Petani(string username, float weight, int uang, int storrows, int storcols, Matrix<Item*> item, Matrix<Plant*> Ladang);
+        Petani(string username, float weight, int uang, int storrows, int storcols,  int ladrows, int ladcols);
         virtual ~Petani();
         virtual void next();
         virtual void membeli();

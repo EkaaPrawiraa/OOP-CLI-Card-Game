@@ -99,10 +99,10 @@ MiscConfig WordMachine::readConfig()
 
     return MiscConfig(winningMoney, winningWeight, storageRows, storageCols, landRows, landCols, farmRows, farmCols);
 }
-vector<BuildingRecipeConfig> WordMachine::readRecipes()
-{
-    vector<BuildingRecipeConfig> recipes;
-    string line;
+// vector<BuildingRecipeConfig> WordMachine::readRecipes()
+// {
+//     vector<BuildingRecipeConfig> recipes;
+//     string line;
 
     while (getline(file, line))
     {
@@ -111,11 +111,11 @@ vector<BuildingRecipeConfig> WordMachine::readRecipes()
         string kodeHuruf, name, materialName;
         vector<std::tuple<std::string, int>> materials;
 
-        if (!(iss >> id >> kodeHuruf >> name >> price))
-        {
-            throw FileException("Format file plants tidak sesuai.");
-            continue;
-        }
+//         if (!(iss >> id >> kodeHuruf >> name >> price))
+//         {
+//             throw FileException("Format file plants tidak sesuai.");
+//             continue;
+//         }
 
         while (iss >> materialName)
         {
@@ -125,11 +125,11 @@ vector<BuildingRecipeConfig> WordMachine::readRecipes()
                 throw FileException("Format file plants tidak sesuai.");
                 break;
             }
-            materials.push_back(std::make_tuple(materialName, quantity));
+            materials.push_back(Material(materialName, quantity));
         }
 
-        recipes.emplace_back(id, kodeHuruf, name, price, materials);
-    }
+//         recipes.emplace_back(id, kodeHuruf, name, price, materials);
+//     }
 
-    return recipes;
-}
+//     return recipes;
+// }
