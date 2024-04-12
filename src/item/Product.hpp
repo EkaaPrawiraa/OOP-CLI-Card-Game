@@ -8,7 +8,9 @@ class Product : public Item{
     Product(const string &kodeHuruf,const string &name, const string &type, const string &origin, int added_weight, int price, const string &location);
     Product(const Product&);
     ~Product();
-
+    string getclassname(){
+        return "Product";
+    }
 
     std::string gettipe()  const;
     std::string getorigin()  const;

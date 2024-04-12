@@ -9,7 +9,9 @@ class Item {
         Item(const string &kodeHuruf,const string &name, int price);
         Item(const Item&);
         ~Item();
-       
+        virtual string getclassname(){
+            return "Item";
+        }
         string getname() const;
         string getKode() const;
         int getprice() const;
