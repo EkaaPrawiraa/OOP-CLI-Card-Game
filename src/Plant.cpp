@@ -39,82 +39,28 @@ string Plant::getclassname(){
 
 
 
-// // MaterialPlant class implementation
-// MaterialPlant::MaterialPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
-//     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
 
-// MaterialPlant::MaterialPlant(const Plant& other)
-//     : Plant(other), hasilpanen(1) {}
-
-// MaterialPlant::~MaterialPlant() {}
-
-// int MaterialPlant::gethasilpanen() {
-//     // if (name == "Teak_Tree") {
-//     //     return 1;
-//     // } else if (name == "Sandalwood_Tree") {
-//     //     return 1;
-//     // } else if (name == "Aloe_Tree") {
-//     //     return 1;
-//     // } else if (name == "Ironwood_Tree") {
-//     //     return 1;
-//     // }
-//     return hasilpanen;
+// bool Plant::operator==(const Plant& other) const {
+//     return (this->kodeHuruf == other.kodeHuruf) &&
+//            (this->name == other.name) &&
+//            (this->type == other.type) &&
+//            (this->durationToHarvest == other.durationToHarvest) &&
+//            (this->price == other.price) &&
+//            (this->umur == other.umur) &&
+//            (this->location == other.location) &&
+//            (this->Plants == other.Plants);
 // }
 
-// // FruitPlant class implementation
-// FruitPlant::FruitPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
-//     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
-
-int FruitPlant::gethasilpanen() {
-    // if (name == "Teak_Tree") {
-    //     return 1;
-    // } else if (name == "Sandalwood_Tree") {
-    //     return 1;
-    // } else if (name == "Aloe_Tree") {
-    //     return 1;
-    // } else if (name == "Ironwood_Tree") {
-    //     return 1;
-    // }
-    return hasilpanen;
-}
-bool Plant::operator==(const Plant& other) const {
-    return (this->kodeHuruf == other.kodeHuruf) &&
-           (this->name == other.name) &&
-           (this->type == other.type) &&
-           (this->durationToHarvest == other.durationToHarvest) &&
-           (this->price == other.price) &&
-           (this->umur == other.umur) &&
-           (this->location == other.location) &&
-           (this->Plants == other.Plants);
-}
-
-Plant& Plant::operator=(const Plant& other) {
-    if (this != &other) { // check for self-assignment
-        this->kodeHuruf = other.kodeHuruf;
-        this->name = other.name;
-        this->type = other.type;
-        this->durationToHarvest = other.durationToHarvest;
-        this->price = other.price;
-        this->umur = other.umur;
-        this->location = other.location;
-        this->Plants = other.Plants;
-    }
-    return *this;
-}
-// FruitPlant::FruitPlant(const Plant& other)
-//     : Plant(other), hasilpanen(1) {}
-
-// FruitPlant::~FruitPlant() {}
-
-// int FruitPlant::gethasilpanen() {
-//     // if (name == "Teak_Tree") {
-//     //     return 1;
-//     // } else if (name == "Sandalwood_Tree") {
-//     //     return 1;
-//     // } else if (name == "Aloe_Tree") {
-//     //     return 1;
-//     // } else if (name == "Ironwood_Tree") {
-//     //     return 1;
-//     // }
-//     return hasilpanen;
+// Plant& Plant::operator=(const Plant& other) {
+//     if (this != &other) { // check for self-assignment
+//         this->kodeHuruf = other.kodeHuruf;
+//         this->name = other.name;
+//         this->type = other.type;
+//         this->durationToHarvest = other.durationToHarvest;
+//         this->price = other.price;
+//         this->umur = other.umur;
+//         this->location = other.location;
+//         this->Plants = other.Plants;
+//     }
+//     return *this;
 // }

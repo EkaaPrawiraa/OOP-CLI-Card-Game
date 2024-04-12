@@ -9,15 +9,7 @@ Product::Product(const Product& other)
 
 Product::~Product() {}
 
-std::string Product::getkodeHuruf() const{
-    return kodeHuruf;
-}
-std::string Product::getname() const{
-    return name;
-}
-bool Product::operator==(const Product& other) const {
-        return this->kodeHuruf == other.kodeHuruf;
-    }
+
 
 std::string Product::gettipe() const{
     return type;
@@ -28,9 +20,7 @@ std::string Product::getorigin() const{
 int Product::getadded_weight() const{
     return added_weight;
 }
-int Product::getprice() const{
-    return price;
-}
+
 pair<char, int> Product::getColumnAndRowIndex(const string& location) const{
     char column = location[0]; 
     int row = stoi(location.substr(1)); 
@@ -39,7 +29,7 @@ pair<char, int> Product::getColumnAndRowIndex(const string& location) const{
 bool Product::operator==(const Product& other) const {
     return (this->kodeHuruf == other.kodeHuruf &&
             this->name == other.name &&
-            this->tipe == other.tipe &&
+            this->type == other.type &&
             this->origin == other.origin &&
             this->added_weight == other.added_weight &&
             this->price == other.price);
@@ -51,7 +41,7 @@ Product& Product::operator=(const Product& other) {
 
     this->kodeHuruf = other.kodeHuruf;
     this->name = other.name;
-    this->tipe = other.tipe;
+    this->type = other.type;
     this->origin = other.origin;
     this->added_weight = other.added_weight;
     this->price = other.price;

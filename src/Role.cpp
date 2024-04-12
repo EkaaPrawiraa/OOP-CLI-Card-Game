@@ -1,14 +1,8 @@
 #include "Role/Role.hpp"
 
 // dapat storrows dan storcols dari miscConfig
-Role::Role(string username, float weight, int uang, MiscConfig &configGame)
-    : username(username), weight(weight), gulden(uang), invent(0, 0) // 0,0 hanya untuk default constructor invent
-{
-    // dapat storrows dan storcols dari miscConfig
-    int storrows = configGame.getStorageRows();
-    int storcols = configGame.getStorageCols();
-    invent = Matrix<Item *>(storrows, storcols);
-}
+Role::Role(string username, float weight, int uang, int storrows, int storcols) 
+    : username(username), weight(weight), gulden(uang), invent(storrows, storcols) {}
 
 Role::~Role() {}
 void Role::next()

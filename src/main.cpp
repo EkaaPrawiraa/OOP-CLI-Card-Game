@@ -3,7 +3,8 @@
 #include "Configuration/ProductConfig.hpp"
 #include "Configuration/MiscConfig.hpp"
 #include "Configuration/BuildingRecipeConfig.hpp"
-#include "PlantAnimal/Plant.hpp"
+#include "item/Plant.hpp"
+#include "item/Item.hpp"
 // #include "PlantAnimal/Animal.hpp"
 #include "Role/Petani.hpp"
 // #include "Role/Farmer.hpp"
@@ -48,20 +49,18 @@ int main()
     // ---------Plants-------------//
 
     std::vector<PlantConfig> plants = machine.readPlants();
-    Plant sample(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C02");
-    Plant sample1(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C03");
-    Plant sample2(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C04");
-    Plant sample3(plants.at(1).getcode(), plants.at(1).getname(), plants.at(1).gettype(), plants.at(1).getdurationtoharvest(), plants.at(1).getprice(), 10, "A04");
-    std::vector<Plant> plant;
-    plant.push_back(sample);
-    plant.push_back(sample1);
-    plant.push_back(sample2);
-    plant.push_back(sample3);
+    Plant* sample = new Plant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C02");
+    Plant* sample1 = new Plant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C03");
+    Plant* sample2 = new Plant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C04");
+    Plant* sample3 = new Plant(plants.at(1).getcode(), plants.at(1).getname(), plants.at(1).gettype(), plants.at(1).getdurationtoharvest(), plants.at(1).getprice(), 10, "A04");
     std::vector<Product> Items;
-    Matrix invent(5,5);
-    Matrix ladang(8,8);//Matriks Ladang
-    Petani p1("Cupi", 5.0, 50, invent, Items, plant, ladang);
-    p1.setMatrix();
+    Matrix<Item*> invent(5,5);
+    Matrix<Plant*> ladang(8,8);//Matriks Ladang
+    Petani p1("Cupi", 5.0, 50, 10, 10, invent, ladang);
+    p1.setLadang(2, 'C', sample);
+    p1.setLadang(3, 'C', sample1);
+    p1.setLadang(4, 'C', sample2);
+    p1.setLadang(4, 'A', sample3);
     p1.CetakLadang();
     p1.Memanen();
     p1.CetakLadang();

@@ -1,12 +1,13 @@
 #ifndef ROLE_HPP
 #define ROLE_HPP
 #include <string>
+#include <iostream>
 #include "../Storage/Storage.hpp"
-#include "Item/Item.hpp"
-#include "Item/Product.hpp"
-#include "Item/Animal.hpp"
-#include "Item/Building.hpp"
-#include "Item/Plant.hpp"
+#include "../item/Item.hpp"
+#include "../item/Product.hpp"
+// #include "../item/Animal.hpp"
+// #include "../item/Building.hpp"
+#include "../item/Plant.hpp"
 using namespace std;
 
 class Role

@@ -1,5 +1,5 @@
-#ifndef STORAGaE_HPP
-#define STORAGaE_HPP
+#ifndef STORAGE_HPP
+#define STORAGE_HPP
 
 #include <iostream>
 #include <vector>
