@@ -1,45 +1,46 @@
 #include "item/Building.hpp"
 
-
-string Building::getNama() const {
+string Building::getNama() const
+{
     return nama;
 }
 
-
-string Building::getKode() const {
+string Building::getKode() const
+{
     return kode;
 }
 
-
-int Building::getHarga() const {
+int Building::getHarga() const
+{
     return harga;
 }
 
-
-void Building::setNama(string newNama) {
+void Building::setNama(string newNama)
+{
     nama = newNama;
 }
 
-
-void Building::setKode(string newKode) {
+void Building::setKode(string newKode)
+{
     kode = newKode;
 }
 
-
-void Building::setHarga(int newHarga) {
+void Building::setHarga(int newHarga)
+{
     harga = newHarga;
 }
 
-
-bool Building::operator==(const Building& other) const {
+bool Building::operator==(const Building &other) const
+{
     return (this->nama == other.nama) &&
            (this->kode == other.kode) &&
            (this->harga == other.harga);
 }
 
-
-Building& Building::operator=(const Building& other) {
-    if (this != &other) { // Check for self-assignment
+Building &Building::operator=(const Building &other)
+{
+    if (this != &other)
+    { // Check for self-assignment
         this->nama = other.nama;
         this->kode = other.kode;
         this->harga = other.harga;
@@ -47,22 +48,20 @@ Building& Building::operator=(const Building& other) {
     return *this;
 }
 
-
 // Buiilding class implementation
-Material::Material(const std::string &name, int quantity)
-    : name(name), quantity(quantity) {}
-
-Building::Building(const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials)
+Building::Building(const std::string &kodeHuruf, const std::string &name, int price, const std::vector<std::tuple<std::string, int>> &materials)
     : Item(kodeHuruf, name, price), materials(materials) {}
 
-Building::Building(const Building& other)
-    : Item(other), materials(other.materials){}
+Building::Building(const Building &other)
+    : Item(other), materials(other.materials) {}
 
 Building::~Building() {}
 
-std::vector<Material> Building::getmaterials(){
+std::vector<std::tuple<std::string, int>> Building::getmaterials()
+{
     return materials;
 }
-string Building::getclassname(){
+string Building::getclassname()
+{
     return "Building";
 }

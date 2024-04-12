@@ -24,6 +24,9 @@ public:
 
 private:
     std::vector<std::tuple<std::string, int>> materials;
+    string nama;
+    string kode;
+    int harga;
 };
 
 #endif
