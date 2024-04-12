@@ -30,6 +30,7 @@ public:
     void deleteValue(int row, char col);
     virtual void display(std::string tipe);
     int countempty();
+    bool isemptyslot(int row, char col);
 };
 
 

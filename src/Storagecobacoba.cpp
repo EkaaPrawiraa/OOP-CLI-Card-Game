@@ -154,7 +154,10 @@ void Matrix<T>::display(std::string tipe)
         std::cout << std::endl;
     }
 }
-
+template<typename T>
+bool Matrix<T>::isemptyslot(int row, char col){
+    return (matrix.find(row) != matrix.end() && matrix[row].find(col) != matrix[row].end());
+}
 
 
 template<typename T>
