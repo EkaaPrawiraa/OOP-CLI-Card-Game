@@ -78,3 +78,28 @@ Omnivora::~Omnivora() {}
 int Omnivora::gethasilpanen() {
     return hasilpanen;
 }
+
+bool Animal::operator==(const Animal& other) const {
+    return (this->kodeHuruf == other.kodeHuruf) &&
+           (this->name == other.name) &&
+           (this->type == other.type) &&
+           (this->weightToHarvest == other.weightToHarvest) &&
+           (this->price == other.price) &&
+           (this->berat == other.berat) &&
+           (this->location == other.location) &&
+           (this->Animals == other.Animals);
+}
+
+Animal& Animal::operator=(const Animal& other) {
+    if (this != &other) { // check for self-assignment
+        this->kodeHuruf = other.kodeHuruf;
+        this->name = other.name;
+        this->type = other.type;
+        this->weightToHarvest = other.weightToHarvest;
+        this->price = other.price;
+        this->berat = other.berat;
+        this->location = other.location;
+        this->Animals = other.Animals;
+    }
+    return *this;
+}

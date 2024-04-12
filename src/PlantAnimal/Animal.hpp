@@ -21,6 +21,8 @@ public:
     int getberat();
     string getlocation();
     pair<char, int> getColumnAndRowIndex(const string& location) const;
+    bool operator==(const Animal& other) const;
+    Animal& operator=(const Animal& other);
 
 protected:
     string kodeHuruf;

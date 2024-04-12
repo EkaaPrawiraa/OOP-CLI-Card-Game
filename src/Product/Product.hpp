@@ -25,9 +25,10 @@ public:
     std::string getorigin()  const;
     int getadded_weight()  const;
     int getprice()  const;
-    bool operator==(const Product& other) const;
     std::string getlocation() const;
     pair<char, int> getColumnAndRowIndex(const std::string& location) const;
+    bool operator==(const Product& other) const;
+    Product& operator=(const Product& other);
 };
 
 

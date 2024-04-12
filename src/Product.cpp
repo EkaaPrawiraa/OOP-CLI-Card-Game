@@ -28,9 +28,6 @@ Product::Product(std::string kodehuruf, const std::vector<ProductConfig>& vec, s
     }
 }
 
-bool Product::operator==(const Product& other) const {
-        return this->kodeHuruf == other.kodeHuruf;
-    }
 std::string Product::getkodeHuruf() const{
     return kodeHuruf;
 }
@@ -57,4 +54,25 @@ pair<char, int> Product::getColumnAndRowIndex(const string& location) const{
     int row = stoi(location.substr(1)); 
     return make_pair(column, row);
 }
+bool Product::operator==(const Product& other) const {
+    return (this->kodeHuruf == other.kodeHuruf &&
+            this->name == other.name &&
+            this->tipe == other.tipe &&
+            this->origin == other.origin &&
+            this->added_weight == other.added_weight &&
+            this->price == other.price);
+}
+Product& Product::operator=(const Product& other) {
+    if (this == &other) {
+        return *this; // Handle self-assignment
+    }
 
+    this->kodeHuruf = other.kodeHuruf;
+    this->name = other.name;
+    this->tipe = other.tipe;
+    this->origin = other.origin;
+    this->added_weight = other.added_weight;
+    this->price = other.price;
+
+    return *this;
+}

@@ -88,7 +88,6 @@ void Store::deleteProduct(const Product deletedProduct)
 void Store::display(){
     cout << "Selamat datang di toko!!" << endl;
     cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
-    
     map<string, int> countMap;
 
     for (const auto& building : buildings) {
@@ -209,6 +208,7 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney)
             totalHarga = animal.getprice()*quantity;
             goto exitLoop;
         }
+    }
     for (Product& product : products)
     {
         if (product.getkodeHuruf() == kode)
@@ -262,7 +262,6 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney)
         return totalHarga;
     }
 }
-
 
 int Store::getJumlah(string kode) {
     int jumlah = 0;

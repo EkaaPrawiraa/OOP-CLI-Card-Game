@@ -20,7 +20,8 @@ class Plant {
         int getumur() const;
         int getprice() const;
         pair<char, int> getColumnAndRowIndex(const std::string& location) const;
-
+        bool operator==(const Plant& other) const;
+        Plant& operator=(const Plant& other);
     private:
         static int ID;
         string kodeHuruf;

@@ -15,5 +15,6 @@ class Building{
     void setNama(string) ;
     void setKode(string);
     void setHarga(int );
-
+    bool operator==(const Building& other) const;
+    Building& operator=(const Building& other);
 };
