@@ -34,6 +34,9 @@ int Animal::getberat() {
 string Animal::getlocation() {
     return location;
 }
+string Animal::getclassname(){
+    return "Animal";
+}
 
 // Herbivora class implementation
 // Herbivora::Herbivora(const string &kodeHuruf, const string &name, const string &type, int weightToHarvest, int price, int berat, string location)

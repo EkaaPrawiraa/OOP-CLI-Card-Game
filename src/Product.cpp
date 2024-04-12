@@ -2,10 +2,10 @@
 #include <stdexcept>
 
 
-Product::Product(const string &kodeHuruf,const string &name, const string &type, const string &origin, int added_weight, int price, const string &location) : Item(kodeHuruf, name, price), type(type), added_weight(added_weight), origin(origin), location(location) {}
+Product::Product(const string &kodeHuruf,const string &name, const string &type, const string &origin, int added_weight, int price) : Item(kodeHuruf, name, price), type(type), added_weight(added_weight), origin(origin) {}
 
 Product::Product(const Product& other)
-    : Item(other), type(other.type), added_weight(other.added_weight), origin(other.origin), location(other.location) {}
+    : Item(other), type(other.type), added_weight(other.added_weight), origin(other.origin) {}
 
 Product::~Product() {}
 
@@ -24,9 +24,6 @@ std::string Product::gettipe() const{
 }
 std::string Product::getorigin() const{
     return origin;
-}
-std::string Product::getlocation() const{
-    return location;
 }
 int Product::getadded_weight() const{
     return added_weight;
@@ -61,3 +58,7 @@ Product& Product::operator=(const Product& other) {
 
     return *this;
 }
+string Product::getclassname(){
+    return "Product";
+}
+

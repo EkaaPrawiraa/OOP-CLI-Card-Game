@@ -11,9 +11,7 @@ public:
     Animal(const string &kodeHuruf, const string &name, const string &type, int weightToHarvest, int price, int berat, string location);
     Animal(const Animal&);
     ~Animal();
-    string getclassname(){
-        return "Animal";
-    }
+    string getclassname() override;
     string getname() const;
     string getkode() const;
     string gettype();

@@ -2,7 +2,11 @@
 #define ROLE_HPP
 #include <string>
 #include "../Storage/Storage.hpp"
-#include "../Product/Product.hpp"
+#include "Item/Item.hpp"
+#include "Item/Product.hpp"
+#include "Item/Animal.hpp"
+#include "Item/Building.hpp"
+#include "Item/Plant.hpp"
 using namespace std;
 
 class Role
@@ -10,15 +14,13 @@ class Role
 private:
     
 protected:
-    Matrix invent;
     std::string username;
     int gulden;
     float weight;
-    Matrix invent;
-    vector<Product> Items;
+    Matrix<Item*> invent;
 
 public:
-    Role(string username, float weight, int uang, Matrix invent, vector<Product> Items);
+    Role(string username, float weight, int uang, int storrows, int storcols);
     virtual ~Role();
     virtual void next();
     void cetak_penyimpanan();
@@ -30,8 +32,7 @@ public:
     float getWeight();
     void setGulden(int);
     void setWeight(float);
-    void setMatrix(Matrix P);
-    Matrix getInventory();
+    Matrix<Item*> getInventory();
     
 };
 

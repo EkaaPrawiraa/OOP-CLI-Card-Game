@@ -20,4 +20,7 @@ string Item::getKode() const{
 int Item::getprice() const{
     return price;
 }
+string Item::getclassname(){
+    return "Item";
+}
 
