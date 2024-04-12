@@ -14,7 +14,7 @@ class Petani : public Role{
         Matrix P;
 
     public:
-        Petani(string username, float weight, int uang, Matrix invent, vector<Plant> p, Matrix P);
+        Petani(string username, float weight, int uang, Matrix invent, vector<Product> Items, vector<Plant> p, Matrix P);
         virtual ~Petani();
         virtual void next();
         virtual void membeli();

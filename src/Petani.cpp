@@ -1,7 +1,7 @@
 #include "Role/Petani.hpp"
 #include <iostream>
 #include <set>
-Petani::Petani(string username, float weight, int uang, Matrix item, vector<Plant> p, Matrix P) : Role(username, weight, uang, item), plant(p), P(P){}
+Petani::Petani(string username, float weight, int uang, Matrix item, vector<Product> Items, vector<Plant> p, Matrix P) : Role(username, weight, uang, item, Items), plant(p), P(P){}
 
 // Destructor implementation
 Petani::~Petani(){}

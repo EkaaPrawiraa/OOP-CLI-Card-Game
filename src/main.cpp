@@ -57,14 +57,16 @@ int main()
     plant.push_back(sample1);
     plant.push_back(sample2);
     plant.push_back(sample3);
-
+    std::vector<Product> Items;
     Matrix invent(5,5);
     Matrix ladang(8,8);//Matriks Ladang
-    Petani p1("Cupi", 5.0, 50, invent, plant, ladang);
+    Petani p1("Cupi", 5.0, 50, invent, Items, plant, ladang);
     p1.setMatrix();
     p1.CetakLadang();
     p1.Memanen();
     p1.CetakLadang();
+    
+    p1.cetak_penyimpanan();
     // for (const auto &plant : plants)
     // {
     //     plant.display();
