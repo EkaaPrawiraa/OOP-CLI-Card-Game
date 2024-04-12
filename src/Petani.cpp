@@ -101,6 +101,7 @@ void Petani::Memanen(){
     }
 
     if(petak+P.CountElement() > P.getSize()){
+        //Throw Exception
         std::cout << "Jumlah Penyimpanan Tidak Cukup!" << std::endl;
     }
     else{
@@ -120,6 +121,9 @@ void Petani::Memanen(){
             }
 
             P.del(lokasi[0], lokasi[2] - '0');
+            plant.erase(std::remove_if(plant.begin(), plant.end(), [&](const Plant& plant) {
+            return plant.getlocation() == lokasi;
+            }), plant.end());
             locs.insert(lokasi);
         }
 

@@ -1,33 +1,23 @@
-#include "PlantAnimal/Plant.hpp"
+#include "item/Plant.hpp"
 
 // Plant class implementation
 Plant::Plant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
-    : kodeHuruf(kodeHuruf), name(name), type(type), durationToHarvest(durationToHarvest), price(price), umur(umur), location(location) {}
+    : Item(kodeHuruf, name, price), type(type), durationToHarvest(durationToHarvest), umur(umur), location(location) {}
 
 Plant::Plant(const Plant& other)
-    : kodeHuruf(other.kodeHuruf), name(other.name), type(other.type), durationToHarvest(other.durationToHarvest), price(other.price), umur(other.umur), location(other.location) {}
+    : Item(other), type(other.type), durationToHarvest(other.durationToHarvest), umur(other.umur), location(other.location) {}
 
 Plant::~Plant() {}
 
-void Plant::display() const {
-    // Implement display function as needed
-}
-
-string Plant::getname() const {
-    return name;
-}
-
-string Plant::gettype() {
+string Plant::gettype() const{
     return type;
 }
 
-int Plant::getdurationtoharvest() {
+int Plant::getdurationtoharvest() const{
     return durationToHarvest;
 }
 
-int Plant::getprice() {
-    return price;
-}
+
 
 string Plant::getlocation() const {
     return location;
@@ -36,10 +26,7 @@ string Plant::getlocation() const {
 int Plant::getumur() const {
     return umur;
 }
-string Plant::getKode() const
-{
-    return kodeHuruf;
-}
+
 
 pair<char, int> Plant::getColumnAndRowIndex(const string& location) const{
     char column = location[0]; 
@@ -47,36 +34,33 @@ pair<char, int> Plant::getColumnAndRowIndex(const string& location) const{
     return make_pair(column, row);
 }
 
-// MaterialPlant class implementation
-MaterialPlant::MaterialPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
-    : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
 
-MaterialPlant::MaterialPlant(const Plant& other)
-    : Plant(other), hasilpanen(1) {}
 
-MaterialPlant::~MaterialPlant() {}
+// // MaterialPlant class implementation
+// MaterialPlant::MaterialPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
+//     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
 
-int MaterialPlant::gethasilpanen() {
-    // if (name == "Teak_Tree") {
-    //     return 1;
-    // } else if (name == "Sandalwood_Tree") {
-    //     return 1;
-    // } else if (name == "Aloe_Tree") {
-    //     return 1;
-    // } else if (name == "Ironwood_Tree") {
-    //     return 1;
-    // }
-    return hasilpanen;
-}
+// MaterialPlant::MaterialPlant(const Plant& other)
+//     : Plant(other), hasilpanen(1) {}
 
-// FruitPlant class implementation
-FruitPlant::FruitPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
-    : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
+// MaterialPlant::~MaterialPlant() {}
 
-FruitPlant::FruitPlant(const Plant& other)
-    : Plant(other), hasilpanen(1) {}
+// int MaterialPlant::gethasilpanen() {
+//     // if (name == "Teak_Tree") {
+//     //     return 1;
+//     // } else if (name == "Sandalwood_Tree") {
+//     //     return 1;
+//     // } else if (name == "Aloe_Tree") {
+//     //     return 1;
+//     // } else if (name == "Ironwood_Tree") {
+//     //     return 1;
+//     // }
+//     return hasilpanen;
+// }
 
-FruitPlant::~FruitPlant() {}
+// // FruitPlant class implementation
+// FruitPlant::FruitPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
+//     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
 
 int FruitPlant::gethasilpanen() {
     // if (name == "Teak_Tree") {
@@ -114,3 +98,20 @@ Plant& Plant::operator=(const Plant& other) {
     }
     return *this;
 }
+// FruitPlant::FruitPlant(const Plant& other)
+//     : Plant(other), hasilpanen(1) {}
+
+// FruitPlant::~FruitPlant() {}
+
+// int FruitPlant::gethasilpanen() {
+//     // if (name == "Teak_Tree") {
+//     //     return 1;
+//     // } else if (name == "Sandalwood_Tree") {
+//     //     return 1;
+//     // } else if (name == "Aloe_Tree") {
+//     //     return 1;
+//     // } else if (name == "Ironwood_Tree") {
+//     //     return 1;
+//     // }
+//     return hasilpanen;
+// }

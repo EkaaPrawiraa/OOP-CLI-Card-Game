@@ -1,32 +1,13 @@
-#include "Product/Product.hpp"
+#include "item/Product.hpp"
 #include <stdexcept>
 
-Product::Product(){
-    this->kodeHuruf="   ";
-    this->name="";
-    this->tipe="";
-    this->origin="";
 
-}
-Product::Product(std::string kodehuruf, const std::vector<ProductConfig>& vec, std::string location) {
-    bool found = false;
-    for (const auto& config : vec) {
-        if (config.kodeHuruf == kodehuruf) {
-            found = true;
-            this->kodeHuruf = config.kodeHuruf;
-            this->name = config.name;
-            this->tipe = config.type;
-            this->origin = config.origin;
-            this->added_weight = config.addedWeight;
-            this->price = config.price;
-            this->location = location;
-            break;
-        }
-    }
-    if (!found) {
-        throw std::invalid_argument("ProductConfig with kodeHuruf " + kodehuruf + " not found");
-    }
-}
+Product::Product(const string &kodeHuruf,const string &name, const string &type, const string &origin, int added_weight, int price, const string &location) : Item(kodeHuruf, name, price), type(type), added_weight(added_weight), origin(origin), location(location) {}
+
+Product::Product(const Product& other)
+    : Item(other), type(other.type), added_weight(other.added_weight), origin(other.origin), location(other.location) {}
+
+Product::~Product() {}
 
 std::string Product::getkodeHuruf() const{
     return kodeHuruf;
@@ -34,8 +15,12 @@ std::string Product::getkodeHuruf() const{
 std::string Product::getname() const{
     return name;
 }
+bool Product::operator==(const Product& other) const {
+        return this->kodeHuruf == other.kodeHuruf;
+    }
+
 std::string Product::gettipe() const{
-    return tipe;
+    return type;
 }
 std::string Product::getorigin() const{
     return origin;
