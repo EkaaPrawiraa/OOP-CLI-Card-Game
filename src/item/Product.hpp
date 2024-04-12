@@ -15,7 +15,6 @@ class Product : public Item{
     int getadded_weight()  const;
     int getprice()  const;
     std::string getlocation() const;
-    bool operator==(const Product& other) const;
     pair<char, int> getColumnAndRowIndex(const std::string& location) const;
     bool operator==(const Product& other) const;
     Product& operator=(const Product& other);
