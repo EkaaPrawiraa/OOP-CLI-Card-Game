@@ -13,12 +13,11 @@ using namespace std;
 class Role
 {
 private:
-    
 protected:
     std::string username;
     int gulden;
     float weight;
-    Matrix<Item*> invent;
+    Matrix<Item *> invent;
 
 public:
     Role(string username, float weight, int uang, int storrows, int storcols);
@@ -29,12 +28,12 @@ public:
     virtual void membeli();
     virtual void menjual();
     virtual int calculate_tax() = 0;
+    std::string getUsername();
     int getGulden();
     float getWeight();
     void setGulden(int);
     void setWeight(float);
-    Matrix<Item*> getInventory();
-    
+    Matrix<Item *> getInventory();
 };
 
 #endif
