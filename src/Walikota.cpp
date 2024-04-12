@@ -1,23 +1,75 @@
 #include "Role/Walikota.hpp"
 
-int calculate_tax()
+int Walikota::calculate_tax()
 {
-    return 0; // tidak ada tax dari walikota, hanya memungut
+    // tidak ada tax dari walikota, hanya memungut
+    return 0;
+}
+
+bool Walikota::compareTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b)
+{
+    // menurun secara jumlah
+    if (std::get<1>(a) != std::get<1>(b))
+    {
+        return std::get<1>(a) > std::get<1>(b);
+    }
+    // nama secara menaik
+    return std::get<0>(a) < std::get<0>(b);
 }
 
 void Walikota::pungutPajak(std::vector<Role> daftarPemain)
 {
+    std::cout << "Cring cring cring..." << std::endl;
+    std::cout << "Pajak sudah dipungut!" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Berikut adalah detil dari pemungutan pajak:" << std::endl;
+    int totalPajak;
+    // vector pajak untuk pengurutan
+    std::vector<std::tuple<Role, int>> vectorPajak;
     for (int i = 0; i < daftarPemain.size(); i++)
     {
+        // hitung pajak setiap pemain
         int pajakTemp = daftarPemain[i].calculate_tax();
+        // tambah dalam vector pajak
+        vectorPajak.push_back(std::make_tuple(daftarPemain[i], pajakTemp));
+        // aplikasikan pada pemain
         daftarPemain[i].setGulden(daftarPemain[i].getGulden() - pajakTemp);
+        // total jumlah pajak
+        totalPajak += pajakTemp;
     }
+    // pengurutan vector sesuai ketentuan
+    std::sort(vectorPajak.begin(), vectorPajak.end(), compareTuples);
+    // display hasil
+    for (int i = 0; i < vectorPajak.size(); i++)
+    {
+        std::cout << i + 1 << ". " << std::get<0>(vectorPajak[i]).getUsername() << " - "
+                  << " " // belum tahu cara dapat tipe pemain
+                  << ": " << std::get<1>(vectorPajak[i]) << " gulden" << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << std::endl;
+    std::cout << "Gunakan dengan baik dan jangan dikorupsi ya!" << std::endl;
 }
 
-void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> tanaman)
+bool Walikota::nameExists(std::string name, std::vector<Role> daftarPemain)
 {
-    Matrix *tempMatriks = new Matrix(); // parameter matriks (inventory, plant)
-    if (getGulden() < 50)
+    bool found = false;
+    int i = 0;
+    while (i < daftarPemain.size() && !found)
+    {
+        if (daftarPemain[i].getUsername() == name)
+        {
+            found = true;
+            break;
+        }
+        i++;
+    }
+    return found;
+}
+
+void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> tanaman, MiscConfig &configGame)
+{
+    if (getGulden() < 50) // kurang uang untuk menambah pemain (exception)
     {
         std::cout << "Uang tidak cukup!" << std::endl;
     }
@@ -29,116 +81,150 @@ void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> t
         std::string nama;
         std::cout << "Masukkan nama pemain: ";
         std::cin >> nama;
-        if (jenis == "peternak")
+        if (nameExists(nama, daftarPemain)) // nama sudah ada (exception)
         {
-            daftarPemain.push_back(Farmer(nama, 50, 40, *tempMatriks));
-            std::cout << "Pemain baru ditambahkan!" << std::endl;
-            std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
-        }
-        else if (jenis == "petani")
-        {
-            Role *tempPetani = new Petani(nama, 50, 40, *tempMatriks, tanaman, *tempMatriks);
-            daftarPemain.push_back(*tempPetani);
-            std::cout << "Pemain baru ditambahkan!" << std::endl;
-            std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
+            std::cout << "Nama pemain sudah ada!" << std::endl;
         }
         else
         {
-            std::cout << "Tipe tidak valid!" << std::endl;
+            if (jenis == "peternak")
+            {
+                daftarPemain.push_back(Farmer(nama, 50, 40, configGame));
+                std::cout << "Pemain baru ditambahkan!" << std::endl;
+                std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
+            }
+            else if (jenis == "petani")
+            {
+                Role *tempPetani = new Petani(nama, 50, 40, *tempMatriks, tanaman, *tempMatriks); // bingung constructor petani
+                daftarPemain.push_back(*tempPetani);
+                std::cout << "Pemain baru ditambahkan!" << std::endl;
+                std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
+            }
+            else // tipe tidak valid (exception)
+            {
+                std::cout << "Tipe tidak valid!" << std::endl;
+            }
         }
     }
 }
 
 void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
 {
-    Matrix inventory = getInventory();
-    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> inventoryMap = inventory.getMatrix();
+    Matrix<Item *> inventory = getInventory();
+    std::map<int, std::map<char, Item *>> matriksInventory = inventory.getmatrix();
+
+    // tampilan semua resep bangunan dari config
     std::cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
     for (const auto &BuildingRecipeConfig : recipes)
     {
         BuildingRecipeConfig.display();
     }
-    BuildingRecipeConfig *tempBuilding;
+
+    // terima masukan kode bangunan yang ingin dibangun
+    BuildingRecipeConfig *tempBuildingConfig;
     std::cout << "Bangunan yang ingin dibangun: ";
     std::string kodehuruf;
     std::cin >> kodehuruf;
     bool ditemukan = false;
     bool cukupMaterial = true;
+    // pencarian kode bangunan pada config
     for (int i = 0; i < recipes.size(); i++)
     {
         if (recipes[i].getcode() == kodehuruf)
         {
-            tempBuilding = new BuildingRecipeConfig(recipes[i]); // g ada cc
+            tempBuildingConfig = new BuildingRecipeConfig(recipes[i]); // cc dari config (tipe config)
             ditemukan = true;
             break;
         }
     }
-    if (!(ditemukan)) // tidak ada
+    // ubah jadi tipe building
+    Building *tempBuilding = new Building(tempBuildingConfig->getcode(), tempBuildingConfig->getname(), tempBuildingConfig->getprice(), tempBuildingConfig->getmaterials());
+    // pengecekan ditemukannya kode bangunan
+    if (!(ditemukan)) // tidak ada (exception)
     {
         std::cout << "Kamu tidak punya resep bangunan tersebut!" << std::endl;
     }
-    else
+    else // prosedur pembangunan
     {
-        std::vector<Material> materials = tempBuilding->getmaterials();
-        std::vector<Material> copyMaterials = tempBuilding->getmaterials();
-        for (int i = 0; i < inventory.getRows(); i++)
+        // vektor material bangunan yang ingin dibuat (pengecekan penghapusan bahan pada inventory)
+        std::vector<std::tuple<std::string, int>> materials = tempBuildingConfig->getmaterials();
+        // vektor material bangunan yang ingin dibuat juga (pengecekan ketersediaan bahan dari inventory)
+        std::vector<std::tuple<std::string, int>> copyMaterials = tempBuildingConfig->getmaterials();
+        // pengecekan ketersediaan jumlah material pada inventory sesuai daftar material bangunan
+        for (int row = 0; row < inventory.getRows(); row++)
         {
-            for (int j = 0; j < inventory.getCols(); j++)
+            for (int col = 0; col < inventory.getCols(); col++)
             {
                 for (auto &material : copyMaterials)
                 {
-                    if (material.name == inventoryMap[i][j]) // blm bener, bingung struktur matriks yang bener
+                    if (std::get<0>(material) == matriksInventory[row][col]->getname()) // blm bener, bingung struktur matriks yang bener
                     {
-                        material.quantity -= 1;
+                        std::get<1>(material) -= 1;
                     }
                 }
             }
         }
+        // pengecekan apakah semua material <= 0 (cukup material untuk membangun)
         for (auto &material : copyMaterials)
         {
-            if (material.quantity != 0)
+            if (std::get<1>(material) >= 0)
             {
                 cukupMaterial = false;
             }
         }
-        if (!cukupMaterial) // tidak cukup material
+        // case material
+        if (!cukupMaterial || gulden < tempBuilding->getHarga()) // tidak cukup material (exception)
         {
             std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-            for (auto &material : copyMaterials)
+            // pengecekan bahan yang kurang
+            if (gulden < tempBuilding->getHarga() && cukupMaterial) // uang tidak cukup (exception)
             {
-                if (material.quantity != 0)
+                std::cout << tempBuilding->getHarga() - gulden << " gulden" << std::endl;
+            }
+            else if (gulden >= tempBuilding->getHarga() && !cukupMaterial) // tidak cukup material (exception)
+            {
+                for (auto &material : copyMaterials)
                 {
-                    std::cout << material.quantity << " " << material.name << ", ";
+                    if (std::get<1>(material) > 0)
+                    {
+                        std::cout << std::get<1>(material) << " " << std::get<0>(material) << ", ";
+                    }
+                    std::cout << std::endl;
                 }
-                std::cout << std::endl;
+            }
+            else // keduanya tidak cukup (exception)
+            {
+                std::cout << tempBuilding->getHarga() - gulden << " gulden, ";
+                for (auto &material : copyMaterials)
+                {
+                    if (std::get<1>(material) > 0)
+                    {
+                        std::cout << std::get<1>(material) << " " << std::get<0>(material) << ", ";
+                    }
+                    std::cout << std::endl;
+                }
             }
         }
-        else
+        else // cukup material -> lanjut prosedur pembangunan
         {
-            if (inventory.isFull()) // penuh
+            // prosedur menghapus material pada inventory yang dibutuhkan untuk membangun
+            for (int row = 0; row < inventory.getRows(); row++)
             {
-                std::cout << "Tidak ada tempat pada inventory";
-            }
-            else
-            {
-                inventory.setfirstempty(tempBuilding->getcode()); // masukkan dalam inventory
-                // prosedur menghapus material pada inventory yang dibutuhkan untuk membangun
-                for (int i = 0; i < inventory.getRows(); i++)
+                for (int col = 0; col < inventory.getCols(); col++)
                 {
-                    for (int j = 0; j < inventory.getCols(); j++)
+                    for (auto &material : materials)
                     {
-                        for (auto &material : materials)
+                        if (std::get<0>(material) == matriksInventory[row][col]->getname() && std::get<1>(material) > 0) // blm bener, bingung struktur matriks yang bener
                         {
-                            if (material.name == inventoryMap[i][j]) // blm bener, bingung struktur matriks yang bener
-                            {
-                                inventory.deleteString(material.name);
-                                material.quantity -= 1;
-                            }
+                            std::get<1>(material) -= 1;
                         }
                     }
                 }
-                std::cout << tempBuilding->getcode() << "berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
             }
+            // masukkan bangunan dalam inventory
+            inventory.setfirstempty(tempBuilding);
+            // print statement
+            std::cout << tempBuildingConfig->getcode() << "berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
         }
     }
 }
