@@ -104,12 +104,12 @@ MiscConfig WordMachine::readConfig()
 //     vector<BuildingRecipeConfig> recipes;
 //     string line;
 
-//     while (getline(file, line))
-//     {
-//         istringstream iss(line);
-//         int id, price;
-//         string kodeHuruf, name, materialName;
-//         vector<Material> materials;
+    while (getline(file, line))
+    {
+        istringstream iss(line);
+        int id, price;
+        string kodeHuruf, name, materialName;
+        vector<std::tuple<std::string, int>> materials;
 
 //         if (!(iss >> id >> kodeHuruf >> name >> price))
 //         {
@@ -117,16 +117,16 @@ MiscConfig WordMachine::readConfig()
 //             continue;
 //         }
 
-//         while (iss >> materialName)
-//         {
-//             int quantity;
-//             if (!(iss >> quantity))
-//             {
-//                 throw FileException("Format file plants tidak sesuai.");
-//                 break;
-//             }
-//             materials.push_back(Material(materialName, quantity));
-//         }
+        while (iss >> materialName)
+        {
+            int quantity;
+            if (!(iss >> quantity))
+            {
+                throw FileException("Format file plants tidak sesuai.");
+                break;
+            }
+            materials.push_back(Material(materialName, quantity));
+        }
 
 //         recipes.emplace_back(id, kodeHuruf, name, price, materials);
 //     }
