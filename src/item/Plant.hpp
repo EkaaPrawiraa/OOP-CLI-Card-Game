@@ -12,6 +12,8 @@ class Plant : public Item {
         int getdurationtoharvest() const;
         string getlocation() const;
         int getumur() const;
+        bool operator==(const Plant& other) const;
+        Plant& operator=(const Plant& other);
         pair<char, int> getColumnAndRowIndex(const std::string& location) const;
 
     private:

@@ -19,6 +19,8 @@ public:
     int getprice() const;
     int getberat();
     string getlocation();
+    bool operator==(const Animal& other) const;
+    Animal& operator=(const Animal& other);
     pair<char, int> getColumnAndRowIndex(const string& location) const;
 
 protected:

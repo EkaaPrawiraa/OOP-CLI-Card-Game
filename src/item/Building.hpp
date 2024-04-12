@@ -4,25 +4,29 @@
 #include "Item.hpp"
 #include <vector>
 
-struct Material
+class Building : public Item
 {
-    std::string name;
-    int quantity;
+public:
+    // tuple string dan int (tipe material untuk name dan quantity)
+    Building(const std::string &kodeHuruf, const std::string &name, int price, const std::vector<std::tuple<std::string, int>> &materials);
+    Building(const Building &);
+    ~Building();
+    std::string getclassname() override;
+    std::vector<std::tuple<std::string, int>> getmaterials();
+    bool operator==(const Building &other) const;
+    Building &operator=(const Building &other);
+    string getNama() const;
+    string getKode() const;
+    int getHarga() const;
+    void setNama(string);
+    void setKode(string);
+    void setHarga(int);
 
-    Material(const std::string &name, int quantity);
+private:
+    std::vector<std::tuple<std::string, int>> materials;
+    string nama;
+    string kode;
+    int harga;
 };
-
-class Building : public Item {
-    public:
-        Building(const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
-        Building(const Building&);
-        ~Building();
-        std::string getclassname() override;
-        std::vector<Material> getmaterials();
-
-    private:
-        std::vector<Material> materials;
-};
-
 
 #endif

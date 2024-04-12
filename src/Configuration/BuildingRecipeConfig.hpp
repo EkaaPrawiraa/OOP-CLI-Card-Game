@@ -4,31 +4,23 @@
 #include <string>
 #include <vector>
 
-struct Material
-{
-    std::string name;
-    int quantity;
-
-    Material(const std::string &name, int quantity);
-};
-
 class BuildingRecipeConfig
 {
 public:
-
-    BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
+    BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<std::tuple<std::string, int>> &materials);
     void display() const;
     int getid();
     std::string getcode();
     std::string getname();
     int getprice();
-    std::vector<Material> getmaterials();
+    std::vector<std::tuple<std::string, int>> getmaterials();
+
 private:
     int id;
     std::string kodeHuruf;
     std::string name;
     int price;
-    std::vector<Material> materials;
+    std::vector<std::tuple<std::string, int>> materials;
 };
 
 #endif
