@@ -1,6 +1,4 @@
 #include "Storage/Storage.hpp"
-#include "Item/Plant.hpp"
-#include "Item/Animal.hpp"
 #include <typeinfo>
 
 using namespace std;
@@ -111,7 +109,7 @@ void Matrix<T>::display(std::string tipe)
                 std::string classname=matrix[i]['A' + j]->getclassname() ;
                 if (auto animal = dynamic_cast<Animal*>(matrix[i]['A' + j])) {
                     // If class name is Animal, check getWeightToHarvest
-                    if (animal->getweighttoharvest() <= 0){
+                    if (animal->getweighttoharvest()-animal->getberat() <= 0){
                         for (char ch : currentValue)
                         {
                             std::cout<<print_green(ch);
@@ -123,7 +121,7 @@ void Matrix<T>::display(std::string tipe)
                         }}
                 } else if (auto plant = dynamic_cast<Plant*>(matrix[i]['A' + j])) {
                     // If class name is Plant, check getDurationToHarvest
-                    if (plant->getdurationtoharvest() <= 0){
+                    if (plant->getdurationtoharvest()-plant->getumur() <= 0){
                         for (char ch : currentValue)
                         {
                             std::cout<<print_green(ch);

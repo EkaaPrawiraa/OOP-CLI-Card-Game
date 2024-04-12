@@ -1,8 +1,10 @@
-#include "Role\\Petani.hpp"
+#include "Role/Petani.hpp"
 #include <iostream>
 #include <set>
+#include "Storage/Storage.hpp"
 
-Petani::Petani(string username, float weight, int uang, int storrows, int storcols, Matrix<Item*> item, Matrix<Plant*> Ladang) : Role(username, weight, uang, storrows, storcols), Ladang(Ladang){}
+Petani::Petani(string username, float weight, int uang, int storrows, int storcols, int ladrows, int ladcols) 
+: Role(username, weight, uang, storrows, storcols), Ladang(ladrows, ladcols){}
 
 // Destructor implementation
 Petani::~Petani(){}

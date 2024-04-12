@@ -1,5 +1,5 @@
-#ifndef STORAGE_HPP
-#define STORAGE_HPP
+#ifndef STORAGaE_HPP
+#define STORAGaE_HPP
 
 #include <iostream>
 #include <vector>
@@ -8,7 +8,11 @@
 #include <string>
 #include <iomanip>
 #include <stdexcept>
-#include "../color/pcolor.hpp" //Untuk print display
+#include "../color/pcolor.hpp"
+#include "../item/Item.hpp"
+#include "../item/Plant.hpp"
+#include "../item/Animal.hpp" 
+using namespace std;//Untuk print display
 template<typename T>
 class Matrix {
 private:
@@ -34,6 +38,7 @@ public:
     bool isempty();
     std::map<int, std::map<char, T>> getmatrix();
 };
+#include "../Storage.cpp"
 
 
 

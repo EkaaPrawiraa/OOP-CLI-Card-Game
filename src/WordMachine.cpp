@@ -99,37 +99,37 @@ MiscConfig WordMachine::readConfig()
 
     return MiscConfig(winningMoney, winningWeight, storageRows, storageCols, landRows, landCols, farmRows, farmCols);
 }
-vector<BuildingRecipeConfig> WordMachine::readRecipes()
-{
-    vector<BuildingRecipeConfig> recipes;
-    string line;
+// vector<BuildingRecipeConfig> WordMachine::readRecipes()
+// {
+//     vector<BuildingRecipeConfig> recipes;
+//     string line;
 
-    while (getline(file, line))
-    {
-        istringstream iss(line);
-        int id, price;
-        string kodeHuruf, name, materialName;
-        vector<Material> materials;
+//     while (getline(file, line))
+//     {
+//         istringstream iss(line);
+//         int id, price;
+//         string kodeHuruf, name, materialName;
+//         vector<Material> materials;
 
-        if (!(iss >> id >> kodeHuruf >> name >> price))
-        {
-            throw FileException("Format file plants tidak sesuai.");
-            continue;
-        }
+//         if (!(iss >> id >> kodeHuruf >> name >> price))
+//         {
+//             throw FileException("Format file plants tidak sesuai.");
+//             continue;
+//         }
 
-        while (iss >> materialName)
-        {
-            int quantity;
-            if (!(iss >> quantity))
-            {
-                throw FileException("Format file plants tidak sesuai.");
-                break;
-            }
-            materials.push_back(Material(materialName, quantity));
-        }
+//         while (iss >> materialName)
+//         {
+//             int quantity;
+//             if (!(iss >> quantity))
+//             {
+//                 throw FileException("Format file plants tidak sesuai.");
+//                 break;
+//             }
+//             materials.push_back(Material(materialName, quantity));
+//         }
 
-        recipes.emplace_back(id, kodeHuruf, name, price, materials);
-    }
+//         recipes.emplace_back(id, kodeHuruf, name, price, materials);
+//     }
 
-    return recipes;
-}
+//     return recipes;
+// }
