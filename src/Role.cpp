@@ -1,13 +1,8 @@
 #include "Role/Role.hpp"
 
-Role::Role(string username, float weight, int uang, int storrows, int storcols)
-{
-    this->username = username;
-    this->weight = weight;
-    this->gulden = uang;
-    this->invent = Matrix<Item*>(storrows, storcols);
-    
-}
+Role::Role(string username, float weight, int uang, int storrows, int storcols) 
+    : username(username), weight(weight), gulden(uang), invent(storrows, storcols) {}
+
 Role::~Role() {}
 void Role::next()
 {
@@ -70,9 +65,6 @@ void Role::makan()
     } while (!found);
     this->weight+=gain;
 
-    
-
-
 
 }
 void Role::membeli()
@@ -97,4 +89,3 @@ void Role::setWeight(float weight)
 {
     this->weight=weight;
 }
-
