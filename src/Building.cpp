@@ -15,3 +15,6 @@ Building::~Building() {}
 std::vector<Material> Building::getmaterials(){
     return materials;
 }
+string Building::getclassname(){
+    return "Building";
+}

@@ -17,9 +17,7 @@ class Building : public Item {
         Building(const std::string &kodeHuruf, const std::string &name, int price, const std::vector<Material> &materials);
         Building(const Building&);
         ~Building();
-        std::string getclassname(){
-            return "Building";
-        }
+        std::string getclassname() override;
         std::vector<Material> getmaterials();
 
     private:

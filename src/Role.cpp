@@ -1,12 +1,12 @@
 #include "Role/Role.hpp"
 
-Role::Role(string username, float weight, int uang, Matrix invent, vector<Product> items)
+Role::Role(string username, float weight, int uang, int storrows, int storcols)
 {
     this->username = username;
     this->weight = weight;
     this->gulden = uang;
-    this->invent = invent;
-    this->Items = items;
+    this->invent = Matrix<Item*>(storrows, storcols);
+    
 }
 Role::~Role() {}
 void Role::next()
@@ -18,15 +18,22 @@ void Role::cetak_penyimpanan()
 }
 void Role::makan()
 {
-    if(Items.empty()){
+    if(invent.isempty()){
         //EXCEPTION
         cout<<"Inventori Kosong"<<endl;
         return;
     }
     bool foundfood=false;
-    for (Product item : Items){
-        if (item.getadded_weight()!=0){
-            foundfood=true;
+    for (const auto& row : invent.getmatrix()) {
+        for (const auto& cell : row.second) {
+            if (auto product = dynamic_cast<Product*>(cell.second)){
+                if (product->getadded_weight() != 0) {
+                    foundfood=true;
+                    break;
+                }
+            }
+        }
+        if (foundfood){
             break;
         }
     }
@@ -44,14 +51,14 @@ void Role::makan()
     do {
         std::cout << "Slot: ";
         std::cin >> lokasi;
-
+        char column =lokasi[0]; 
+        int row = stoi(lokasi.substr(1)); 
         found = false;
-        for (auto it = Items.begin(); it != Items.end(); ++it) {
-            if (it->getlocation() == lokasi && it->getadded_weight() != 0) {
-                found = true;
-                gain=it->getadded_weight();
-                Items.erase(it);
-                break;
+        if (auto product = dynamic_cast<Product*>(invent.getmatrix()[row][column])){
+            if (product->getadded_weight()!=0){
+                found=true;
+                gain=product->getadded_weight();
+                invent.deleteValue(row, column);
             }
         }
 
@@ -90,7 +97,4 @@ void Role::setWeight(float weight)
 {
     this->weight=weight;
 }
-Matrix Role::getInventory()
-{
-    return invent;
-}
+

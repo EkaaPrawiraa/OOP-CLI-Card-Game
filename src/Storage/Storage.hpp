@@ -1,5 +1,5 @@
-#ifndef STORAGE_HPP
-#define STORAGE_HPP
+#ifndef STORAGaE_HPP
+#define STORAGaE_HPP
 
 #include <iostream>
 #include <vector>
@@ -9,33 +9,33 @@
 #include <iomanip>
 #include <stdexcept>
 #include "../color/pcolor.hpp" //Untuk print display
-
-class Matrix
-{
+template<typename T>
+class Matrix {
 private:
     int rows;
     int cols;
-    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> matrix; // KODE, COLOR, NamaTanaman ini kalau untuk matrix ladang, sesuain aja sama matrix kalian
-    static int count;
+    std::map<int, std::map<char, T>> matrix;
     std::string createHeader(std::string type) const;
-
 public:
-    Matrix(int rows = 0, int cols = 0);
+    // Constructor
+    Matrix(int rows, int cols);
 
-    std::tuple<std::string, std::string, std::string> get(char key, int index) const;
-    void set(char key, int index, std::string value, std::string color, std::string other);
-    void del(char key, int index);
-    void setfirstempty(std::string value, std::string color, std::string other);
-
-    int getRows() const;
-    int getCols() const;
-    int getSize() const;
-    int CountElement() const;
-    std::vector<std::pair<std::string, int>> getCodeCounts();
-
-    void display(std::string tipe) const;
+    // Function to set value at position (row, col)
+    void setValue(int row, char col, T value);
+    void setfirstempty(T value);
+    // Function to get value at position (row, col)
+    T getValue(int row, char col);
+    int countElement() const;
     bool isFull();
-    std::vector<std::vector<std::tuple<std::string, std::string, std::string>>> getMatrix();
-    void deleteString(std::string);
+    void deleteValue(int row, char col);
+    virtual void display(std::string tipe);
+    int countempty();
+    bool isemptyslot(int row, char col);
+    bool isempty();
+    std::map<int, std::map<char, T>> getmatrix();
 };
+
+
+
+
 #endif

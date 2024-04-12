@@ -33,6 +33,9 @@ pair<char, int> Plant::getColumnAndRowIndex(const string& location) const{
     int row = stoi(location.substr(1)); 
     return make_pair(column, row);
 }
+string Plant::getclassname(){
+    return "Plant";
+}
 
 
 

@@ -7,9 +7,7 @@ class Plant : public Item {
         Plant(const string &kodeHuruf,const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location);
         Plant(const Plant&);
         ~Plant();
-        string getclassname(){
-            return "Plant";
-        }
+        string getclassname() override;
         std::string gettype() const;
         int getdurationtoharvest() const;
         string getlocation() const;
