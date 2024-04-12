@@ -1,7 +1,14 @@
 #include "Role/Role.hpp"
 
-Role::Role(string username, float weight, int uang, int storrows, int storcols) 
-    : username(username), weight(weight), gulden(uang), invent(storrows, storcols) {}
+// dapat storrows dan storcols dari miscConfig
+Role::Role(string username, float weight, int uang, MiscConfig &configGame)
+    : username(username), weight(weight), gulden(uang), invent(0, 0) // 0,0 hanya untuk default constructor invent
+{
+    // dapat storrows dan storcols dari miscConfig
+    int storrows = configGame.getStorageRows();
+    int storcols = configGame.getStorageCols();
+    invent = Matrix<Item *>(storrows, storcols);
+}
 
 Role::~Role() {}
 void Role::next()
@@ -13,59 +20,69 @@ void Role::cetak_penyimpanan()
 }
 void Role::makan()
 {
-    if(invent.isempty()){
-        //EXCEPTION
-        cout<<"Inventori Kosong"<<endl;
+    if (invent.isempty())
+    {
+        // EXCEPTION
+        cout << "Inventori Kosong" << endl;
         return;
     }
-    bool foundfood=false;
-    for (const auto& row : invent.getmatrix()) {
-        for (const auto& cell : row.second) {
-            if (auto product = dynamic_cast<Product*>(cell.second)){
-                if (product->getadded_weight() != 0) {
-                    foundfood=true;
+    bool foundfood = false;
+    for (const auto &row : invent.getmatrix())
+    {
+        for (const auto &cell : row.second)
+        {
+            if (auto product = dynamic_cast<Product *>(cell.second))
+            {
+                if (product->getadded_weight() != 0)
+                {
+                    foundfood = true;
                     break;
                 }
             }
         }
-        if (foundfood){
+        if (foundfood)
+        {
             break;
         }
     }
-    if (!foundfood){
-        //EXCEPTION BUAT
-        cout<<"Tidak ada makanan di inventori"<<endl;
+    if (!foundfood)
+    {
+        // EXCEPTION BUAT
+        cout << "Tidak ada makanan di inventori" << endl;
         return;
     }
-    cout<< "Pilih makanan dari penyimpanan"<<endl;
+    cout << "Pilih makanan dari penyimpanan" << endl;
     cetak_penyimpanan();
-    cout<<endl<<endl;
+    cout << endl
+         << endl;
     string lokasi;
     bool found;
     int gain;
-    do {
+    do
+    {
         std::cout << "Slot: ";
         std::cin >> lokasi;
-        char column =lokasi[0]; 
-        int row = stoi(lokasi.substr(1)); 
+        char column = lokasi[0];
+        int row = stoi(lokasi.substr(1));
         found = false;
-        if (auto product = dynamic_cast<Product*>(invent.getmatrix()[row][column])){
-            if (product->getadded_weight()!=0){
-                found=true;
-                gain=product->getadded_weight();
+        if (auto product = dynamic_cast<Product *>(invent.getmatrix()[row][column]))
+        {
+            if (product->getadded_weight() != 0)
+            {
+                found = true;
+                gain = product->getadded_weight();
                 invent.deleteValue(row, column);
             }
         }
 
-        if (!found) {
-            //THROW EXCEPTION
+        if (!found)
+        {
+            // THROW EXCEPTION
             std::cout << "Tidak ditemukan makanan di lokasi" << std::endl;
         }
 
     } while (!found);
-    this->weight+=gain;
-
-
+    this->weight += gain;
 }
 void Role::membeli()
 {
@@ -83,9 +100,9 @@ float Role::getWeight()
 }
 void Role::setGulden(int gulden)
 {
-    this->gulden=gulden;
+    this->gulden = gulden;
 }
 void Role::setWeight(float weight)
 {
-    this->weight=weight;
+    this->weight = weight;
 }
