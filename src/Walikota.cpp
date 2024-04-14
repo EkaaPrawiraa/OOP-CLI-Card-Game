@@ -60,22 +60,27 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     int totalPajak;
     // vector pajak untuk pengurutan
     std::vector<std::tuple<Role, int>> vectorPajak;
+    // iterasi setiap pemain
     for (int i = 0; i < daftarPemain.size(); i++)
     {
-        if ()
+        // pengecekan apakah Role berupa walikota
+        // tidak pakai exception jika berupa walikota
+        if (daftarPemain[i].getRoleType() != "Walikota")
+        {
             // hitung pajak setiap pemain
             int pajakTemp = daftarPemain[i].calculate_tax();
-        // pengecekan ketersediaan gulden
-        if (daftarPemain[i].getGulden() < pajakTemp)
-        {
-            pajakTemp = daftarPemain[i].getGulden();
+            // pengecekan ketersediaan gulden
+            if (daftarPemain[i].getGulden() < pajakTemp)
+            {
+                pajakTemp = daftarPemain[i].getGulden();
+            }
+            // tambah dalam vector pajak
+            vectorPajak.push_back(std::make_tuple(daftarPemain[i], pajakTemp));
+            // aplikasikan pada pemain
+            daftarPemain[i].setGulden(daftarPemain[i].getGulden() - pajakTemp);
+            // total jumlah pajak
+            totalPajak += pajakTemp;
         }
-        // tambah dalam vector pajak
-        vectorPajak.push_back(std::make_tuple(daftarPemain[i], pajakTemp));
-        // aplikasikan pada pemain
-        daftarPemain[i].setGulden(daftarPemain[i].getGulden() - pajakTemp);
-        // total jumlah pajak
-        totalPajak += pajakTemp;
     }
     // pengurutan vector sesuai ketentuan
     std::sort(vectorPajak.begin(), vectorPajak.end(), compareTuples);
@@ -163,13 +168,13 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
     }
 
     // terima masukan kode bangunan yang ingin dibangun
-    BuildingRecipeConfig *tempBuildingConfig;
     std::cout << "Bangunan yang ingin dibangun: ";
     std::string kodehuruf;
     std::cin >> kodehuruf;
     bool ditemukan = false;
     bool cukupMaterial = true;
     // pencarian kode bangunan pada config
+    BuildingRecipeConfig *tempBuildingConfig;
     for (int i = 0; i < recipes.size(); i++)
     {
         if (recipes[i].getcode() == kodehuruf)
@@ -199,7 +204,7 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
             {
                 for (auto &material : copyMaterials)
                 {
-                    if (std::get<0>(material) == matriksInventory[row][col]->getname()) // blm bener, bingung struktur matriks yang bener
+                    if (std::get<0>(material) == matriksInventory[row][col]->getname())
                     {
                         std::get<1>(material) -= 1;
                     }
@@ -214,8 +219,8 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
                 cukupMaterial = false;
             }
         }
-        // case material
-        if (!cukupMaterial || gulden < tempBuilding->getHarga()) // tidak cukup material (exception)
+        // case material dan gulden
+        if (!cukupMaterial || gulden < tempBuilding->getHarga()) // tidak cukup material atau gulden
         {
             std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
             // pengecekan bahan yang kurang
@@ -258,7 +263,10 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
                     {
                         if (std::get<0>(material) == matriksInventory[row][col]->getname() && std::get<1>(material) > 0) // blm bener, bingung struktur matriks yang bener
                         {
+                            // kebutuhan material dikurangi
                             std::get<1>(material) -= 1;
+                            // hapus bahannya dari inventory
+                            matriksInventory.deleteValue(row, col);
                         }
                     }
                 }

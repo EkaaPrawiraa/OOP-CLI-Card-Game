@@ -17,7 +17,6 @@ class Walikota : public Role
 {
 private:
     const int static jumlah;
-    std::vector<std::tuple<std::string, int>> Bangunan;
 
 public:
     Walikota(string username, float weight, int uang, int storrows, int storcols);
