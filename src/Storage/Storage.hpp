@@ -13,6 +13,7 @@
 #include "../item/Plant.hpp"
 #include "../item/Animal.hpp"
 using namespace std; // Untuk print display
+
 template <typename T>
 class Matrix
 {
@@ -36,12 +37,14 @@ public:
     void deleteValue(int row, char col);
     virtual void display(std::string tipe);
     int countempty();
-    int getSize() const;
+    int getSize() ;
     bool isemptyslot(int row, char col);
     bool isempty();
     std::map<int, std::map<char, T>> getmatrix();
-    int getRows();
-    int getCols();
+    int getRow();
+    int getCol();
 };
+
+#include "../Storage.cpp"
 
 #endif

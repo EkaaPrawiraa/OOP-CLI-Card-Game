@@ -9,13 +9,7 @@ Product::Product(const Product& other)
 
 Product::~Product() {}
 
-<<<<<<< Updated upstream
-
-
-std::string Product::gettipe() const{
-=======
 std::string Product::gettipe() const {
->>>>>>> Stashed changes
     return type;
 }
 
@@ -27,30 +21,16 @@ int Product::getadded_weight() const {
     return added_weight;
 }
 
-<<<<<<< Updated upstream
-pair<char, int> Product::getColumnAndRowIndex(const string& location) const{
-=======
 int Product::getprice() const {
     return price;
 }
 
 
 std::pair<char, int> Product::getColumnAndRowIndex(const std::string& location) const {
->>>>>>> Stashed changes
     char column = location[0]; 
     int row = std::stoi(location.substr(1)); 
     return std::make_pair(column, row);
 }
-<<<<<<< Updated upstream
-// bool Product::operator==(const Product& other) const {
-//     return (this->kodeHuruf == other.kodeHuruf &&
-//             this->name == other.name &&
-//             this->type == other.type &&
-//             this->origin == other.origin &&
-//             this->added_weight == other.added_weight &&
-//             this->price == other.price);
-// }
-=======
 
 bool Product::operator==(const Product& other) const {
     return (this->kodeHuruf == other.kodeHuruf &&
@@ -61,7 +41,6 @@ bool Product::operator==(const Product& other) const {
             this->price == other.price);
 }
 
->>>>>>> Stashed changes
 Product& Product::operator=(const Product& other) {
     if (this == &other) {
         return *this; 

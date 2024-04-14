@@ -8,44 +8,6 @@
 #include <set>
 
 using namespace std;
-<<<<<<< Updated upstream
-Farmer::Farmer(string username, int gulden, float weight, Matrix invent) : Role(username, gulden, weight, invent)
-{
-}
-Farmer::~Farmer() {}
-
-void Farmer::setMatrix()
-{
-    for (int i = 0; i < Animals.size(); i++)
-    {
-        pair<char, int> index = Animals.at(i).getColumnAndRowIndex(Animals.at(i).getlocation());
-        F.set(index.first, index.second, Animals.at(i).getlocation());
-    }
-}
-void Farmer::cetakPeternakan(int baris, int kolom)
-{
-    std::cout << "================[ Peternakan ]===================\n";
-    // std::cout << "   A     B     C     D     E     F     G\n";
-    // std::cout << " +-----+-----+-----+-----+-----+-----+-----+\n";
-
-    // std::vector<std::vector<std::string>> ladang(8, std::vector<std::string>(7, ""));
-
-    // for (const auto& plant : Plants) {
-    //     int row = plant.getlocation()[0] - '0' - 1;
-    //     char col = plant.getlocation()[1];
-    //     int colIndex = col - 'A';
-
-    //     ladang[row][colIndex] = plant.getKode();
-    // }
-
-    // for (int i = 0; i < ladang.size(); ++i) {
-    //     std::cout << "0" << i + 1 << " | ";
-    //     for (int j = 0; j < ladang[i].size(); ++j) {
-    //         std::cout << ladang[i][j] << " | ";
-    //     }
-    //     std::cout << "\n +-----+-----+-----+-----+-----+-----+-----+\n";
-    // }
-=======
 
 Farmer::Farmer(string username, int gulden, float weight, int storrow, int storcol, int petrow, int petcol) 
     : Role(username, weight, gulden, storrow, storcol), Peternakan(petrow, petcol)
@@ -76,20 +38,14 @@ void Farmer::cetakPeternakan(int baris,int kolom){
         }
     }
 
->>>>>>> Stashed changes
 }
 
 void Farmer::ternak(int baris, int kolom)
 {
     // Jika tidak ada hewan di penyimpanan, perintah tidak dapat dilakukan.
     // Jika kandang penuh, perintah tidak dapat dilakukan.
-<<<<<<< Updated upstream
-    cout << "Pilih hewan dari penyimpanan" << endl;
-    Farmer::cetak_penyimpanan(baris, kolom);
-=======
     cout<<"Pilih hewan dari penyimpanan"<<endl;
     Farmer::cetak_penyimpanan();
->>>>>>> Stashed changes
     string slot;
     string lokasi;
     string hewanTerpilih;

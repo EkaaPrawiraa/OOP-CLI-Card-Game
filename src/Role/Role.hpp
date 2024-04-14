@@ -9,8 +9,7 @@
 #include "../item/Building.hpp"
 #include "../item/MaterialPlant.hpp"
 #include "../item/FruitPlant.hpp"
-#include "../item/Plant.hpp"
-#include "../Utility/Exception.hpp"
+// #include "../Utility/Exception.hpp"
 using namespace std;
 
 class Role

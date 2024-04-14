@@ -14,11 +14,11 @@ void Role::cetak_penyimpanan()
 }
 void Role::makan()
 {
-    if (invent.isempty())
-    {
-        // EXCEPTION
-        throw MatrixKosongException();
-    }
+    // if (invent.isempty())
+    // {
+    //     // EXCEPTION
+    //     throw MatrixKosongException();
+    // }
     bool foundfood = false;
     for (const auto &row : invent.getmatrix())
     {
@@ -38,11 +38,11 @@ void Role::makan()
             break;
         }
     }
-    if (!foundfood)
-    {
-        // EXCEPTION BUAT
-        throw NofoodException();
-    }
+    // if (!foundfood)
+    // {
+    //     // EXCEPTION BUAT
+    //     throw NofoodException();
+    // }
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetak_penyimpanan();
     cout << endl
@@ -67,11 +67,11 @@ void Role::makan()
             }
         }
 
-        if (!found)
-        {
-            // THROW EXCEPTION
-            throw NofoodException();
-        }
+        // if (!found)
+        // {
+        //     // THROW EXCEPTION
+        //     throw NofoodException();
+        // }
 
     } while (!found);
     this->weight += gain;

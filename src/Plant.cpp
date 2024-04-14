@@ -51,20 +51,6 @@ string Plant::getclassname(){
 //            (this->Plants == other.Plants);
 // }
 
-<<<<<<< Updated upstream
-// Plant& Plant::operator=(const Plant& other) {
-//     if (this != &other) { // check for self-assignment
-//         this->kodeHuruf = other.kodeHuruf;
-//         this->name = other.name;
-//         this->type = other.type;
-//         this->durationToHarvest = other.durationToHarvest;
-//         this->price = other.price;
-//         this->umur = other.umur;
-//         this->location = other.location;
-//         this->Plants = other.Plants;
-//     }
-//     return *this;
-=======
 // // FruitPlant class implementation
 // FruitPlant::FruitPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
 //     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
@@ -110,5 +96,4 @@ Plant& Plant::operator=(const Plant& other) {
 //     //     return 1;
 //     // }
 //     return hasilpanen;
->>>>>>> Stashed changes
 // }

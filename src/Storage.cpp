@@ -1,9 +1,6 @@
 #include "Storage/Storage.hpp"
-<<<<<<< Updated upstream
-=======
 #include "item/Plant.hpp"
 #include "item/Animal.hpp"
->>>>>>> Stashed changes
 #include <typeinfo>
 
 using namespace std;
@@ -62,7 +59,7 @@ int Matrix<T>::countempty()
 }
 
 template <typename T>
-int Matrix<T>::getSize() const
+int Matrix<T>::getSize() 
 {
     return rows * cols;
 }
@@ -195,16 +192,9 @@ void Matrix<T>::display(std::string tipe)
         std::cout << std::endl;
     }
 }
-<<<<<<< Updated upstream
-template <typename T>
-bool Matrix<T>::isemptyslot(int row, char col)
-{
-    return !(matrix.find(row - 1) != matrix.end() && matrix[row - 1].find(col) != matrix[row - 1].end());
-=======
 template<typename T>
 bool Matrix<T>::isemptyslot(int row, char col){
     return !(matrix.find(row) != matrix.end() && matrix[row].find(col) != matrix[row].end());
->>>>>>> Stashed changes
 }
 
 template <typename T>
@@ -221,42 +211,22 @@ bool Matrix<T>::isempty()
 {
     return matrix.empty();
 }
-<<<<<<< Updated upstream
-template <typename T>
-std::map<int, std::map<char, T>> Matrix<T>::getmatrix()
-{
-    return matrix;
-}
-
-template <typename T>
-int Matrix<T>::getCols()
-{
-    return cols;
-}
-
-template <typename T>
-int Matrix<T>::getRows()
-{
-    return rows;
-}
-=======
 template<typename T>
 std::map<int, std::map<char, T> > Matrix<T>::getmatrix(){
     return matrix;
 }
 template<typename T>
-int Matrix<T>::getRow() const {
+int Matrix<T>::getRow() {
     return rows;
 }
 template<typename T>
-int Matrix<T>::getCol() const {
+int Matrix<T>::getCol()  {
     return cols;
 }
-template<typename T>
-int Matrix<T>::getSize() const{
-    return cols * cols;
-}
->>>>>>> Stashed changes
+// template<typename T>
+// int Matrix<T>::getSize() const{
+//     return cols * cols;
+// }
 // int main(){
 
 //     Matrix<Item*> matrix(8,8);

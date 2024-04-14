@@ -16,12 +16,8 @@ public:
     int getadded_weight() const;
     int getprice() const;
     std::string getlocation() const;
-<<<<<<< Updated upstream
-    pair<char, int> getColumnAndRowIndex(const std::string& location) const;
-=======
     std::pair<char, int> getColumnAndRowIndex(const std::string& location) const;
     bool operator==(const Product& other) const;
->>>>>>> Stashed changes
     Product& operator=(const Product& other);
 
 private:

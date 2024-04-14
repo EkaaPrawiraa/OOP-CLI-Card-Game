@@ -82,10 +82,6 @@ bool Animal::operator==(const Animal& other) const {
            (this->price == other.price) &&
            (this->berat == other.berat) &&
            (this->location == other.location);
-<<<<<<< Updated upstream
-        //    (this->Animals == other.Animals);
-=======
->>>>>>> Stashed changes
 }
 
 Animal& Animal::operator=(const Animal& other) {
@@ -97,10 +93,6 @@ Animal& Animal::operator=(const Animal& other) {
         this->price = other.price;
         this->berat = other.berat;
         this->location = other.location;
-<<<<<<< Updated upstream
-        // this->Animals = other.Animals;
-=======
->>>>>>> Stashed changes
     }
     return *this;
 }
