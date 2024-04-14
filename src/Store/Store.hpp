@@ -3,10 +3,10 @@
 // #include "..//Product//Product.hpp"
 // #include "..//Building//Building.hpp"
 #include <vector>
-#include "../PlantAnimal/Plant.hpp"
-#include "../PlantAnimal/Animal.hpp"
-#include "../Product/Product.hpp"
-#include "../Building/Building.hpp"
+#include "../item/Plant.hpp"
+#include "../item/Animal.hpp"
+#include "../item/Product.hpp"
+#include "../item/Building.hpp"
 
 using namespace std;
 
