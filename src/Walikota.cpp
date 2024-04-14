@@ -1,5 +1,39 @@
 #include "Role/Walikota.hpp"
 
+const int Walikota::jumlah = 0;
+
+// seperti role
+Walikota::Walikota(string username, float weight, int uang, int storrows, int storcols) : Role(string username, float weight, int uang, int storrows, int storcols)
+{
+    jumlah++;
+}
+
+// panggil constructor pakai ini
+Walikota &Walikota::conditionalConstructor(string username, float weight, int uang, int storrows, int storcols)
+{
+    if (jumlah == 0)
+    {
+        std::cout << "Walikota telah berhasil dibuat" << std::endl;
+        return Walikota(username, weight, uang, storrows, storcols);
+    }
+    else // walikota sudah dibuat (exception)
+    {
+        std::cout << "Walikota sudah ada!" << std::endl;
+    }
+}
+
+Walikota::~Walikota()
+{
+    // vector tidak perlu destructor
+    // inventory dihapus di role harusnya
+    std::cout << "Walikota dihapus" << std::endl;
+}
+
+void Walikota::next()
+{
+    // standar -> hanya item plant -> implementasi di role?
+}
+
 int Walikota::calculate_tax()
 {
     // tidak ada tax dari walikota, hanya memungut
@@ -28,8 +62,14 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     std::vector<std::tuple<Role, int>> vectorPajak;
     for (int i = 0; i < daftarPemain.size(); i++)
     {
-        // hitung pajak setiap pemain
-        int pajakTemp = daftarPemain[i].calculate_tax();
+        if ()
+            // hitung pajak setiap pemain
+            int pajakTemp = daftarPemain[i].calculate_tax();
+        // pengecekan ketersediaan gulden
+        if (daftarPemain[i].getGulden() < pajakTemp)
+        {
+            pajakTemp = daftarPemain[i].getGulden();
+        }
         // tambah dalam vector pajak
         vectorPajak.push_back(std::make_tuple(daftarPemain[i], pajakTemp));
         // aplikasikan pada pemain
@@ -49,6 +89,8 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     std::cout << std::endl;
     std::cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << std::endl;
     std::cout << "Gunakan dengan baik dan jangan dikorupsi ya!" << std::endl;
+    // tambah ke uang walikota
+    setGulden(getGulden() + totalPajak);
 }
 
 bool Walikota::nameExists(std::string name, std::vector<Role> daftarPemain)
@@ -227,4 +269,9 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
             std::cout << tempBuildingConfig->getcode() << "berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
         }
     }
+}
+
+string Walikota::getRoleType()
+{
+    return "Walikota";
 }

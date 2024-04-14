@@ -16,16 +16,20 @@
 class Walikota : public Role
 {
 private:
-    int static jumlah;
+    const int static jumlah;
     std::vector<std::tuple<std::string, int>> Bangunan;
 
 public:
+    Walikota(string username, float weight, int uang, int storrows, int storcols);
+    Walikota &conditionalConstructor(string username, float weight, int uang, int storrows, int storcols);
+    virtual ~Walikota();
     virtual int calculate_tax();
     bool compareTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b);
     void pungutPajak(std::vector<Role>);
     bool nameExists(std::string, std::vector<Role>);
     void tambahPemain(std::vector<Role>, std::vector<Plant>, MiscConfig &);
     void bangunBangunan(vector<BuildingRecipeConfig>);
+    string getRoleType() override;
 };
 
 #endif

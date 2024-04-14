@@ -3,55 +3,65 @@
 #include <set>
 #include "Storage/Storage.hpp"
 
-Petani::Petani(string username, float weight, int uang, int storrows, int storcols, int ladrows, int ladcols) 
-: Role(username, weight, uang, storrows, storcols), Ladang(ladrows, ladcols){}
+Petani::Petani(string username, float weight, int uang, int storrows, int storcols, int ladrows, int ladcols)
+    : Role(username, weight, uang, storrows, storcols), Ladang(ladrows, ladcols) {}
 
 // Destructor implementation
-Petani::~Petani(){}
+Petani::~Petani() {}
 
 // Virtual function implementations
-void Petani::next(){}
-void Petani::membeli(){}
-void Petani::menjual(){}
+void Petani::next() {}
+void Petani::membeli() {}
+void Petani::menjual() {}
 
-int Petani::calculate_tax() {
+int Petani::calculate_tax()
+{
     // Implementation of tax calculation goes here
     return 0; // Placeholder return value
 }
 
-void Petani::setLadang(int row, char col, Plant* p){
-    Ladang.setValue(row,col, p);
+void Petani::setLadang(int row, char col, Plant *p)
+{
+    Ladang.setValue(row, col, p);
+}
 
+string Petani::getRoleType()
+{
+    return "Petani";
 }
 
 // Non-virtual function implementations
-void Petani::CetakLadang(){
+void Petani::CetakLadang()
+{
     Ladang.display("Ladang");
     std::cout << "\n\n";
-    //Penulisan semua kodehutuf yang ada di matrix, jika ada kode yang sama di dua tempat atay lebih, tuliskan hanya satu kode saja
+    // Penulisan semua kodehutuf yang ada di matrix, jika ada kode yang sama di dua tempat atay lebih, tuliskan hanya satu kode saja
     std::set<std::string> uniqueCodes;
     std::string code;
     std::string name;
     for (const auto &row : invent.getmatrix())
     {
         for (const auto &cell : row.second)
-        { 
+        {
             code = cell.second->getKode();
             name = cell.second->getname();
-            if (code != "   ") { 
-                if (uniqueCodes.find(code) == uniqueCodes.end()){
+            if (code != "   ")
+            {
+                if (uniqueCodes.find(code) == uniqueCodes.end())
+                {
                     std::cout << "- " << code << ": " << name << std::endl; // Cetak kode tanaman
-                    uniqueCodes.insert(code); // Tambahkan kode tanaman ke set
+                    uniqueCodes.insert(code);                               // Tambahkan kode tanaman ke set
                 }
             }
         }
     }
 }
-void Petani::Tanam(){
-    //Tunggu Mekanisme Penyimpanan, butuh cetak penyimpanan sama info jenis item
-    // std::cout << "Pilih petak tanah yang akan ditanami" << std::endl;
-    // CetakLadang();
-    // std::cout << "\n\n";
+void Petani::Tanam()
+{
+    // Tunggu Mekanisme Penyimpanan, butuh cetak penyimpanan sama info jenis item
+    //  std::cout << "Pilih petak tanah yang akan ditanami" << std::endl;
+    //  CetakLadang();
+    //  std::cout << "\n\n";
 
     // std::string lokasi;
     // std::cout << "Pilih Petak: ";
@@ -67,7 +77,8 @@ void Petani::Tanam(){
     // std::cout << "Cangkul, cangkul, cangkul yang dalam~!" << std::endl;
     // std::cout << "Orange tree berhasil ditanam!" << endl;
 }
-void Petani::Memanen(){
+void Petani::Memanen()
+{
     // this->CetakLadang();
     // std::cout << "\n\n";
     // std::cout << "Pilih tanaman siap panen yang kamu miliki\n";
@@ -108,7 +119,7 @@ void Petani::Memanen(){
     //     for(int i = 0; i < petak;i++){
     //         std::cout << "Petak ke-" << i+1 << ": ";
     //         std::cin >> lokasi;
-            
+
     //         kode = std::get<0>(P.get(lokasi[0], std::stoi(lokasi.substr(1))));
     //         while(kode != list.at(no-1).first){
     //             std::cout << "Masukkan Letak Petak yang Valid!\n";
@@ -125,7 +136,7 @@ void Petani::Memanen(){
 
     //     std::cout << petak <<" petak tanaman " << list.at(no-1).first << " pada petak ";
     //     std::set<std::string>::iterator it = locs.begin();
-    
+
     //     while (it != locs.end()) {
     //         if (std::next(it) == locs.end()) {
     //             std::cout << *it;

@@ -105,3 +105,8 @@ void Role::setWeight(float weight)
 {
     this->weight = weight;
 }
+
+string Role::getRoleType()
+{
+    return "Role";
+}
