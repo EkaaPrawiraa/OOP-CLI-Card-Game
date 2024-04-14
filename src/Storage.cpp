@@ -1,6 +1,4 @@
 #include "Storage/Storage.hpp"
-#include "item/Plant.hpp"
-#include "item/Animal.hpp"
 #include <typeinfo>
 
 using namespace std;
@@ -192,9 +190,10 @@ void Matrix<T>::display(std::string tipe)
         std::cout << std::endl;
     }
 }
-template<typename T>
-bool Matrix<T>::isemptyslot(int row, char col){
-    return !(matrix.find(row) != matrix.end() && matrix[row].find(col) != matrix[row].end());
+template <typename T>
+bool Matrix<T>::isemptyslot(int row, char col)
+{
+    return !(matrix.find(row - 1) != matrix.end() && matrix[row - 1].find(col) != matrix[row - 1].end());
 }
 
 template <typename T>
@@ -211,22 +210,23 @@ bool Matrix<T>::isempty()
 {
     return matrix.empty();
 }
-template<typename T>
-std::map<int, std::map<char, T> > Matrix<T>::getmatrix(){
+template <typename T>
+std::map<int, std::map<char, T>> Matrix<T>::getmatrix()
+{
     return matrix;
 }
-template<typename T>
-int Matrix<T>::getRow() {
-    return rows;
-}
-template<typename T>
-int Matrix<T>::getCol()  {
+
+template <typename T>
+int Matrix<T>::getCols()
+{
     return cols;
 }
-// template<typename T>
-// int Matrix<T>::getSize() const{
-//     return cols * cols;
-// }
+
+template <typename T>
+int Matrix<T>::getRows()
+{
+    return rows;
+}
 // int main(){
 
 //     Matrix<Item*> matrix(8,8);
