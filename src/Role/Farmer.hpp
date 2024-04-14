@@ -2,7 +2,9 @@
 #define FARMER_HPP
 
 #include "../Store/Store.hpp"
-#include "../item/Animal.hpp"
+#include "../item/Karnivora.hpp"
+#include "../item/Herbivora.hpp"
+#include "../item/Omnivora.hpp"
 #include "../item/Building.hpp"
 #include "../item/Product.hpp"
 #include "Role.hpp"
@@ -20,21 +22,17 @@ private:
 public:
     Farmer(string username, int gulden, float weight, int storrow, int storcol, int petrow, int petcol);    
     ~Farmer();
-    void cetakPeternakan(int baris, int kolom);
-    void ternak(int baris, int kolom);
+    void cetakPeternakan();
+    void Ternak();
+    void Memanen();
     void memberiPangan(int baris, int kolom);
 
-    template<typename T>
-    void menjual(Store& Toko);
 
-    template<typename T>
-    void membeli(Store& Toko);
-
-    void membeli(Store& Toko);
     void menjual(Store& Toko);
+    void membeli(Store& Toko);
 
     int calculate_tax();
     string getRoleType() override;
 };
-#include "../Farmer.cpp"
+// #include "../Farmer.cpp"
 #endif // FARMER_HPP

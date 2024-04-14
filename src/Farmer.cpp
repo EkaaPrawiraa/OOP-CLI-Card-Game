@@ -16,7 +16,7 @@ Farmer::Farmer(string username, int gulden, float weight, int storrow, int storc
 Farmer::~Farmer() {}
 
 
-void Farmer::cetakPeternakan(int baris,int kolom){
+void Farmer::cetakPeternakan(){
     Peternakan.display("Peternakan");
     std::cout << "\n\n";
     std::set<std::string> uniqueCodes;
@@ -30,8 +30,8 @@ void Farmer::cetakPeternakan(int baris,int kolom){
             name = cell.second->getname();
             if (code != "   ") { 
                 if (uniqueCodes.find(code) == uniqueCodes.end()){
-                    std::cout << "- " << code << ": " << name << std::endl; // Cetak kode tanaman
-                    uniqueCodes.insert(code); // Tambahkan kode tanaman ke set
+                    std::cout << "- " << code << ": " << name << std::endl; 
+                    uniqueCodes.insert(code); 
                 }
             }
         }
@@ -39,29 +39,189 @@ void Farmer::cetakPeternakan(int baris,int kolom){
 
 }
 
-void Farmer::ternak(int baris, int kolom)
-{
-    // Jika tidak ada hewan di penyimpanan, perintah tidak dapat dilakukan.
-    // Jika kandang penuh, perintah tidak dapat dilakukan.
-    std::cout<<"Pilih hewan dari penyimpanan"<<endl;
-    Farmer::cetak_penyimpanan();
-    string slot;
-    string lokasi;
-    string hewanTerpilih;
-    // ambill dari penyimpanan
-    std::cout << "Slot: ";
-    cin >> slot;
-    // check if valid
-    // nunggu inventory
-    cout << "Pilih petak tanah yang akan ditinggali" << endl;
-    Farmer::cetakPeternakan(baris, kolom);
-    cout << "Petak tanah: ";
-    cin >> lokasi;
-    // check if valid
 
-    cout << "\nDengan hati-hati, kamu meletakkan seekor" << hewanTerpilih << " di kandang" << endl;
-    cout << hewanTerpilih << " telah menjadi peliharaanmu sekarang!" << endl;
+void Farmer::Ternak(){
+    if (Peternakan.isFull())
+    {
+        cout << "Peternakan Anda sudah penuh!"<<endl;
+        return;
+    }
+    // atasin kalo ladang penuh belum
+    cout << "Pilih hewan dari penyimpanan" << endl;
+    vector<Product*> pr;
+    pr.push_back(new Product("ABW", "Bewe", "Material_Plant", "GNSH", 25.5, 15));
+    Karnivora* sample = new Karnivora("ABD", "ABC", "TYPE", 15, 10, 15, "A02", pr);
+    // Item* sample = new Item("ABD", "ABC", 15);
+    invent.setValue(2, 'A', sample);
+    cetak_penyimpanan();
+    inputpetak:
+    cout<<"Slot: ";
+    string location;
+    cin.ignore();
+    cin>>location;
+    int row = 0;
+    std::regex pattern("^[a-zA-Z][0-9]+");
+    if ((!std::regex_match(location, pattern))){
+        cout << "Format salah !"<< endl;  
+        goto inputpetak;
+    }
+    int col2 = toupper(location[0]) - 'A';
+    row = std::stoi(location.substr(1));
+    if (( col2>invent.getCols() || row>invent.getRows() ) ) {
+        cout<<"Melebihi ukuran penyimpanan!"<<endl;
+        goto inputpetak;
+        }
+    if (invent.isemptyslot(row, location[0])) {
+            cout << "Petak tersebut kosong!" << endl;
+            cout << "Isi ulang!" <<endl;
+            goto inputpetak;
+    } 
+    if(invent.getValue(row,col2)->getclassname() != "Karnivora" && invent.getValue(row,col2)->getclassname() != "Herbivora"&& invent.getValue(row,col2)->getclassname() != "Omnivora")
+    {   
+        cout << "Pastikan Item berupa Hewan" << endl;
+        cout << "Isi ulang!" <<endl;
+        goto inputpetak;
+        
+    }
+    char col = location[0];
+    row = stoi(location.substr(1));
+    cout << "Kamu memilih " << invent.getValue(row,col)->getname() << endl;
+
+    std::cout << "Pilih petak tanah yang akan ditanami" << std::endl;
+    Peternakan.display("Ladang");
+    std::cout << "\n\n";
+
+    std::string loc;
+    std::cout << "Pilih Petak: ";
+    std::cin >> loc;
+
+    char col1 = loc[0];
+    int row1 = stoi(loc.substr(1));
+
+    while(!Peternakan.isemptyslot(row1,col1)){
+        std::cout << "Pastikan Petak Kosong" << std::endl;
+        std::cout << "Pilih Petak: ";
+        std::cin >> loc;
+        col1 = loc[0];
+        row1 = stoi(loc.substr(1));
+    }
+
+    if(invent.getValue(row, col)->getclassname() == "Karnivora"){
+        Peternakan.setValue(row1, col1, dynamic_cast<Karnivora*>(invent.getValue(row, col)));
+    }
+    else if (invent.getValue(row, col)->getclassname() == "Herbivora")
+    {
+        Peternakan.setValue(row1, col1, dynamic_cast<Herbivora*>(invent.getValue(row, col)));
+    
+    }
+    else
+    {
+        Peternakan.setValue(row1, col1, dynamic_cast<Omnivora*>(invent.getValue(row, col)));
+    }
+    
+    invent.deleteValue(row,col);
+    std::cout << "Dengan hati-hati, kamu meletakkan seekor "<< Peternakan.getValue(row1,col1)->getname()<<" di kandang." << std::endl;
+    std::cout << Peternakan.getValue(row1,col1)->getname() << " telah menjadi peliharaanmu sekarang!" << endl;
+
 }
+
+void Farmer::Memanen(){
+    this->cetakPeternakan();
+    std::cout << "\n\n";
+    std::cout << "Pilih hewan siap panen yang kamu miliki\n";
+
+    //get listharvest()
+    std::map<std::string, int> list;
+
+    for (const auto &row : Peternakan.getmatrix()) {
+        for (const auto &cell : row.second) {
+            if (cell.second->getberat() == cell.second->getweighttoharvest()) {
+                auto it = list.find(cell.second->getKode());
+                if (it != list.end()) {
+                    // Jika sudah ada, tambahkan jumlahnya
+                    it->second++;
+                } else {
+                    list[cell.second->getKode()] = 1;
+                }
+            }
+        }
+    }
+
+    // Menampilkan daftar tanaman siap panen
+    int i = 1;
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        std::cout << "  " << i << ". " << it->first << " (" << it->second << " Petak Siap Dipanen)" << std::endl;
+        ++i;
+    }
+
+    int no, petak;
+    std::cout << "Nomor hewan yang ingin dipanen:";
+    std::cin >> no;
+
+    while(no > list.size() || no <= 0){
+        std::cout << "Masukkan Nomor yang Valid!\n";
+        std::cout << "Nomor hewan yang ingin dipanen:";
+        std::cin >> no;
+    }
+
+    std::cout << "Berapa petak yang ingin dipanen:";
+    std::cin >> petak;
+    // validasi jumlah penyimpanan tidak cukup
+    auto it = list.begin();
+    advance(it, no-1); // Menggerakkan iterator ke elemen yang sesuai
+    while(petak > it->second || petak <= 0){
+        std::cout << "Masukkan Jumlah Petak yang Valid!\n";
+        std::cout << "Berapa petak yang ingin dipanen:";
+        std::cin >> petak;
+    }
+
+    if(petak+invent.countElement() > invent.getSize()){
+        //Throw Exception
+        std::cout << "Jumlah Penyimpanan Tidak Cukup!" << std::endl;
+        return;
+    }
+    std::cout << "Pilih petak yang ingin dipanen:" << std::endl;
+    std::string loc, kode;
+    std::set<std::string> listloc;
+    char col;
+    int row;
+    for(int i = 0; i < petak;i++){
+        std::cout << "Petak ke-" << i+1 << ": ";
+        std::cin >> loc;
+        
+        col = loc[0];
+        row = stoi(loc.substr(1));
+        while(Peternakan.isemptyslot(row,col) || Peternakan.getValue(row,col)->getKode() != it->first )
+        {   
+            cout << "Masukkan Letak Petak yang Valid!" << endl;
+            std::cout << "Petak ke-" << i+1 << ": ";
+            std::cin >> loc;
+
+            col = loc[0];
+            row = stoi(loc.substr(1));
+        }
+
+        listloc.insert(loc);
+        for (Product* P:(Peternakan.getValue(row, col)->gethasilpanen()))
+        {
+            invent.setfirstempty(dynamic_cast<Product*>(P));
+            
+        }
+        Peternakan.deleteValue(row,col);
+        
+    }
+
+    std::cout << petak <<" petak hewan " << it->first << " pada petak ";
+    for (auto it1 = listloc.begin(); it1 != listloc.end(); ++it1) {
+        if (std::next(it1) == listloc.end()) {
+            std::cout << *it1;
+        } else {
+            std::cout << *it1 << ", ";
+        }
+    } 
+    std::cout << " telah dipanen!" << std::endl;
+}
+
 void Farmer::memberiPangan(int baris, int kolom)
 {
     string petak;
@@ -69,7 +229,7 @@ void Farmer::memberiPangan(int baris, int kolom)
     int beratAkhir;
     string hewanTerpilih;
     cout << "Pilih petak kandang yang akan ditinggali" << endl;
-    cetakPeternakan(baris, kolom);
+    cetakPeternakan();
     cout << "Petak kandang: " << endl;
     cin >> petak;
     // validasi pemilihan
@@ -250,12 +410,29 @@ int Farmer::calculate_tax()
     int KTKP = 11;
     int KKP = 0;
     int pajak = 0;
-    int netoKekayaan = 0;
+    int netoKekayaan = gulden;
+    
+    // Hitung Neto
+    for (const auto &row : invent.getmatrix())
+    {
+        for (const auto &cell : row.second)
+        {
+            netoKekayaan+=cell.second->getprice();
+        }
+        
+    }
+    for (const auto &row : Peternakan.getmatrix())
+    {
+        for (const auto &cell : row.second)
+        {
+            netoKekayaan+=cell.second->getprice();
+        }
+        
+    }
 
       
     // hitung neto kekayaan
     KKP = netoKekayaan - KTKP;
-    // atur jika gulden kurang tapi kekaayaan banyak
 
     if (KKP <= 0)
     {
