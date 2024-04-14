@@ -12,23 +12,12 @@
 
 using namespace std;
 
-<<<<<<< Updated upstream
-class Farmer : public Role
-{
-private:
-    std::vector<Animal> Animals;
-    Matrix F;
-
-public:
-    Farmer(string username, int gulden, float weight, Matrix invent);
-=======
 class Farmer : public Role {
 private:
     Matrix<Animal*> Peternakan;
 
 public:
     Farmer(string username, int gulden, float weight, int storrow, int storcol, int petrow, int petcol);    
->>>>>>> Stashed changes
     ~Farmer();
     void cetakPeternakan(int baris, int kolom);
     void ternak(int baris, int kolom);
@@ -46,10 +35,5 @@ public:
     int calculate_tax();
     string getRoleType() override;
 };
-<<<<<<< Updated upstream
-
-#endif
-=======
 #include "../Farmer.cpp"
 #endif // FARMER_HPP
->>>>>>> Stashed changes

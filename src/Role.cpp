@@ -108,3 +108,7 @@ string Role::getRoleType()
 {
     return "Role";
 }
+
+Matrix<Item*>& Role::getInventory(){
+    return invent;
+}

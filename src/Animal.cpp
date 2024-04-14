@@ -96,3 +96,8 @@ Animal& Animal::operator=(const Animal& other) {
     }
     return *this;
 }
+
+vector<Product*> Animal::gethasilpanen() {
+    vector<Product*> hasilPanen;
+    return hasilPanen;
+}

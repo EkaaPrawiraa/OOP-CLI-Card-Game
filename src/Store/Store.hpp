@@ -1,6 +1,7 @@
 #ifndef STORE_HPP
 #define STORE_HPP
 #include <vector>
+#include <typeinfo>
 #include "../item/Plant.hpp"
 #include "../item/Animal.hpp"
 #include "../item/Product.hpp"

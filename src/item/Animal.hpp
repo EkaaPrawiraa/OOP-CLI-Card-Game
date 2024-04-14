@@ -19,7 +19,7 @@ public:
     string getlocation();
     bool operator==(const Animal& other) const;
     Animal& operator=(const Animal& other);
-    virtual vector<Product*> gethasilpanen()  = 0;
+    virtual vector<Product*> gethasilpanen();
     pair<char, int> getColumnAndRowIndex(const string& location) const;
 
 protected:

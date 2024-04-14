@@ -15,7 +15,7 @@ class Plant : public Item {
         int getumur() const;
         bool operator==(const Plant& other) const;
         Plant& operator=(const Plant& other);
-        virtual Product* gethasilpanen()  = 0;
+        virtual Product* gethasilpanen();
         pair<char, int> getColumnAndRowIndex(const std::string& location) const;
 
     protected:

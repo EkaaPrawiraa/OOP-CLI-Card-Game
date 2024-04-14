@@ -35,14 +35,14 @@ public:
     int countElement() const;
     bool isFull();
     void deleteValue(int row, char col);
-    virtual void display(std::string tipe);
+    void display(std::string tipe);
     int countempty();
     int getSize() ;
     bool isemptyslot(int row, char col);
     bool isempty();
     std::map<int, std::map<char, T>> getmatrix();
-    int getRow();
-    int getCol();
+    int getRows();
+    int getCols();
 };
 
 #include "../Storage.cpp"

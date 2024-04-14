@@ -120,7 +120,7 @@ void Farmer::menjual(Store& Toko) {
                 }
                 int col = toupper(tok[0]) - 'A';
                 int row = std::stoi(tok.substr(1));
-                if (( col>invent.getCol() || row>invent.getRow() ) ) {
+                if (( col>invent.getCols() || row>invent.getRows() ) ) {
                     cout<<"Melebihi ukuran penyimpanan!"<<endl;
                     goto inputpetak;
                  }
@@ -172,6 +172,7 @@ void Farmer::membeli(Store& Toko){
         
         T item;
         int totalpaid = Toko.buyItem(boughtItem,quantity,gulden,item);
+    cout<<item.getname()<<endl;
         if (totalpaid>0)
         {
             
@@ -200,7 +201,7 @@ void Farmer::membeli(Store& Toko){
                 }
                 int col = toupper(tok[0]) - 'A';
                 int row = std::stoi(tok.substr(1));
-                if (( col>invent.getCol() || row>invent.getRow() ) ) {
+                if (( col>invent.getCols() || row>invent.getRows() ) ) {
                     cout<<"Melebihi ukuran penyimpanan!"<<endl;
                     goto inputpetak;
                  }
@@ -211,8 +212,9 @@ void Farmer::membeli(Store& Toko){
                     goto inputpetak;
                 }
                 else {
-                    invent.setValue(row,tok[0],&item);
+                    invent.setValue(row,tok[0],dynamic_cast<Item*>(&item));
                     cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
+                    invent.display("Penyimpanan");
 
                 }
                 
@@ -236,7 +238,7 @@ int Farmer::calculate_tax()
     int pajak = 0;
     int netoKekayaan = 0;
 
-    netokekayaan =    
+      
     // hitung neto kekayaan
     KKP = netoKekayaan - KTKP;
     // atur jika gulden kurang tapi kekaayaan banyak
