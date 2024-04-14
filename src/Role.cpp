@@ -1,14 +1,8 @@
 #include "Role/Role.hpp"
 
 // dapat storrows dan storcols dari miscConfig
-<<<<<<< Updated upstream
 Role::Role(string username, float weight, int uang, int storrows, int storcols)
     : username(username), weight(weight), gulden(uang), invent(storrows, storcols) {}
-=======
-Role::Role(std::string username, float weight, int gulden, int storrows, int storcols)
-    : username(username), weight(weight), gulden(gulden), invent(storrows, storcols) {}
-
->>>>>>> Stashed changes
 
 Role::~Role() {}
 void Role::next()
@@ -23,8 +17,7 @@ void Role::makan()
     if (invent.isempty())
     {
         // EXCEPTION
-        cout << "Inventori Kosong" << endl;
-        return;
+        throw MatrixKosongException();
     }
     bool foundfood = false;
     for (const auto &row : invent.getmatrix())
@@ -48,8 +41,7 @@ void Role::makan()
     if (!foundfood)
     {
         // EXCEPTION BUAT
-        cout << "Tidak ada makanan di inventori" << endl;
-        return;
+        throw NofoodException();
     }
     cout << "Pilih makanan dari penyimpanan" << endl;
     cetak_penyimpanan();
@@ -78,7 +70,7 @@ void Role::makan()
         if (!found)
         {
             // THROW EXCEPTION
-            std::cout << "Tidak ditemukan makanan di lokasi" << std::endl;
+            throw NofoodException();
         }
 
     } while (!found);
@@ -111,15 +103,8 @@ void Role::setWeight(float weight)
 {
     this->weight = weight;
 }
-<<<<<<< Updated upstream
 
 string Role::getRoleType()
 {
     return "Role";
 }
-=======
-Matrix<Item*> &Role::getInventory()
-{
-    return invent;
-}
->>>>>>> Stashed changes
