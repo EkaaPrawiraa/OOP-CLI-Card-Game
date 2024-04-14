@@ -7,12 +7,10 @@
 #include "../item/Product.hpp"
 #include "../item/Animal.hpp"
 #include "../item/Building.hpp"
-<<<<<<< Updated upstream
 #include "../item/MaterialPlant.hpp"
 #include "../item/FruitPlant.hpp"
-=======
 #include "../item/Plant.hpp"
->>>>>>> Stashed changes
+#include "../Utility/Exception.hpp"
 using namespace std;
 
 class Role
@@ -38,13 +36,9 @@ public:
     float getWeight();
     void setGulden(int);
     void setWeight(float);
-<<<<<<< Updated upstream
-    Matrix<Item *> getInventory();
     virtual string getRoleType();
-=======
     Matrix<Item*>& getInventory();
     
->>>>>>> Stashed changes
 };
 
 #endif

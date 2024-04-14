@@ -11,9 +11,11 @@
 #include "../color/pcolor.hpp"
 #include "../item/Item.hpp"
 #include "../item/Plant.hpp"
-#include "../item/Animal.hpp" 
-template<typename T>
-class Matrix {
+#include "../item/Animal.hpp"
+using namespace std; // Untuk print display
+template <typename T>
+class Matrix
+{
 private:
     int rows;
     int cols;
@@ -37,14 +39,9 @@ public:
     int getSize() const;
     bool isemptyslot(int row, char col);
     bool isempty();
-    int getRow() const;
-    int getCol() const;
-    int getSize() const;
-    
-    std::map<int, std::map<char, T> > getmatrix();
+    std::map<int, std::map<char, T>> getmatrix();
+    int getRows();
+    int getCols();
 };
-#include "../Storage.cpp"
-
-
 
 #endif
