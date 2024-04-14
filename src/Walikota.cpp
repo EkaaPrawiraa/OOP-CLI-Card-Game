@@ -88,7 +88,7 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     for (int i = 0; i < vectorPajak.size(); i++)
     {
         std::cout << i + 1 << ". " << std::get<0>(vectorPajak[i]).getUsername() << " - "
-                  << " " // belum tahu cara dapat tipe pemain
+                  << vectorPajak[i].getRoleType()
                   << ": " << std::get<1>(vectorPajak[i]) << " gulden" << std::endl;
     }
     std::cout << std::endl;
@@ -269,7 +269,7 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
                 {
                     for (auto &material : materials)
                     {
-                        if (std::get<0>(material) == matriksInventory[row][col]->getname() && std::get<1>(material) > 0) // blm bener, bingung struktur matriks yang bener
+                        if (std::get<0>(material) == matriksInventory[row][col]->getname() && std::get<1>(material) > 0)
                         {
                             // kebutuhan material dikurangi
                             std::get<1>(material) -= 1;
