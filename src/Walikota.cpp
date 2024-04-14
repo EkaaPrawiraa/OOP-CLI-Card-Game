@@ -1,17 +1,22 @@
 #include "Role/Walikota.hpp"
 
-const int Walikota::jumlah = 0;
+int Walikota::jumlah = 0;
 
 // seperti role
-Walikota::Walikota(string username, float weight, int uang, int storrows, int storcols) : Role(string username, float weight, int uang, int storrows, int storcols)
+// Walikota::Walikota(string username, float weight, int uang, int storrows, int storcols) : Role(username, weight, uang, storrows, storcols)
+// {
+//     jumlah++;
+// }
+
+Walikota::Walikota(string username, float weight, int uang, int storrows, int storcols) : Role(username, weight, uang, storrows, storcols)
 {
     jumlah++;
 }
 
 // panggil constructor pakai ini
-Walikota &Walikota::conditionalConstructor(string username, float weight, int uang, int storrows, int storcols)
+Walikota conditionalConstructor(string username, float weight, int uang, int storrows, int storcols)
 {
-    if (jumlah == 0)
+    if (Walikota::jumlah == 0)
     {
         std::cout << "Walikota telah berhasil dibuat" << std::endl;
         return Walikota(username, weight, uang, storrows, storcols);
@@ -40,7 +45,7 @@ int Walikota::calculate_tax()
     return 0;
 }
 
-bool Walikota::compareTaxTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b)
+bool Walikota::compareTaxTuples(std::tuple<Role *, int> a, std::tuple<Role *, int> b)
 {
     // menurun secara jumlah
     if (std::get<1>(a) != std::get<1>(b))
@@ -48,10 +53,10 @@ bool Walikota::compareTaxTuples(std::tuple<std::string, int> &a, std::tuple<std:
         return std::get<1>(a) > std::get<1>(b);
     }
     // nama secara menaik
-    return std::get<0>(a) < std::get<0>(b);
+    return std::get<0>(a)->getUsername() < std::get<0>(b)->getUsername();
 }
 
-void Walikota::pungutPajak(std::vector<Role> daftarPemain)
+void Walikota::pungutPajak(std::vector<Role *> daftarPemain)
 {
     std::cout << "Cring cring cring..." << std::endl;
     std::cout << "Pajak sudah dipungut!" << std::endl;
@@ -59,36 +64,36 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     std::cout << "Berikut adalah detil dari pemungutan pajak:" << std::endl;
     int totalPajak;
     // vector pajak untuk pengurutan
-    std::vector<std::tuple<Role, int>> vectorPajak;
+    std::vector<std::tuple<Role *, int>> vectorPajak;
     // iterasi setiap pemain
     for (int i = 0; i < daftarPemain.size(); i++)
     {
         // pengecekan apakah Role berupa walikota
         // tidak pakai exception jika berupa walikota
-        if (daftarPemain[i].getRoleType() != "Walikota")
+        if (daftarPemain[i]->getRoleType() != "Walikota")
         {
             // hitung pajak setiap pemain
-            int pajakTemp = daftarPemain[i].calculate_tax();
+            int pajakTemp = daftarPemain[i]->calculate_tax();
             // pengecekan ketersediaan gulden
-            if (daftarPemain[i].getGulden() < pajakTemp)
+            if (daftarPemain[i]->getGulden() < pajakTemp)
             {
-                pajakTemp = daftarPemain[i].getGulden();
+                pajakTemp = daftarPemain[i]->getGulden();
             }
             // tambah dalam vector pajak
             vectorPajak.push_back(std::make_tuple(daftarPemain[i], pajakTemp));
             // aplikasikan pada pemain
-            daftarPemain[i].setGulden(daftarPemain[i].getGulden() - pajakTemp);
+            daftarPemain[i]->setGulden(daftarPemain[i]->getGulden() - pajakTemp);
             // total jumlah pajak
             totalPajak += pajakTemp;
         }
     }
     // pengurutan vector sesuai ketentuan
-    std::sort(vectorPajak.begin(), vectorPajak.end(), compareTaxTuples);
+    std::sort(vectorPajak.begin(), vectorPajak.end(), Walikota::compareTaxTuples);
     // display hasil
     for (int i = 0; i < vectorPajak.size(); i++)
     {
-        std::cout << i + 1 << ". " << std::get<0>(vectorPajak[i]).getUsername() << " - "
-                  << vectorPajak[i].getRoleType()
+        std::cout << i + 1 << ". " << std::get<0>(vectorPajak[i])->getUsername() << " - "
+                  << std::get<0>(vectorPajak[i])->getRoleType()
                   << ": " << std::get<1>(vectorPajak[i]) << " gulden" << std::endl;
     }
     std::cout << std::endl;
@@ -98,13 +103,13 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
     setGulden(getGulden() + totalPajak);
 }
 
-bool Walikota::nameExists(std::string name, std::vector<Role> daftarPemain)
+bool Walikota::nameExists(std::string name, std::vector<Role *> daftarPemain)
 {
     bool found = false;
     int i = 0;
     while (i < daftarPemain.size() && !found)
     {
-        if (daftarPemain[i].getUsername() == name)
+        if (daftarPemain[i]->getUsername() == name)
         {
             found = true;
             break;
@@ -114,7 +119,12 @@ bool Walikota::nameExists(std::string name, std::vector<Role> daftarPemain)
     return found;
 }
 
-void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> tanaman, MiscConfig &configGame)
+bool Walikota::sortUsername(Role *a, Role *b)
+{
+    return a->getUsername() < b->getUsername();
+}
+
+void Walikota::tambahPemain(std::vector<Role *> daftarPemain)
 {
     if (getGulden() < 50) // kurang uang untuk menambah pemain (exception)
     {
@@ -136,16 +146,13 @@ void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> t
         {
             if (jenis == "peternak")
             {
-                daftarPemain.push_back(Farmer(nama, 50, 40, configGame));
-                std::cout << "Pemain baru ditambahkan!" << std::endl;
-                std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
+                // Role *tempPetani = new Petani(nama, 50, 40, 8, 8, 8, 8);
+                // daftarPemain.push_back(*tempPetani);
             }
             else if (jenis == "petani")
             {
-                Role *tempPetani = new Petani(nama, 50, 40, *tempMatriks, tanaman, *tempMatriks); // bingung constructor petani
-                daftarPemain.push_back(*tempPetani);
-                std::cout << "Pemain baru ditambahkan!" << std::endl;
-                std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
+                // Role *tempPetani = new Petani(nama, 50, 40, 8, 8, 8, 8); // bingung constructor petani
+                // daftarPemain.push_back(*tempPetani);
             }
             else // tipe tidak valid (exception)
             {
@@ -154,10 +161,9 @@ void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> t
             // pengurutan urutan pemain (jika ada pemain baru yang ditambahkan)
             if (jenis == "peternak" || jenis == "petani")
             {
-                std::sort(daftarPemain.begin(), daftarPemain.end(), [](const Role &a, const Role &b))
-                {
-                    return a.getUsername() < b.getUsername();
-                }
+                std::cout << "Pemain baru ditambahkan!" << std::endl;
+                std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
+                std::sort(daftarPemain.begin(), daftarPemain.end(), Walikota::sortUsername);
             }
         }
     }
@@ -274,7 +280,7 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
                             // kebutuhan material dikurangi
                             std::get<1>(material) -= 1;
                             // hapus bahannya dari inventory
-                            matriksInventory.deleteValue(row, col);
+                            inventory.deleteValue(row, col);
                         }
                     }
                 }
