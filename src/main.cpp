@@ -84,6 +84,7 @@ int main()
     std::vector<Product> products;
     products.emplace_back("Prod2", "Book", "Stationery", "Local", 0, 20);
     products.emplace_back("Prod2", "Pen", "Stationery", "Imported", 0, 10);
+    cout << products.at(0).getprice() << endl;
 
     std::vector<Building> buildings;
 
@@ -92,7 +93,7 @@ int main()
     buildings.emplace_back("B3", "School", 500, std::vector<std::pair<std::string, int> >{{"Brick", 200}});
 
    
-   Product test("A3", "budi", "Mammal", "20", 100, 15);
+    Product test("A3", "budi", "Mammal", "20", 100, 15);
     Store store1(buildings, plants, animals, products);
 
     // store1.display();

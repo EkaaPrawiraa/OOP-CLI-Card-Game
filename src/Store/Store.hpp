@@ -38,10 +38,8 @@ class Store{
     int getPriceAnimal(const string kode);
     int getPriceProduct(const string kode);
     int getJumlah(string kode);
-    template <typename T>
-    int buyItem(const string kode,const int quantity,const int usersmoney,T& item);
-    template <typename T>
-    int sellItem(T& item);
+    int buyItem(const string kode,const int quantity,const int usersmoney,Item*& item);
+    int sellItem(Item* item);
     void display();
 };
 

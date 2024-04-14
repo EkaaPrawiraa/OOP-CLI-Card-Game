@@ -189,8 +189,9 @@ int Store::getPriceProduct(const string kode) {
     }
     return -1; // Mengembalikan -1 jika kode tidak ditemukan
 }
-template <typename T>
-int Store::buyItem(const string  kode, int quantity,int usersmoney, T& item)
+
+// template <typename T>
+int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
 {
     bool quantityEnough = true;
     int totalHarga =0;
@@ -209,7 +210,7 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, T& item)
             }
             if (totalHarga>0)
             {
-                item = plant;
+                item = &plant;
                 return totalHarga;
             }
             
@@ -226,7 +227,7 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, T& item)
             }
             if (totalHarga>0)
             {
-                item = animal;
+                item = &animal;
                 return totalHarga;
             }
             
@@ -257,7 +258,7 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, T& item)
             
             if (totalHarga>0)
             {
-                item = product;
+                item = &product;
                 for (int i =0;i<quantity;i++)
                 {
                     deleteProduct(product);
@@ -290,7 +291,7 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, T& item)
             }
             if (totalHarga>0)
             {
-                item = building;
+                item = &building;
                 for (int i =0;i<quantity;i++)
                 {
                 deleteBuilding(building);
@@ -309,27 +310,29 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, T& item)
         return 0;
     }
 }
-template <typename T>
-int Store::sellItem(T& item)
-{
-    if (typeid(item) == typeid(Building)) {
-    Building* buildingItem = dynamic_cast<Building*>(&item);
-    if (buildingItem) {
-        addBuilding(*buildingItem);
+// template <typename T>
+int Store::sellItem(Item* item) {
+    if (item->getclassname() == "Building") {
+        Building* buildingItem = dynamic_cast<Building*>(item);
+        if (buildingItem) {
+            addBuilding(*buildingItem);
+        } else {
+            cout << "Gagal cast ke Building!" << endl;
+        }
+    } else if (item->getclassname() == "Product") {
+        Product* productItem = dynamic_cast<Product*>(item);
+        if (productItem) {
+            addProduct(*productItem);
+        } else {
+            cout << "Gagal cast ke Product!" << endl;
+        }
     } else {
-        cout << "Gagal cast ke Building!" << endl;
+        cout << "Tipe barang tidak didukung!" << endl;
     }
-} else if (typeid(item) == typeid(Product)) {
-    Product* productItem = dynamic_cast<Product*>(&item);
-    if (productItem) {
-        addProduct(*productItem);
-    } else {
-        cout << "Gagal cast ke Product!" << endl;
-    }
+    cout << item->getprice();
+    return item->getprice(); // Jika ada kesalahan, kembalikan 0
 }
 
-return item.getprice();
-}
 int Store::getJumlah(string kode) {
     int jumlah = 0;
     // Periksa jumlah building

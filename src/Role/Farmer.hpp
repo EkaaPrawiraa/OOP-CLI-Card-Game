@@ -3,13 +3,14 @@
 
 #include "../Store/Store.hpp"
 #include "../item/Animal.hpp"
+#include "../item/Building.hpp"
+#include "../item/Product.hpp"
 #include "Role.hpp"
 #include "../Storage/Storage.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
 #include <set>
-
 using namespace std;
 
 class Farmer : public Role {

@@ -7,7 +7,6 @@
 #include <regex>
 #include <set>
 
-using namespace std;
 
 Farmer::Farmer(string username, int gulden, float weight, int storrow, int storcol, int petrow, int petcol) 
     : Role(username, weight, gulden, storrow, storcol), Peternakan(petrow, petcol)
@@ -44,13 +43,13 @@ void Farmer::ternak(int baris, int kolom)
 {
     // Jika tidak ada hewan di penyimpanan, perintah tidak dapat dilakukan.
     // Jika kandang penuh, perintah tidak dapat dilakukan.
-    cout<<"Pilih hewan dari penyimpanan"<<endl;
+    std::cout<<"Pilih hewan dari penyimpanan"<<endl;
     Farmer::cetak_penyimpanan();
     string slot;
     string lokasi;
     string hewanTerpilih;
     // ambill dari penyimpanan
-    cout << "Slot: ";
+    std::cout << "Slot: ";
     cin >> slot;
     // check if valid
     // nunggu inventory
@@ -130,20 +129,35 @@ void Farmer::menjual(Store& Toko) {
                      goto inputpetak;
                 } 
                 else {
-                    
-                    totalPrice+= Toko.sellItem(*invent.getValue(row, tok[0]));
-                    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
+                    cout << invent.getValue(row, tok[0])->getprice() << endl;
+                    // Periksa tipe objek dan jualnya
+                    if (invent.getValue(row, tok[0])->getclassname() == "Building") {
+                        Building* buildingItem = dynamic_cast<Building*>(invent.getValue(row, tok[0]));
+                        if (buildingItem) {
+                            totalPrice += Toko.sellItem(buildingItem); // Menjual objek Building
+                        } else {
+                            cout << "Gagal cast ke Building!" << endl;
+                        }
+                    } else if (invent.getValue(row, tok[0])->getclassname() == "Product") {
+                        Product* productItem = dynamic_cast<Product*>(invent.getValue(row, tok[0]));
+                        if (productItem) {
+                            totalPrice += Toko.sellItem(productItem); // Menjual objek Product
+                        } else {
+                            cout << "Gagal cast ke Product!" << endl;
+                        }
+                    }
 
                 }
                 
     }
+    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
 
     }
 // void Farmer::menjual(Store& Toko) {
 //     menjual<Item>(Toko);  
 //     }
 
-template<typename T>
+// template<typename T>
 void Farmer::membeli(Store& Toko){
     if (invent.isFull())
     {
@@ -170,9 +184,9 @@ void Farmer::membeli(Store& Toko){
             cin >>quantity;
         }
         
-        T item;
+        Item* item;
         int totalpaid = Toko.buyItem(boughtItem,quantity,gulden,item);
-    cout<<item.getname()<<endl;
+        cout<<item->getname()<<endl;
         if (totalpaid>0)
         {
             
@@ -212,7 +226,7 @@ void Farmer::membeli(Store& Toko){
                     goto inputpetak;
                 }
                 else {
-                    invent.setValue(row,tok[0],dynamic_cast<Item*>(&item));
+                    invent.setValue(row,tok[0],item);
                     cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
                     invent.display("Penyimpanan");
 
@@ -226,9 +240,9 @@ void Farmer::membeli(Store& Toko){
 }
     
 
-void Farmer::membeli(Store& Toko) {
-    membeli<Item>(Toko);  
-    }
+// void Farmer::membeli(Store& Toko) {
+//     membeli<Item>(Toko);  
+//     }
 
 
 int Farmer::calculate_tax()
