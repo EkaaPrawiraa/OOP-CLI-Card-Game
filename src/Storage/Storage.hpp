@@ -1,5 +1,5 @@
-#ifndef STORAGaE_HPP
-#define STORAGaE_HPP
+#ifndef STORAGE_HPP
+#define STORAGE_HPP
 
 #include <iostream>
 #include <vector>
@@ -11,15 +11,21 @@
 #include "../color/pcolor.hpp"
 #include "../item/Item.hpp"
 #include "../item/Plant.hpp"
+<<<<<<< Updated upstream
 #include "../item/Animal.hpp"
 using namespace std; // Untuk print display
 template <typename T>
 class Matrix
 {
+=======
+#include "../item/Animal.hpp" 
+template<typename T>
+class Matrix {
+>>>>>>> Stashed changes
 private:
     int rows;
     int cols;
-    std::map<int, std::map<char, T>> matrix;
+    std::map<int, std::map<char, T> > matrix;
     std::string createHeader(std::string type) const;
 
 public:
@@ -39,9 +45,21 @@ public:
     int getSize() const;
     bool isemptyslot(int row, char col);
     bool isempty();
+<<<<<<< Updated upstream
     std::map<int, std::map<char, T>> getmatrix();
     int getRows();
     int getCols();
 };
+=======
+    int getRow() const;
+    int getCol() const;
+    int getSize() const;
+    
+    std::map<int, std::map<char, T> > getmatrix();
+};
+#include "../Storage.cpp"
+
+
+>>>>>>> Stashed changes
 
 #endif

@@ -51,6 +51,7 @@ string Plant::getclassname(){
 //            (this->Plants == other.Plants);
 // }
 
+<<<<<<< Updated upstream
 // Plant& Plant::operator=(const Plant& other) {
 //     if (this != &other) { // check for self-assignment
 //         this->kodeHuruf = other.kodeHuruf;
@@ -63,4 +64,51 @@ string Plant::getclassname(){
 //         this->Plants = other.Plants;
 //     }
 //     return *this;
+=======
+// // FruitPlant class implementation
+// FruitPlant::FruitPlant(const string &kodeHuruf, const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location)
+//     : Plant(kodeHuruf, name, type, durationToHarvest, price, umur, location), hasilpanen(1) {}
+
+// int FruitPlant::gethasilpanen() {
+//     return hasilpanen;
+// }
+bool Plant::operator==(const Plant& other) const {
+    return (this->kodeHuruf == other.kodeHuruf) &&
+           (this->name == other.name) &&
+           (this->type == other.type) &&
+           (this->durationToHarvest == other.durationToHarvest) &&
+           (this->price == other.price) &&
+           (this->umur == other.umur) &&
+           (this->location == other.location);
+}
+
+Plant& Plant::operator=(const Plant& other) {
+    if (this != &other) { // check for self-assignment
+        this->kodeHuruf = other.kodeHuruf;
+        this->name = other.name;
+        this->type = other.type;
+        this->durationToHarvest = other.durationToHarvest;
+        this->price = other.price;
+        this->umur = other.umur;
+        this->location = other.location;
+    }
+    return *this;
+}
+// FruitPlant::FruitPlant(const Plant& other)
+//     : Plant(other), hasilpanen(1) {}
+
+// FruitPlant::~FruitPlant() {}
+
+// int FruitPlant::gethasilpanen() {
+//     // if (name == "Teak_Tree") {
+//     //     return 1;
+//     // } else if (name == "Sandalwood_Tree") {
+//     //     return 1;
+//     // } else if (name == "Aloe_Tree") {
+//     //     return 1;
+//     // } else if (name == "Ironwood_Tree") {
+//     //     return 1;
+//     // }
+//     return hasilpanen;
+>>>>>>> Stashed changes
 // }

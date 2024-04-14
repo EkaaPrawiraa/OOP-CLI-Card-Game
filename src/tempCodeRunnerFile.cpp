@@ -1,0 +1,5 @@
+#include "item/Plant.hpp"
+#include "item/Product.hpp"
+#include "item/Animal.hpp"
+#include "item/Building.hpp"
+#include "Store/Store.hpp"

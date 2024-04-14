@@ -12,11 +12,8 @@ public:
     Animal(const Animal&);
     ~Animal();
     string getclassname() override;
-    string getname() const;
-    string getkode() const;
     string gettype();
     int getweighttoharvest();
-    int getprice() const;
     int getberat();
     string getlocation();
     bool operator==(const Animal& other) const;

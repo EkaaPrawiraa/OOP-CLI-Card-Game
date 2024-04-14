@@ -1,7 +1,5 @@
-// #include "..//PlantAnimal//Plant.hpp"
-// #include "..//PlantAnimal//Animal.hpp"
-// #include "..//Product//Product.hpp"
-// #include "..//Building//Building.hpp"
+#ifndef STORE_HPP
+#define STORE_HPP
 #include <vector>
 #include "../item/Plant.hpp"
 #include "../item/Animal.hpp"
@@ -9,7 +7,7 @@
 #include "../item/Building.hpp"
 
 using namespace std;
-
+// clear
 class Store{
     private:
     vector<Building> buildings;
@@ -18,19 +16,16 @@ class Store{
     vector<Product> products;
     // berisi nama barang, harga, dan kuantiti barng
     // vector < tuple<string,int,int> > items;
-
-
-
     public:
     Store(const vector<Plant> &plants,const vector<Animal> &animals);
     Store(const vector<Building> &buildings,const vector<Plant> &plants,const vector<Animal> &animals,const vector<Product> &products);
     ~Store();
 
     // add ketika ada yang menjual barang ke store
-    void addBuilding(const Building addedBuilding);
-    void addPlant(const Plant addedPlant);
-    void addAnimal(const Animal addedAnimal);
-    void addProduct(const Product addedProduct);
+    void addBuilding(const Building& addedBuilding);
+    void addPlant(const Plant& addedPlant);
+    void addAnimal(const Animal& addedAnimal);
+    void addProduct(const Product& addedProduct);
     // delete ketika ada yang membeli barang dari store
     void deleteBuilding(const Building);
     void deletePlant(const Plant);
@@ -42,6 +37,13 @@ class Store{
     int getPriceAnimal(const string kode);
     int getPriceProduct(const string kode);
     int getJumlah(string kode);
-    int buyItem(const string kode,const int quantity,const int usersmoney);
+    template <typename T>
+    int buyItem(const string kode,const int quantity,const int usersmoney,T& item);
+    template <typename T>
+    int sellItem(T& item);
     void display();
 };
+
+#include "../Store.cpp"
+
+#endif

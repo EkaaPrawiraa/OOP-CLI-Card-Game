@@ -1,8 +1,14 @@
 #include "Role/Role.hpp"
 
 // dapat storrows dan storcols dari miscConfig
+<<<<<<< Updated upstream
 Role::Role(string username, float weight, int uang, int storrows, int storcols)
     : username(username), weight(weight), gulden(uang), invent(storrows, storcols) {}
+=======
+Role::Role(std::string username, float weight, int gulden, int storrows, int storcols)
+    : username(username), weight(weight), gulden(gulden), invent(storrows, storcols) {}
+
+>>>>>>> Stashed changes
 
 Role::~Role() {}
 void Role::next()
@@ -105,8 +111,15 @@ void Role::setWeight(float weight)
 {
     this->weight = weight;
 }
+<<<<<<< Updated upstream
 
 string Role::getRoleType()
 {
     return "Role";
 }
+=======
+Matrix<Item*> &Role::getInventory()
+{
+    return invent;
+}
+>>>>>>> Stashed changes

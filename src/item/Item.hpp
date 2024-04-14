@@ -8,11 +8,14 @@ class Item {
     public:
         Item(const string &kodeHuruf,const string &name, int price);
         Item(const Item&);
+        Item();
         virtual ~Item();
         virtual string getclassname();
         string getname() const;
         string getKode() const;
         int getprice() const;
+
+        // kurang set
 
     protected:
         string kodeHuruf;

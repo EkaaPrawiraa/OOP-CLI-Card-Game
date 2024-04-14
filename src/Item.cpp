@@ -23,4 +23,10 @@ int Item::getprice() const{
 string Item::getclassname(){
     return "Item";
 }
+Item::Item()
+{
+    name="";
+    kodeHuruf="";
+    price=0;
+}
 
