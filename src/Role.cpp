@@ -1,7 +1,7 @@
 #include "Role/Role.hpp"
 
 // dapat storrows dan storcols dari miscConfig
-Role::Role(string username, float weight, int uang, int storrows, int storcols) 
+Role::Role(string username, float weight, int uang, int storrows, int storcols)
     : username(username), weight(weight), gulden(uang), invent(storrows, storcols) {}
 
 Role::~Role() {}
@@ -84,6 +84,11 @@ void Role::membeli()
 void Role::menjual()
 {
 }
+
+std::string Role::getUsername()
+{
+    return username;
+}
 int Role::getGulden()
 {
     return gulden;
@@ -99,4 +104,9 @@ void Role::setGulden(int gulden)
 void Role::setWeight(float weight)
 {
     this->weight = weight;
+}
+
+string Role::getRoleType()
+{
+    return "Role";
 }

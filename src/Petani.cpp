@@ -3,39 +3,46 @@
 #include <set>
 #include "Storage/Storage.hpp"
 
-Petani::Petani(string username, float weight, int uang, int storrows, int storcols, int ladrows, int ladcols) 
-: Role(username, weight, uang, storrows, storcols), Ladang(ladrows, ladcols){}
+Petani::Petani(string username, float weight, int uang, int storrows, int storcols, int ladrows, int ladcols)
+    : Role(username, weight, uang, storrows, storcols), Ladang(ladrows, ladcols) {}
 
 // Destructor implementation
-Petani::~Petani(){}
+Petani::~Petani() {}
 
 // Virtual function implementations
-void Petani::next(){}
-void Petani::membeli(){}
-void Petani::menjual(){}
+void Petani::next() {}
+void Petani::membeli() {}
+void Petani::menjual() {}
 
-int Petani::calculate_tax() {
+int Petani::calculate_tax()
+{
     // Implementation of tax calculation goes here
     return 0; // Placeholder return value
 }
 
-void Petani::setLadang(int row, char col, Plant* p){
-    Ladang.setValue(row,col, p);
+void Petani::setLadang(int row, char col, Plant *p)
+{
+    Ladang.setValue(row, col, p);
+}
 
+string Petani::getRoleType()
+{
+    return "Petani";
 }
 
 // Non-virtual function implementations
-void Petani::CetakLadang(){
+void Petani::CetakLadang()
+{
     Ladang.display("Ladang");
     std::cout << "\n\n";
-    //Penulisan semua kodehutuf yang ada di matrix, jika ada kode yang sama di dua tempat atay lebih, tuliskan hanya satu kode saja
+    // Penulisan semua kodehutuf yang ada di matrix, jika ada kode yang sama di dua tempat atay lebih, tuliskan hanya satu kode saja
     std::set<std::string> uniqueCodes;
     std::string code;
     std::string name;
     for (const auto &row : Ladang.getmatrix())
     {
         for (const auto &cell : row.second)
-        { 
+        {
             code = cell.second->getKode();
             name = cell.second->getname();
             if (uniqueCodes.find(code) == uniqueCodes.end()){
