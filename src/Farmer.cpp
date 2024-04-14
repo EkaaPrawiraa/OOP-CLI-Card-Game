@@ -123,56 +123,10 @@ void Farmer::memberiPangan(int baris, int kolom)
 
     cetak_penyimpanan();
     cout << "Slot: ";
-<<<<<<< Updated upstream
-    cin >> slot;
-
-=======
     cin >>slot;
->>>>>>> Stashed changes
     // validasi tiap input
     cout << hewanTerpilih << " sudah diberi makan dan beratnya menjadi " << beratAkhir << endl;
 }
-<<<<<<< Updated upstream
-void Farmer::menjual(Store Toko)
-{
-    // validasi tidak bisa menjual bangunan jika bukan walikota
-    if (invent.CountElement() == 0)
-    {
-        cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
-    }
-    else
-    {
-        invent.display();
-        cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-        cout << "Petak : ";
-        string slotInput;
-        getline(std::cin, slotInput);
-
-        // Membuat stringstream dari input untuk memproses token
-        std::stringstream ss(slotInput);
-        std::string token;
-        std::vector<std::string> tokens;
-
-        // Memproses token dari stringstream
-        while (std::getline(ss, token, ','))
-        {
-            // Menghapus spasi tambahan dari token
-            token.erase(0, token.find_first_not_of(" "));
-            token.erase(token.find_last_not_of(" ") + 1);
-
-            tokens.push_back(token);
-        }
-        int totalPrice = 0;
-        // validasi apkah petak ada isinya
-
-        // check barang yang dijual apa biar tau manggil fungsi delete yang mana
-
-        cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
-    }
-}
-void Farmer::membeli(Store Toko)
-{
-=======
 
 
 
@@ -235,7 +189,6 @@ void Farmer::menjual(Store& Toko) {
 
 template<typename T>
 void Farmer::membeli(Store& Toko){
->>>>>>> Stashed changes
     if (invent.isFull())
     {
         cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
@@ -244,33 +197,13 @@ void Farmer::membeli(Store& Toko){
     {
 
         Toko.display();
-<<<<<<< Updated upstream
-        cout << "\n\n";
-        cout << "Uang Anda : " << this->gulden << endl;
-        cout << "Slot penyimpanan tersedia: " << invent.getSize() - invent.CountElement() << endl;
-=======
         cout<<"\n\n";
         cout <<"Uang Anda : "<<this->gulden<<endl;
         cout<<"Slot penyimpanan tersedia: "<<invent.getSize()-invent.countElement()<<endl;
->>>>>>> Stashed changes
         string boughtItem;
         cout << "Kode barang yang ingin dibeli : ";
         cin >> boughtItem;
         int quantity = 0;
-<<<<<<< Updated upstream
-        cout << "Kuantitas : ";
-        cin >> quantity;
-        while (invent.CountElement() + quantity > invent.getSize())
-        {
-            cout << "Penyimpanan anda tidak cukup!" << endl;
-            cout << "Sisa penyimpanan : " << invent.getSize() - invent.CountElement() << endl;
-            cout << "Kuantitas : ";
-            cin >> quantity;
-        }
-
-        int totalpaid = Toko.buyItem(boughtItem, quantity, );
-        if (totalpaid > 0)
-=======
         cout<<"Kuantitas : ";
         cin >>quantity;
         while(invent.countElement()+quantity>invent.getSize())
@@ -284,7 +217,6 @@ void Farmer::membeli(Store& Toko){
         T item;
         int totalpaid = Toko.buyItem(boughtItem,quantity,gulden,item);
         if (totalpaid>0)
->>>>>>> Stashed changes
         {
             
             this->gulden -= totalpaid;
@@ -295,39 +227,6 @@ void Farmer::membeli(Store& Toko){
             // belum tau cetak penyimpanan
             invent.display("Penyimpanan");
             // atur cetak penyimpanan
-<<<<<<< Updated upstream
-            cout << endl;
-
-            cout << "Petak slot: ";
-            string slotInput;
-            getline(std::cin, slotInput);
-
-            // Membuat stringstream dari input untuk memproses token
-            std::stringstream ss(slotInput);
-            std::string token;
-            std::vector<std::string> tokens;
-
-            // Memproses token dari stringstream
-            while (std::getline(ss, token, ','))
-            {
-                // Menghapus spasi tambahan dari token
-                token.erase(0, token.find_first_not_of(" "));
-                token.erase(token.find_last_not_of(" ") + 1);
-
-                tokens.push_back(token);
-            }
-
-            // nungguin gimana cara simpen ke penyimpanan
-            // check tiap slot apkah telah diisi atau belum
-
-            // jika gagal{}
-
-            // jika berhasil
-            cout << boughtItem << " berhasil disimpan dalam penyimpanan!" << endl;
-        }
-    }
-}
-=======
             cout<<endl;
             
 
@@ -373,7 +272,6 @@ void Farmer::membeli(Store& Toko) {
     membeli<Item>(Toko);  
     }
 
->>>>>>> Stashed changes
 
 int Farmer::calculate_tax()
 {
@@ -382,7 +280,7 @@ int Farmer::calculate_tax()
     int pajak = 0;
     int netoKekayaan = 0;
 
-    
+    netokekayaan =    
     // hitung neto kekayaan
     KKP = netoKekayaan - KTKP;
     // atur jika gulden kurang tapi kekaayaan banyak
