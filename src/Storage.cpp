@@ -8,13 +8,13 @@ Matrix<T>::Matrix(int rows,int cols):rows(rows), cols(cols) {}
 // Function to set value at position (row, col)
 template<typename T>
 void Matrix<T>::setValue(int row, char col, T value) {
-    matrix[row][col] = value;
+    matrix[row-1][col] = value;
 }
 
 // Function to get value at position (row, col)
 template<typename T>
 T Matrix<T>::getValue(int row, char col) {
-    return matrix[row][col];
+    return matrix[row-1][col];
 }
 
 template<typename T>
@@ -45,10 +45,16 @@ template<typename T>
 int Matrix<T>::countempty(){
     return (rows*cols)-countElement();
 }
+
+template<typename T>
+int Matrix<T>::getSize() const{
+    return rows*cols;
+}
+
 template<typename T>
 void Matrix<T>::deleteValue(int row, char col) {
-    if (matrix.find(row) != matrix.end() && matrix[row].find(col) != matrix[row].end()) {
-        matrix[row].erase(col);
+    if (matrix.find(row-1) != matrix.end() && matrix[row-1].find(col) != matrix[row-1].end()) {
+        matrix[row-1].erase(col);
     }
 }
 template<typename T>
@@ -153,7 +159,7 @@ void Matrix<T>::display(std::string tipe)
 }
 template<typename T>
 bool Matrix<T>::isemptyslot(int row, char col){
-    return (matrix.find(row) != matrix.end() && matrix[row].find(col) != matrix[row].end());
+    return !(matrix.find(row-1) != matrix.end() && matrix[row-1].find(col) != matrix[row-1].end());
 }
 
 
@@ -173,6 +179,8 @@ template<typename T>
 std::map<int, std::map<char, T>> Matrix<T>::getmatrix(){
     return matrix;
 }
+
+
 // int main(){
 
 //     Matrix<Item*> matrix(8,8);

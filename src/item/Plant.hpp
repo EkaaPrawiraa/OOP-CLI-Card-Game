@@ -2,6 +2,7 @@
 #define PLANT_HPP
 
 #include "Item.hpp"
+#include "Product.hpp"
 class Plant : public Item {
     public:
         Plant(const string &kodeHuruf,const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location);
@@ -14,9 +15,10 @@ class Plant : public Item {
         int getumur() const;
         bool operator==(const Plant& other) const;
         Plant& operator=(const Plant& other);
+        virtual Product* gethasilpanen()  = 0;
         pair<char, int> getColumnAndRowIndex(const std::string& location) const;
 
-    private:
+    protected:
         string type;
         int durationToHarvest;
         int umur;

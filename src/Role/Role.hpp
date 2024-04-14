@@ -7,7 +7,8 @@
 #include "../item/Product.hpp"
 #include "../item/Animal.hpp"
 // #include "../item/Building.hpp"
-#include "../item/Plant.hpp"
+#include "../item/MaterialPlant.hpp"
+#include "../item/FruitPlant.hpp"
 using namespace std;
 
 class Role

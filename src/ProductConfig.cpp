@@ -14,3 +14,24 @@ void ProductConfig::display() const
               << "Added Weight: " << addedWeight << ", "
               << "Price: " << price << std::endl;
 }
+
+std::string ProductConfig::getcode(){
+    return kodeHuruf;
+}
+std::string ProductConfig::getname(){
+    return name;
+}
+std::string ProductConfig::gettype(){
+    return type;
+}
+
+std::string ProductConfig::getorigin(){
+    return origin;
+}
+int ProductConfig::getaddedtoweight(){
+    return addedWeight;
+}
+
+int ProductConfig::getprice(){
+    return price;
+}

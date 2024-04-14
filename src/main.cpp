@@ -3,7 +3,8 @@
 #include "Configuration/ProductConfig.hpp"
 #include "Configuration/MiscConfig.hpp"
 // #include "Configuration/BuildingRecipeConfig.hpp"
-#include "item/Plant.hpp"
+#include "item/MaterialPlant.hpp"
+#include "item/FruitPlant.hpp"
 #include "item/Item.hpp"
 // #include "PlantAnimal/Animal.hpp"
 #include "Role/Petani.hpp"
@@ -18,6 +19,7 @@ using namespace std;
 int main()
 {
     WordMachine machine("Configuration//config//plant.txt");
+    WordMachine machine1("Configuration//config//product.txt");
 
     // std::vector<BuildingRecipeConfig> recipes = machine.readRecipes();
 
@@ -32,12 +34,9 @@ int main()
     // config.display();
 
     // ---------Product-------------//
-    // std::vector<Product> products = machine.readProducts();
-
-    // for (const auto &product : products)
-    // {
-    //     product.display();
-    // }
+    std::vector<ProductConfig> products = machine1.readProducts();
+    Product pr(products.at(0).getcode(), products.at(0).getname(), products.at(0).gettype(), products.at(0).getorigin(), products.at(0).getaddedtoweight(), products.at(0).getprice());
+    Product pr1(products.at(4).getcode(), products.at(4).getname(), products.at(4).gettype(), products.at(4).getorigin(), products.at(4).getaddedtoweight(), products.at(4).getprice());
 
     // ---------Animal-------------//
     // std::vector<Animal> animals = machine.readAnimals();
@@ -49,20 +48,23 @@ int main()
     // ---------Plants-------------//
 
     std::vector<PlantConfig> plants = machine.readPlants();
-    Plant* sample = new Plant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C02");
-    Plant* sample1 = new Plant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C03");
-    Plant* sample2 = new Plant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C04");
-    Plant* sample3 = new Plant(plants.at(1).getcode(), plants.at(1).getname(), plants.at(1).gettype(), plants.at(1).getdurationtoharvest(), plants.at(1).getprice(), 2, "A04");
+
+    MaterialPlant* sample = new MaterialPlant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C02", pr);
+    MaterialPlant* sample1 = new MaterialPlant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "A04", pr);
+    MaterialPlant* sample2 = new MaterialPlant(plants.at(0).getcode(), plants.at(0).getname(), plants.at(0).gettype(), plants.at(0).getdurationtoharvest(), plants.at(0).getprice(), 15, "C04", pr);
+    FruitPlant* sample3 = new FruitPlant(plants.at(4).getcode(), plants.at(4).getname(), plants.at(4).gettype(), plants.at(4).getdurationtoharvest(), plants.at(4).getprice(), 10, "C03", pr1);
     Petani p1("Cupi", 5.0, 50, 10, 10, 8,8);
     p1.setLadang(2, 'C', sample);
-    p1.setLadang(3, 'C', sample1);
+    p1.setLadang(4, 'A', sample1);
     p1.setLadang(4, 'C', sample2);
-    p1.setLadang(4, 'A', sample3);
+    p1.setLadang(3, 'C', sample3);
     p1.CetakLadang();
+    p1.Tanam();
     p1.Memanen();
     p1.CetakLadang();
-    
     p1.cetak_penyimpanan();
+    
+    // p1.cetak_penyimpanan();
     // for (const auto &plant : plants)
     // {
     //     plant.display();

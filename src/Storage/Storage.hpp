@@ -34,6 +34,7 @@ public:
     void deleteValue(int row, char col);
     virtual void display(std::string tipe);
     int countempty();
+    int getSize() const;
     bool isemptyslot(int row, char col);
     bool isempty();
     std::map<int, std::map<char, T>> getmatrix();
