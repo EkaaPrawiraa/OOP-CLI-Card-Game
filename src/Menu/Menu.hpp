@@ -5,7 +5,6 @@
 // #include <fstream>
 #include <vector>
 #include <iostream>
-using namespace std;
 #include <string>
 #include "../Configuration/PlantConfig.hpp"
 #include "../Utility/WordMachine.hpp"
@@ -13,6 +12,7 @@ using namespace std;
 #include "../Configuration/MiscConfig.hpp"
 #include "../Configuration/AnimalConfig.hpp"
 #include "../Configuration/BuildingRecipeConfig.hpp"
+using namespace std;
 
 class Menu {
 private:

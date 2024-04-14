@@ -35,7 +35,6 @@ void Petani::CetakLadang()
 {
     Ladang.display("Ladang");
     std::cout << "\n\n";
-    // Penulisan semua kodehutuf yang ada di matrix, jika ada kode yang sama di dua tempat atay lebih, tuliskan hanya satu kode saja
     std::set<std::string> uniqueCodes;
     std::string code;
     std::string name;
