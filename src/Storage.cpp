@@ -131,47 +131,55 @@ void Matrix<T>::display(std::string tipe)
                 std::cout << " " << std::setw(column_widths[j]) << std::left;
                 // Check class name using typeid
                 std::string classname = matrix[i]['A' + j]->getclassname();
-                if (auto animal = dynamic_cast<Animal *>(matrix[i]['A' + j]))
+                if (tipe=="Ladang" || tipe=="Peternakan")
                 {
-                    // If class name is Animal, check getWeightToHarvest
-                    if (animal->getweighttoharvest() <= 0)
+                    if (auto animal = dynamic_cast<Animal *>(matrix[i]['A' + j]))
                     {
-                        for (char ch : currentValue)
+                        // If class name is Animal, check getWeightToHarvest
+                        if (animal->getweighttoharvest() <= 0)
                         {
-                            std::cout << print_green(ch);
+                            for (char ch : currentValue)
+                            {
+                                std::cout << print_green(ch);
+                            }
+                        }
+                        else
+                        {
+                            for (char ch : currentValue)
+                            {
+                                std::cout << print_red(ch);
+                            }
+                        }
+                    }
+                    else if (auto plant = dynamic_cast<Plant *>(matrix[i]['A' + j]))
+                    {
+                        // If class name is Plant, check getDurationToHarvest
+                        if (plant->getdurationtoharvest() <= 0)
+                        {
+                            for (char ch : currentValue)
+                            {
+                                std::cout << print_green(ch);
+                            }
+                        }
+                        else
+                        {
+                            for (char ch : currentValue)
+                            {
+                                std::cout << print_red(ch);
+                            }
                         }
                     }
                     else
                     {
-                        for (char ch : currentValue)
-                        {
-                            std::cout << print_red(ch);
-                        }
+                        std::cout << currentValue;
                     }
-                }
-                else if (auto plant = dynamic_cast<Plant *>(matrix[i]['A' + j]))
-                {
-                    // If class name is Plant, check getDurationToHarvest
-                    if (plant->getdurationtoharvest() <= 0)
-                    {
-                        for (char ch : currentValue)
-                        {
-                            std::cout << print_green(ch);
-                        }
-                    }
-                    else
-                    {
-                        for (char ch : currentValue)
-                        {
-                            std::cout << print_red(ch);
-                        }
-                    }
+                    std::cout << " |";
                 }
                 else
                 {
                     std::cout << currentValue;
                 }
-                std::cout << " |";
+                std::cout << "  |"
             }
             else
             {
