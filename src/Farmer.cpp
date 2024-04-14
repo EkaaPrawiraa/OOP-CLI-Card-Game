@@ -379,11 +379,14 @@ int Farmer::calculate_tax()
 {
     int KTKP = 11;
     int KKP = 0;
-    int pajak;
+    int pajak = 0;
     int netoKekayaan = 0;
+
+    
     // hitung neto kekayaan
     KKP = netoKekayaan - KTKP;
     // atur jika gulden kurang tapi kekaayaan banyak
+
     if (KKP <= 0)
     {
         pajak = 0;

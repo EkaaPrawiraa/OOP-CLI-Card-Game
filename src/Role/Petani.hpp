@@ -20,7 +20,7 @@ public:
     void CetakLadang();
     void Tanam();
     void Memanen();
-    virtual int calculate_tax();
+    int calculate_tax();
     void setLadang(int row, char col, Plant *p);
     string getRoleType() override;
 };
