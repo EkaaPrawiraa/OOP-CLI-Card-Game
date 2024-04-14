@@ -40,7 +40,7 @@ int Walikota::calculate_tax()
     return 0;
 }
 
-bool Walikota::compareTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b)
+bool Walikota::compareTaxTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b)
 {
     // menurun secara jumlah
     if (std::get<1>(a) != std::get<1>(b))
@@ -83,7 +83,7 @@ void Walikota::pungutPajak(std::vector<Role> daftarPemain)
         }
     }
     // pengurutan vector sesuai ketentuan
-    std::sort(vectorPajak.begin(), vectorPajak.end(), compareTuples);
+    std::sort(vectorPajak.begin(), vectorPajak.end(), compareTaxTuples);
     // display hasil
     for (int i = 0; i < vectorPajak.size(); i++)
     {
@@ -150,6 +150,14 @@ void Walikota::tambahPemain(std::vector<Role> daftarPemain, std::vector<Plant> t
             else // tipe tidak valid (exception)
             {
                 std::cout << "Tipe tidak valid!" << std::endl;
+            }
+            // pengurutan urutan pemain (jika ada pemain baru yang ditambahkan)
+            if (jenis == "peternak" || jenis == "petani")
+            {
+                std::sort(daftarPemain.begin(), daftarPemain.end(), [](const Role &a, const Role &b))
+                {
+                    return a.getUsername() < b.getUsername();
+                }
             }
         }
     }

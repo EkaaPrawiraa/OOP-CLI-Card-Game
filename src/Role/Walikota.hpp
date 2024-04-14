@@ -23,7 +23,7 @@ public:
     Walikota &conditionalConstructor(string username, float weight, int uang, int storrows, int storcols);
     virtual ~Walikota();
     virtual int calculate_tax();
-    bool compareTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b);
+    bool compareTaxTuples(std::tuple<std::string, int> &a, std::tuple<std::string, int> &b);
     void pungutPajak(std::vector<Role>);
     bool nameExists(std::string, std::vector<Role>);
     void tambahPemain(std::vector<Role>, std::vector<Plant>, MiscConfig &);
