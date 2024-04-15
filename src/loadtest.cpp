@@ -13,7 +13,6 @@
 #include "Role/Role.hpp"
 #include <vector>
 #include <iostream>
-#include "Load.hpp"
 #include "Role/Walikota.hpp"
 int main(){
     WordMachine machine1("Configuration//config//animal.txt");
@@ -42,12 +41,22 @@ int main(){
     for (AnimalConfig a: animalconfig){
         a.display();
     }
-
-    std::vector<Role*> Players=read_input("Configuration//config//state.txt",miscconfig, productconfig, animalconfig, plantconfig, buildingconfig, Toko);
+    std::string file;
+    cout<<"Masukkan file yang ingin dimuat: ";
+    cin>>file;
+    WordMachine machineload(file);
+    std::vector<Role*> Players=machineload.read_input(miscconfig, productconfig, animalconfig, plantconfig, buildingconfig, Toko);
     cout<<"AS"<<endl;
     std::cout<<Players[0]->getUsername()<<endl;
     cout<<"TE"<<endl;
     Players[0]->cetak_penyimpanan();
     Toko.display();
+    Farmer* farmer = static_cast<Farmer*>(Players[0]);
+    farmer->membeli(Toko);
+    cout<<"Masukkan file yang ingin disave: ";
+    cin>>file;
+    machineload.save_input(file, Players, miscconfig, productconfig, animalconfig, plantconfig, buildingconfig, Toko);
+    
+
     return 0;
 }

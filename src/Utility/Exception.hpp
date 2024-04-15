@@ -11,7 +11,7 @@ public:
     explicit FileException(const std::string &message) : std::runtime_error(message) {}
 };
 
-#endif // EXCEPTION_HPP
+ // EXCEPTION_HPP
 
 class MatrixKosongException : public std::exception{
 public:
@@ -25,3 +25,4 @@ public:
         return "Tidak ada makanan!";
     }
 };
+#endif

@@ -343,7 +343,7 @@ int Farmer::calculate_tax()
 
 string Farmer::getRoleType()
 {
-    return "Farmer";
+    return "Peternak";
 }
 void Farmer::setTernak(int row, char col, Animal* a)
 {
@@ -565,4 +565,7 @@ void Farmer::memberiPangan()
         goto inputslot;
     }
     cout<<choosed->getname()<<" sudah diberi makan dan beratnya menjadi "<< choosed->getberat()<<endl;
+}
+Matrix<Animal*> Farmer::getpeternakan() const {
+    return Peternakan;
 }

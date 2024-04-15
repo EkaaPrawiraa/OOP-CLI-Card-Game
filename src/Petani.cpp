@@ -213,3 +213,6 @@ void Petani::updateUmurTumbuhan(){
     }     
     
 }
+Matrix<Plant*> Petani::getLadang() const{
+    return Ladang;
+}

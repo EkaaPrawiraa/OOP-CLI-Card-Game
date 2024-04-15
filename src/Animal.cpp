@@ -31,25 +31,25 @@ pair<char, int> Animal::getColumnAndRowIndex(const string& location) const{
     return make_pair(column, row);
 }
 
-string Animal::gettype() {
+string Animal::gettype() const{
     return type;
 }
 
-int Animal::getweighttoharvest() {
+int Animal::getweighttoharvest() const{
     return weightToHarvest;
 }
 
 
 
 
-int Animal::getberat() {
+int Animal::getberat() const{
     return berat;
 }
 
 string Animal::getlocation() {
     return location;
 }
-string Animal::getclassname(){
+string Animal::getclassname()const{
     return "Animal";
 }
 

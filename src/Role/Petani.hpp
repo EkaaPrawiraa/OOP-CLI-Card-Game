@@ -24,6 +24,7 @@ public:
     void setLadang(int row, char col, Plant *p);
     string getRoleType() override;
     void updateUmurTumbuhan();
+    Matrix<Plant*> getLadang() const;
 };
 
 #endif

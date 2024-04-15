@@ -14,10 +14,10 @@ public:
     Animal(const Animal&);
     ~Animal();
     Animal(const std::vector<AnimalConfig>& configs, const std::string& name);
-    virtual string getclassname();
-    string gettype();
-    int getweighttoharvest();
-    int getberat(); 
+    virtual string getclassname() const;
+    string gettype() const;
+    int getweighttoharvest() const;
+    int getberat() const; 
     string getlocation();
     bool operator==(const Animal& other) const;
     Animal& operator=(const Animal& other);

@@ -147,10 +147,6 @@ std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<Pr
     // std::ifstream file;
     // file.open(filename);
     // std::cout<<"t1"<<std::endl;
-    if (!file.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return roles;
-    }
 
     std::string line;
     // std::cout<<"t1,2"<<std::endl;
@@ -306,57 +302,73 @@ std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<Pr
     file.close();
     return roles;
 }
-// void WordMachine::save_input(const std::vector<Role*>& roles, const MiscConfig& misc, const std::vector<ProductConfig>& pco, const std::vector<AnimalConfig>& aco, const std::vector<PlantConfig>& plco, const std::vector<BuildingRecipeConfig>& bco, const Store& toko) {
-//     // std::ofstream file(filename);
-//     if (!file.is_open()) {
-//         std::cerr << "Error opening file: " << filename << std::endl;
-//         return;
-//     }
+void WordMachine::save_input(const std::string& filename, const std::vector<Role*>& roles, const MiscConfig& misc, const std::vector<ProductConfig>& pco, const std::vector<AnimalConfig>& aco, const std::vector<PlantConfig>& plco, const std::vector<BuildingRecipeConfig>& bco, const Store& toko) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
+    file << roles.size() << std::endl;
+    // Write roles
+    for (const auto& role : roles) {
+        file <<  role->getUsername()  << " " << role->getRoleType() << " " << role->getGulden() << " " << role->getWeight() << std::endl;
 
-//     // Write roles
-//     for (const auto& role : roles) {
-//         file << role->getRoleType() << " " << role->getUsername() << " " << role->getWeight() << " " << role->getGulden() << std::endl;
+        // Write inventory
+        Matrix<Item*> inventory = role->getInventory();
+        file << inventory.countElement() << std::endl;
+        for (const auto &row : inventory.getmatrix())
+        {
+            for (const auto &cell : row.second)
+            { 
+                const Item* item = cell.second;
+                file << item->getname() << std::endl;
+            }
+        }
+        // Write specific role details
+        if (const Petani* petani = dynamic_cast<const Petani*>(role)) {
+            // Write Petani details
+            // Write ladang details
+            file << petani->getLadang().countElement() << std::endl;
+            for (const auto &row : petani->getLadang().getmatrix())
+            {
+                for (const auto &cell : row.second)
+                { 
+                    const Plant* plant=cell.second;
+                    file << cell.first << row.first << " " << plant->getname() << " " << plant->getumur() << std::endl;
+                }
+            }
+        } else if (const Farmer* farmer = dynamic_cast<const Farmer*>(role)) {
+            // Write Farmer details
+            // Write ternak details
+            file << farmer->getpeternakan().countElement() << std::endl;
+            for (const auto &row : farmer->getpeternakan().getmatrix())
+            {
+                for (const auto &cell : row.second)
+                { 
+                    const Animal* animal = cell.second;
+                    file << cell.first << row.first << " " << animal->getname() << " " << animal->getberat() << std::endl;
+                }
+            }
+        }
+    }
 
-//         // Write inventory
-//         const Matrix<Item*>& inventory = role->getInventory();
-//         file << inventory.getSize() << std::endl;
-//         for (int i = 0; i < inventory.getSize(); ++i) {
-//             const Item* item = inventory.getItem(i);
-//             file << item->getName() << " " << item->getQuantity() << std::endl;
-//         }
+    // Write additional items in the store
+    file << toko.getbuilding().size() + toko.getproduct().size() << std::endl;
+    vector<std::string> done;
+    for (const auto& building : toko.getbuilding()) {
+        auto it = std::find(done.begin(), done.end(), building.getname());
+        if (it == done.end()){
+            file << building.getname() << " " << toko.getJumlah(building.getKode()) << std::endl;
+            done.push_back(building.getname());
+        }
+    }
+    for (const auto& product : toko.getproduct()) {
+        auto it = std::find(done.begin(), done.end(), product.getname());
+        if (it==done.end()){
+            file << product.getname() << " " << toko.getJumlah(product.getKode()) << std::endl;
+            done.push_back(product.getname());
+        }
+    }
 
-//         // Write specific role details
-//         if (const Petani* petani = dynamic_cast<const Petani*>(role)) {
-//             // Write Petani details
-//             // Write ladang details
-//             file << petani->getLadangSize() << std::endl;
-//             for (int i = 0; i < petani->getLadangSize(); ++i) {
-//                 const Plant* plant = petani->getLadangAt(i);
-//                 file << plant->getLocation() << " " << plant->getName() << " " << plant->getAge() << std::endl;
-//             }
-//         } else if (const Farmer* farmer = dynamic_cast<const Farmer*>(role)) {
-//             // Write Farmer details
-//             // Write ternak details
-//             file << farmer->getTernakSize() << std::endl;
-//             for (int i = 0; i < farmer->getTernakSize(); ++i) {
-//                 const Animal* animal = farmer->getTernakAt(i);
-//                 file << animal->getLocation() << " " << animal->getName() << " " << animal->getAge() << std::endl;
-//             }
-//         } else if (const Walikota* walikota = dynamic_cast<const Walikota*>(role)) {
-//             // Write Walikota details
-//             // No additional details to write for now
-//         }
-//     }
-
-//     // Write additional items in the store
-//     file << toko.getBuildingCount() << std::endl;
-//     for (const auto& building : toko.getBuildings()) {
-//         file << building.getName() << " " << toko.getBuildingQuantity(building) << std::endl;
-//     }
-//     file << toko.getProductCount() << std::endl;
-//     for (const auto& product : toko.getProducts()) {
-//         file << product.getName() << " " << toko.getProductQuantity(product) << std::endl;
-//     }
-
-//     file.close();
-// }
+    file.close();
+}

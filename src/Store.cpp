@@ -257,14 +257,14 @@ std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmo
             
             if (totalHarga>0)
             {   
-       
+                Product* p = new Product(product.getKode(), product.getname(), product.gettipe(), product.getorigin(), product.getadded_weight(), product.getprice());
                 for (int i =0;i<quantity;i++)
                 {
                     deleteProduct(product);
                 }
 
-            
-                return make_pair(totalHarga, new Product(product.getKode(), product.getname(), product.gettipe(), product.getorigin(), product.getadded_weight(), product.getprice()));
+                
+                return make_pair(totalHarga, p);
             }
             
         }
@@ -296,11 +296,12 @@ std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmo
             }
             if (totalHarga>0)
             {
+                Building* p = new Building(building.getKode(), building.getname(), building.getprice(), building.getmaterials());
                 for (int i =0;i<quantity;i++)
                 {
                 deleteBuilding(building);
                 }
-                return make_pair(totalHarga, new Building(building.getKode(), building.getname(), building.getprice(), building.getmaterials()));
+                return make_pair(totalHarga, p);
             }
             
             
@@ -327,7 +328,7 @@ int Store::sellItem(Item* item) {
     return item->getprice(); // Jika ada kesalahan, kembalikan 0
 }
 
-int Store::getJumlah(string kode) {
+int Store::getJumlah(string kode) const{
     int jumlah = 0;
     // Periksa jumlah building
     for (const Building& building : buildings) {
@@ -368,5 +369,12 @@ int Store::getJumlah(string kode) {
     }
 
     return jumlah;
+}
+
+vector<Building> Store::getbuilding() const{
+    return buildings;
+}
+vector<Product> Store::getproduct() const{
+    return products;
 }
 

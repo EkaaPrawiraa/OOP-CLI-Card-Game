@@ -31,6 +31,7 @@ public:
     int calculate_tax();
     string getRoleType() override;
     void setTernak(int row, char col, Animal *a);
+    Matrix<Animal*> getpeternakan() const;
 };
 // #include "../Farmer.cpp"
 #endif // FARMER_HPP

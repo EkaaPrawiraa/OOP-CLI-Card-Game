@@ -52,7 +52,7 @@ std::vector<Role*> read_input(const std::string& filename, MiscConfig misc, cons
                 // Read ladang
                 for (int i = 0; i < loop; ++i) {
                     iss>>itemsname;
-                    Item* p = Item::createItem(pco, plco, aco, bco, itemsname);
+                    Item* p = createItem(pco, plco, aco, bco, itemsname);
                     petani->getInventory().setfirstempty(p);
                 }
                 iss >> loop;
@@ -60,7 +60,7 @@ std::vector<Role*> read_input(const std::string& filename, MiscConfig misc, cons
                     iss>>lokasi>>itemsname>>umur;
                     char col = lokasi[0];
                     int row = stoi(lokasi.substr(1));
-                    Item* q = Item::createItem(pco, plco, aco, bco, itemsname);
+                    Item* q = createItem(pco, plco, aco, bco, itemsname);
                     if (auto plant = dynamic_cast<Plant *>(q)){
                         petani->setLadang(row, col, plant);
                     }
@@ -81,7 +81,7 @@ std::vector<Role*> read_input(const std::string& filename, MiscConfig misc, cons
                 // Read ladang
                 for (int i = 0; i < loop; ++i) {
                     iss>>itemsname;
-                    Item* p = Item::createItem(pco, plco, aco, bco, itemsname);
+                    Item* p = createItem(pco, plco, aco, bco, itemsname);
                     petani->getInventory().setfirstempty(p);
                 }
                 iss >> loop;
@@ -89,7 +89,7 @@ std::vector<Role*> read_input(const std::string& filename, MiscConfig misc, cons
                     iss>>lokasi>>itemsname>>umur;
                     char col = lokasi[0];
                     int row = stoi(lokasi.substr(1));
-                    Item* q = Item::createItem(pco, plco, aco, bco, itemsname);
+                    Item* q = createItem(pco, plco, aco, bco, itemsname);
                     if (auto plant = dynamic_cast<Animal *>(q)){
                         petani->setTernak(row, col, plant);
                     }
@@ -108,7 +108,7 @@ std::vector<Role*> read_input(const std::string& filename, MiscConfig misc, cons
                 // Read ladang
                 for (int i = 0; i < loop; ++i) {
                     iss>>itemsname;
-                    Item* p = Item::createItem(pco, plco, aco, bco, itemsname);
+                    Item* p = createItem(pco, plco, aco, bco, itemsname);
                     petani->getInventory().setfirstempty(p);
                 }
                 // Similar logic for Walikota class

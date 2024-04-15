@@ -38,10 +38,12 @@ class Store{
     int getPricePlant(const string kode);
     int getPriceAnimal(const string kode);
     int getPriceProduct(const string kode);
-    int getJumlah(string kode);
+    int getJumlah(string kode) const;
     std::pair<int, Item*> buyItem(const string kode,const int quantity,const int usersmoney,string role);
     int sellItem(Item* item);
     void display();
+    vector<Building> getbuilding() const;
+    vector<Product> getproduct() const;
 };
 
 // #include "../Store.cpp"
