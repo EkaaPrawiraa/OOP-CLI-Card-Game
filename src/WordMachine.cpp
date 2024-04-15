@@ -206,6 +206,7 @@ std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<Pr
                     int row = stoi(lokasi.substr(1));
                     Item* q = createItem(pco, plco, aco, bco, itemsname);
                     if (auto plant = dynamic_cast<Plant *>(q)){
+                        plant->setumur(umur);
                         petani->setLadang(row, col, plant);
                     }
                 }
@@ -246,7 +247,9 @@ std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<Pr
                     char col = lokasi[0];
                     int row = stoi(lokasi.substr(1));
                     Item* q = createItem(pco, plco, aco, bco, itemsname);
+                    
                     if (auto plant = dynamic_cast<Animal *>(q)){
+                        plant->setberat(umur);
                         petani->setTernak(row, col, plant);
                     }
                 }

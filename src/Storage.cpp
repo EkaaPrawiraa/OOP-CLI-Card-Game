@@ -130,14 +130,14 @@ void Matrix<T>::display(std::string tipe)
                 currentValue = oss.str();
                 std::cout << " " << std::setw(column_widths[j]) << std::left;
                 // Check class name using typeid
-                std::string classname = matrix[i]['A' + j]->getclassname();
                 if (tipe=="Ladang" || tipe=="Peternakan")
                 {
                     if (auto animal = dynamic_cast<Animal *>(matrix[i]['A' + j]))
                     {
                         // If class name is Animal, check getWeightToHarvest
-                        if (animal->getweighttoharvest() <= 0)
-                        {
+                        if ((animal->getweighttoharvest() - animal->getberat())<= 0)
+                        {   
+
                             for (char ch : currentValue)
                             {
                                 std::cout << print_green(ch);
@@ -154,8 +154,8 @@ void Matrix<T>::display(std::string tipe)
                     else if (auto plant = dynamic_cast<Plant *>(matrix[i]['A' + j]))
                     {
                         // If class name is Plant, check getDurationToHarvest
-                        if (plant->getdurationtoharvest() <= 0)
-                        {
+                        if (plant->getdurationtoharvest() - plant->getumur()<= 0)
+                        {   
                             for (char ch : currentValue)
                             {
                                 std::cout << print_green(ch);
@@ -178,8 +178,9 @@ void Matrix<T>::display(std::string tipe)
                 else
                 {
                     std::cout << currentValue;
+                    std::cout << " |";
                 }
-                std::cout << " |";
+                
             }
             else
             {

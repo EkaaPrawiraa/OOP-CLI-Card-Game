@@ -1,3 +1,11 @@
+ifeq ($(OS),Windows_NT)
+    RM = cmd //C del /q
+    MKDIR = mkdir
+else
+    RM = rm -f
+    MKDIR = mkdir -p
+endif
+
 CC = g++
 CFLAGS = -std=c++11 -Wall -w
 LDFLAGS =
@@ -13,10 +21,13 @@ all: $(EXEC)
 $(EXEC): $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@
 
-output/%.o: $(SRCDIR)/%.cpp
+output/%.o: $(SRCDIR)/%.cpp | output
 	$(CC) $(CFLAGS) -c $< -o $@
 
+output:
+	$(MKDIR) output
+
 clean:
-	rm -f output/*.o $(EXEC)
+	$(RM) output/*.o $(EXEC)
 
 .PHONY: all clean

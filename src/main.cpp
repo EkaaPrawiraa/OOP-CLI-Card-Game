@@ -35,7 +35,7 @@ void next(vector<Role*>& Players){
 }
 
 bool isWinner(int moneyplayer,int weightplayer ,int targetmoney, int targetweight){
-    return moneyplayer>=targetmoney && weightplayer >=targetweight
+    return moneyplayer>=targetmoney && weightplayer >=targetweight;
 }
 
 int main()
@@ -59,20 +59,20 @@ int main()
     Store Toko(plantconfig,animalconfig);
     
 
-    std::char answer;
+    char answer;
     cout<<"Apakah Anda ingin memuat state? (y/n)";
     cin>>answer;
     std::string lokasi;
     if(toupper(answer)=='Y')
     {
         std::ifstream file;
-        cout<<"Masukkan lokasi berkas state : "
+        cout<<"Masukkan lokasi berkas state : ";
         cin>>lokasi;
         
     }
     else{
         cout<<"Anda memulai dengan  mode default!"<<endl;
-        lokasi = "Configuration//config//default.txt"
+        lokasi = "Configuration//config//default.txt";
     }
     WordMachine machine6(lokasi);
     vector<Role*> Players = machine6.read_input(miscconfig,productconfig,animalconfig,plantconfig,buildingconfig,Toko);
