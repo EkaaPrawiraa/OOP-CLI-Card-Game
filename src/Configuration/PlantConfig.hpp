@@ -8,12 +8,12 @@ class PlantConfig
 public:
     PlantConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, int durationToHarvest, int price);
     void display() const;
-    int getid();
-    std::string getcode();
-    std::string getname();
-    std::string gettype();
-    int getdurationtoharvest();
-    int getprice();
+    int getid() const;
+    std::string getcode() const;
+    std::string getname() const;
+    std::string gettype() const;
+    int getdurationtoharvest() const;
+    int getprice() const;
 
 private:
     int id;

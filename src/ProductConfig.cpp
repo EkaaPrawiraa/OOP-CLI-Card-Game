@@ -15,23 +15,23 @@ void ProductConfig::display() const
               << "Price: " << price << std::endl;
 }
 
-std::string ProductConfig::getcode(){
+std::string ProductConfig::getcode() const{
     return kodeHuruf;
 }
-std::string ProductConfig::getname(){
+std::string ProductConfig::getname() const{
     return name;
 }
-std::string ProductConfig::gettype(){
+std::string ProductConfig::gettype() const{
     return type;
 }
 
-std::string ProductConfig::getorigin(){
+std::string ProductConfig::getorigin() const{
     return origin;
 }
-int ProductConfig::getaddedtoweight(){
+int ProductConfig::getaddedtoweight() const{
     return addedWeight;
 }
 
-int ProductConfig::getprice(){
+int ProductConfig::getprice() const{
     return price;
 }

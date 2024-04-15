@@ -5,6 +5,7 @@
 #include "Item.hpp"
 #include "Product.hpp"
 #include <vector>
+#include "../Configuration/AnimalConfig.hpp"
 using namespace std;
 
 class Animal : public Item{
@@ -12,10 +13,11 @@ public:
     Animal(const string &kodeHuruf, const string &name, const string &type, int weightToHarvest, int price, int berat, string location);
     Animal(const Animal&);
     ~Animal();
+    Animal(const std::vector<AnimalConfig>& configs, const std::string& name);
     string getclassname() override;
     string gettype();
     int getweighttoharvest();
-    int getberat();
+    int getberat(); 
     string getlocation();
     bool operator==(const Animal& other) const;
     Animal& operator=(const Animal& other);
