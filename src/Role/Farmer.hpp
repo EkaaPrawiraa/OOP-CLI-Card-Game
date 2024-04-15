@@ -23,16 +23,11 @@ public:
     Farmer(string username, int gulden, float weight, int storrow, int storcol, int petrow, int petcol);    
     ~Farmer();
     void cetakPeternakan();
-    
-    
     void Ternak();
     void Memanen();
     void memberiPangan();
-
-
     void menjual(Store& Toko);
     void membeli(Store& Toko);
-
     int calculate_tax();
     string getRoleType() override;
     void setTernak(int row, char col, Animal *a);
