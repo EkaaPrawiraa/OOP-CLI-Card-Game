@@ -177,35 +177,40 @@ void Walikota::tambahPemain(std::vector<Role *> &daftarPemain, MiscConfig &confi
 }
 void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
 {
-    Matrix<Item *> inventory = getInventory();
-    std::map<int, std::map<char, Item *>> matriksInventory = inventory.getmatrix();
+    // dapat matrix
+    std::map<int, std::map<char, Item *>> matriksInventory = invent.getmatrix();
 
     // tampilan semua resep bangunan dari config
     std::cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
+    int i = 1;
     for (const auto &BuildingRecipeConfig : recipes)
     {
-        BuildingRecipeConfig.display();
+        cout << i << ". " << BuildingRecipeConfig.getname() << " ( ";
+        for (const auto &material : BuildingRecipeConfig.getmaterials())
+        {
+            cout << material.first << " " << material.second << " ";
+        }
+        cout << ")" << endl;
+        i++;
     }
 
     // terima masukan kode bangunan yang ingin dibangun
     std::cout << "Bangunan yang ingin dibangun: ";
-    std::string kodehuruf;
-    std::cin >> kodehuruf;
+    std::string nama;
+    std::cin >> nama;
     bool ditemukan = false;
     bool cukupMaterial = true;
     // pencarian kode bangunan pada config
     BuildingRecipeConfig *tempBuildingConfig;
     for (int i = 0; i < recipes.size(); i++)
     {
-        if (recipes[i].getcode() == kodehuruf)
+        if (recipes[i].getname() == nama)
         {
             tempBuildingConfig = new BuildingRecipeConfig(recipes[i]); // cc dari config (tipe config)
             ditemukan = true;
             break;
         }
     }
-    // ubah jadi tipe building
-    Building *tempBuilding = new Building(tempBuildingConfig->getcode(), tempBuildingConfig->getname(), tempBuildingConfig->getprice(), tempBuildingConfig->getmaterials());
     // pengecekan ditemukannya kode bangunan
     if (!(ditemukan)) // tidak ada (exception)
     {
@@ -213,20 +218,25 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
     }
     else // prosedur pembangunan
     {
+        // ubah jadi tipe building
+        Item *tempBuilding = new Building(tempBuildingConfig->getcode(), tempBuildingConfig->getname(), tempBuildingConfig->getprice(), tempBuildingConfig->getmaterials());
         // vektor material bangunan yang ingin dibuat (pengecekan penghapusan bahan pada inventory)
         std::vector<std::pair<std::string, int>> materials = tempBuildingConfig->getmaterials();
         // vektor material bangunan yang ingin dibuat juga (pengecekan ketersediaan bahan dari inventory)
         std::vector<std::pair<std::string, int>> copyMaterials = tempBuildingConfig->getmaterials();
         // pengecekan ketersediaan jumlah material pada inventory sesuai daftar material bangunan
-        for (int row = 0; row < inventory.getRows(); row++)
+        for (int row = 0; row < invent.getRows(); ++row)
         {
-            for (int col = 0; col < inventory.getCols(); col++)
+            for (char col = 'A'; col < 'A' + invent.getCols(); ++col)
             {
-                for (auto &material : copyMaterials)
+                if (matriksInventory.find(row) != matriksInventory.end() && matriksInventory[row].find(col) != matriksInventory[row].end())
                 {
-                    if (std::get<0>(material) == matriksInventory[row][col]->getname())
+                    for (auto &material : copyMaterials)
                     {
-                        std::get<1>(material) -= 1;
+                        if (material.first == matriksInventory[row][col]->getname())
+                        {
+                            material.second -= 1;
+                        }
                     }
                 }
             }
@@ -234,67 +244,51 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
         // pengecekan apakah semua material <= 0 (cukup material untuk membangun)
         for (auto &material : copyMaterials)
         {
-            if (std::get<1>(material) >= 0)
+            if (material.second > 0)
             {
                 cukupMaterial = false;
             }
         }
-        // case material dan gulden
-        if (!cukupMaterial || gulden < tempBuilding->getprice()) // tidak cukup material atau gulden
+        // case material
+        if (!cukupMaterial) // tidak cukup material (exception)
         {
-            std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+            std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << endl;
             // pengecekan bahan yang kurang
-            if (gulden < tempBuilding->getprice() && cukupMaterial) // uang tidak cukup (exception)
+            for (auto &material : copyMaterials)
             {
-                std::cout << tempBuilding->getprice() - gulden << " gulden" << std::endl;
-            }
-            else if (gulden >= tempBuilding->getprice() && !cukupMaterial) // tidak cukup material (exception)
-            {
-                for (auto &material : copyMaterials)
+                if (material.second > 0)
                 {
-                    if (std::get<1>(material) > 0)
-                    {
-                        std::cout << std::get<1>(material) << " " << std::get<0>(material) << ", ";
-                    }
-                    std::cout << std::endl;
+                    std::cout << material.second << " " << material.first << " ";
                 }
-            }
-            else // keduanya tidak cukup (exception)
-            {
-                std::cout << tempBuilding->getprice() - gulden << " gulden, ";
-                for (auto &material : copyMaterials)
-                {
-                    if (std::get<1>(material) > 0)
-                    {
-                        std::cout << std::get<1>(material) << " " << std::get<0>(material) << ", ";
-                    }
-                    std::cout << std::endl;
-                }
+                std::cout << std::endl;
             }
         }
         else // cukup material -> lanjut prosedur pembangunan
         {
             // prosedur menghapus material pada inventory yang dibutuhkan untuk membangun
-            for (int row = 0; row < inventory.getRows(); row++)
+            for (int row = 0; row < invent.getRows(); ++row)
             {
-                for (int col = 0; col < inventory.getCols(); col++)
+                for (char col = 'A'; col < 'A' + invent.getCols(); ++col)
                 {
-                    for (auto &material : materials)
+                    if (matriksInventory.find(row) != matriksInventory.end() && matriksInventory[row].find(col) != matriksInventory[row].end())
                     {
-                        if (std::get<0>(material) == matriksInventory[row][col]->getname() && std::get<1>(material) > 0)
+                        for (auto &material : materials)
                         {
-                            // kebutuhan material dikurangi
-                            std::get<1>(material) -= 1;
-                            // hapus bahannya dari inventory
-                            inventory.deleteValue(row, col);
+                            if (material.first == matriksInventory[row][col]->getname() && material.second > 0)
+                            {
+                                // kebutuhan material dikurangi
+                                material.second -= 1;
+                                // hapus bahannya dari inventory
+                                invent.deleteValue(row + 1, col);
+                            }
                         }
                     }
                 }
             }
             // masukkan bangunan dalam inventory
-            inventory.setfirstempty(tempBuilding);
+            invent.setfirstempty(tempBuilding);
             // print statement
-            std::cout << tempBuildingConfig->getcode() << "berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
+            std::cout << tempBuildingConfig->getname() << " berhasil dibangun dan telah menjadi hak milik walikota!" << std::endl;
         }
     }
 }
@@ -312,63 +306,67 @@ void Walikota::displayRoleNamesGulden(std::vector<Role *> &daftarPemain)
     }
 }
 
-void Walikota::menjual(Store& Toko) {
+void Walikota::menjual(Store &Toko)
+{
     // Validasi tidak bisa menjual bangunan jika bukan walikota
-    if (invent.countElement() == 0) {
+    if (invent.countElement() == 0)
+    {
         cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
         return;
     }
-    
+
     int totalPrice = 0;
-    
+
     int quanti;
     invent.display("Penyimpanan");
     cout << "Jumlah barang yang ingin anda jual : ";
-    cin>>quanti;
-    while (quanti>invent.countElement())
+    cin >> quanti;
+    while (quanti > invent.countElement())
     {
-        cout<<"Barang yang Anda miliki kurang!"<<endl;
+        cout << "Barang yang Anda miliki kurang!" << endl;
         cout << "Jumlah barang yang ingin anda jual : ";
-        cin>>quanti;
+        cin >> quanti;
     }
-    for(int i =1;i<=quanti;i++)
+    for (int i = 1; i <= quanti; i++)
     {
-                inputpetak:
-                cout<<"Petak slot barang ke-"<<i<<" : ";
-                string tok;
-                cin.ignore();
-                cin>>tok;
-                cout<<tok<<endl;
-                std::regex pattern("^[a-zA-Z][0-9]+");
-                if ((!std::regex_match(tok, pattern))){
-                    cout << "Format salah !"<< endl;  
-                    goto inputpetak;
-                }
-                int col = toupper(tok[0]) - 'A';
-                int row = std::stoi(tok.substr(1));
-                if (( col>invent.getCols() || row>invent.getRows() ) ) {
-                    cout<<"Melebihi ukuran penyimpanan!"<<endl;
-                    goto inputpetak;
-                 }
-                if (invent.isemptyslot(row, tok[0])) {
-                     cout << "Petak tersebut kosong!" << endl;
-                     cout << "Isi ulang!" <<endl;
-                     goto inputpetak;
-                } 
-                else {
-                    // cout << invent.getValue(row, tok[0])->getprice() << endl;
-                    // Periksa tipe objek dan jualnya
-                    totalPrice += Toko.sellItem(invent.getValue(row, tok[0]));
-                    invent.deleteValue(row,tok[0]);
-
-                }
-                
+    inputpetak:
+        cout << "Petak slot barang ke-" << i << " : ";
+        string tok;
+        cin.ignore();
+        cin >> tok;
+        cout << tok << endl;
+        std::regex pattern("^[a-zA-Z][0-9]+");
+        if ((!std::regex_match(tok, pattern)))
+        {
+            cout << "Format salah !" << endl;
+            goto inputpetak;
+        }
+        int col = toupper(tok[0]) - 'A';
+        int row = std::stoi(tok.substr(1));
+        if ((col > invent.getCols() || row > invent.getRows()))
+        {
+            cout << "Melebihi ukuran penyimpanan!" << endl;
+            goto inputpetak;
+        }
+        if (invent.isemptyslot(row, tok[0]))
+        {
+            cout << "Petak tersebut kosong!" << endl;
+            cout << "Isi ulang!" << endl;
+            goto inputpetak;
+        }
+        else
+        {
+            // cout << invent.getValue(row, tok[0])->getprice() << endl;
+            // Periksa tipe objek dan jualnya
+            totalPrice += Toko.sellItem(invent.getValue(row, tok[0]));
+            invent.deleteValue(row, tok[0]);
+        }
     }
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
+}
 
-    }
-
-void Walikota::membeli(Store& Toko){
+void Walikota::membeli(Store &Toko)
+{
     if (invent.isFull())
     {
         cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
@@ -377,29 +375,29 @@ void Walikota::membeli(Store& Toko){
     {
 
         Toko.display();
-        cout<<"\n\n";
-        cout <<"Uang Anda : "<<this->gulden<<endl;
-        cout<<"Slot penyimpanan tersedia: "<<invent.getSize()-invent.countElement()<<endl;
+        cout << "\n\n";
+        cout << "Uang Anda : " << this->gulden << endl;
+        cout << "Slot penyimpanan tersedia: " << invent.getSize() - invent.countElement() << endl;
         string boughtItem;
         cout << "Kode barang yang ingin dibeli : ";
         cin >> boughtItem;
         int quantity = 0;
-        cout<<"Kuantitas : ";
-        cin >>quantity;
-        while(invent.countElement()+quantity>invent.getSize())
+        cout << "Kuantitas : ";
+        cin >> quantity;
+        while (invent.countElement() + quantity > invent.getSize())
         {
-            cout<<"Penyimpanan anda tidak cukup!"<<endl;
-            cout<<"Sisa penyimpanan : "<<invent.getSize()-invent.countElement()<<endl;
-            cout<<"Kuantitas : ";
-            cin >>quantity;
+            cout << "Penyimpanan anda tidak cukup!" << endl;
+            cout << "Sisa penyimpanan : " << invent.getSize() - invent.countElement() << endl;
+            cout << "Kuantitas : ";
+            cin >> quantity;
         }
-        std::pair<int, Item*> passsss=Toko.buyItem(boughtItem,quantity,gulden,getRoleType());
-        Item* item=passsss.second;
+        std::pair<int, Item *> passsss = Toko.buyItem(boughtItem, quantity, gulden, getRoleType());
+        Item *item = passsss.second;
         int totalpaid = passsss.first;
-        cout<<item->getname()<<endl;
-        if (totalpaid>0)
+        cout << item->getname() << endl;
+        if (totalpaid > 0)
         {
-            
+
             this->gulden -= totalpaid;
             cout << endl;
             cout << "Selamat Anda berhasil membeli " << quantity << " " << boughtItem << ". Uang Anda tersisa " << this->gulden << " gulden." << endl;
@@ -408,44 +406,42 @@ void Walikota::membeli(Store& Toko){
             // belum tau cetak penyimpanan
             invent.display("Penyimpanan");
             // atur cetak penyimpanan
-            cout<<endl;
-            
+            cout << endl;
 
-            for(int i =1;i<=quantity;i++)
+            for (int i = 1; i <= quantity; i++)
             {
-                inputpetak:
-                cout<<"Petak slot barang ke-"<<i<<" : ";
+            inputpetak:
+                cout << "Petak slot barang ke-" << i << " : ";
                 string tok;
                 cin.ignore();
-                cin>>tok;
+                cin >> tok;
                 std::regex pattern("^[a-zA-Z][0-9]+");
-                if ((!std::regex_match(tok, pattern))){
-                    cout << "Format salah !"<< endl;  
+                if ((!std::regex_match(tok, pattern)))
+                {
+                    cout << "Format salah !" << endl;
                     goto inputpetak;
                 }
                 int col = toupper(tok[0]) - 'A';
                 int row = std::stoi(tok.substr(1));
-                if (( col>invent.getCols() || row>invent.getRows() ) ) {
-                    cout<<"Melebihi ukuran penyimpanan!"<<endl;
-                    goto inputpetak;
-                 }
-                if (!invent.isemptyslot(row,tok[0]))
+                if ((col > invent.getCols() || row > invent.getRows()))
                 {
-                    cout << "Petak tersebut telah terisi!"<<endl;
-                    cout << "Isi ulang!" <<endl;
+                    cout << "Melebihi ukuran penyimpanan!" << endl;
                     goto inputpetak;
                 }
-                else {
-                    invent.setValue(row,tok[0],item);
-                    cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
-                    invent.display("Penyimpanan");
-                    cout<<item->getclassname();
-
+                if (!invent.isemptyslot(row, tok[0]))
+                {
+                    cout << "Petak tersebut telah terisi!" << endl;
+                    cout << "Isi ulang!" << endl;
+                    goto inputpetak;
                 }
-                
+                else
+                {
+                    invent.setValue(row, tok[0], item);
+                    cout << boughtItem << " berhasil disimpan dalam penyimpanan!" << endl;
+                    invent.display("Penyimpanan");
+                    cout << item->getclassname();
+                }
             }
-          
-        }  
+        }
     }
-    
 }
