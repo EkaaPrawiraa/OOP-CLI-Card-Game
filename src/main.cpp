@@ -82,9 +82,10 @@ int main()
     animals.emplace_back("A2", "Cat", "Mammal", 15, 80, 10, "B2");
 
     std::vector<Product> products;
-    products.emplace_back("Prod2", "Book", "Stationery", "Local", 0, 20);
-    products.emplace_back("Prod2", "Pen", "Stationery", "Imported", 0, 10);
-    cout << products.at(0).getprice() << endl;
+    Product a = Product("BOK", "Book", "Stationery", "Local", 0, 20);
+    Product b = Product("BOK", "Book", "Stationery", "Local", 0, 20);
+    // products.emplace_back("Prod2", "Pen", "Stationery", "Imported", 0, 10);
+    // cout << products.at(0).getprice() << endl;
 
     std::vector<Building> buildings;
 
@@ -92,10 +93,11 @@ int main()
     buildings.emplace_back("B2", "Shop", 200, std::vector<std::pair<std::string, int> >{{"Wood", 30}, {"Glass", 10}});
     buildings.emplace_back("B3", "School", 500, std::vector<std::pair<std::string, int> >{{"Brick", 200}});
 
-   
+    products.push_back(a);products.push_back(a);
     Product test("A3", "budi", "Mammal", "20", 100, 15);
     Store store1(buildings, plants, animals, products);
-
+    // store1.addProduct(a);
+    // store1.addProduct(a);
     // store1.display();
     Farmer farmer("John", 1000, 70.5, 8, 8, 6, 6);
     farmer.membeli(store1);

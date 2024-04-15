@@ -1,4 +1,4 @@
-#include "BuildingRecipeConfig.hpp"
+#include "Configuration/BuildingRecipeConfig.hpp"
 #include <iostream>
 
 BuildingRecipeConfig::BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<std::pair<std::string, int>> &materials)

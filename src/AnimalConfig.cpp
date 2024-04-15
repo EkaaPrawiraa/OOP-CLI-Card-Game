@@ -14,23 +14,23 @@ void AnimalConfig::display() const
               << "Price: " << price << std::endl;
 }
 
-int AnimalConfig::getid(){
+int AnimalConfig::getid() const{
     return id;
 }
-std::string AnimalConfig::getcode(){
+std::string AnimalConfig::getcode() const{
     return kodeHuruf;
 }
-std::string AnimalConfig::getname(){
+std::string AnimalConfig::getname() const{
     return name;
 }
-std::string AnimalConfig::gettype(){
+std::string AnimalConfig::gettype() const{
     return type;
 }
-int AnimalConfig::getweighttoharvest(){
+int AnimalConfig::getweighttoharvest() const{
     return weightToHarvest;
 }
 
-int AnimalConfig::getprice(){
+int AnimalConfig::getprice() const{
     return price;
 }
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE

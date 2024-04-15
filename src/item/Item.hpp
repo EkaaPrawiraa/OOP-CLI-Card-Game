@@ -7,10 +7,10 @@
 #include "../Configuration/BuildingRecipeConfig.hpp"
 #include "../Configuration/PlantConfig.hpp"
 #include "../Configuration/ProductConfig.hpp"
-#include "Animal.hpp"
-#include "Plant.hpp"
-#include "Building.hpp"
-#include "Product.hpp"
+// #include "Animal.hpp"
+// #include "Plant.hpp"
+// #include "Building.hpp"
+// #include "Product.hpp"
 
 using namespace std;
 class Item {
@@ -18,7 +18,7 @@ class Item {
         Item(const string &kodeHuruf,const string &name, int price);
         Item(const Item&);
         Item();
-        static Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::vector<PlantConfig>& plantConfigs, const std::vector<AnimalConfig>& animalConfigs, const std::vector<BuildingRecipeConfig>& buildingConfigs, const std::string& itemName);
+        // static Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::vector<PlantConfig>& plantConfigs, const std::vector<AnimalConfig>& animalConfigs, const std::vector<BuildingRecipeConfig>& buildingConfigs, const std::string& itemName);
         virtual ~Item();
         virtual string getclassname();
         string getname() const;
@@ -32,6 +32,5 @@ class Item {
         string name;
         int price;
 };
-
 
 #endif

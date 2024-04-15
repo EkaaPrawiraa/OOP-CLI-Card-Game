@@ -12,7 +12,7 @@ public:
     Product(const Product&);
     Product(const std::vector<ProductConfig>& configs, const std::string& name);
     ~Product();
-    std::string getclassname() override;
+    std::string getclassname();
 
     std::string gettipe() const;
     std::string getorigin() const;

@@ -191,13 +191,14 @@ int Store::getPriceProduct(const string kode) {
 }
 
 // template <typename T>
-int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
+std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmoney)
 {
+    Item* item;
     bool quantityEnough = true;
     int totalHarga =0;
     if (quantity <= 0 || usersmoney <= 0) {
         cout << "Quantity dan uang harus lebih dari 0." << endl;
-        return 0;
+        return make_pair(0, item);
     }
     for (Plant& plant : plants){
         if (plant.getKode() == kode)
@@ -206,12 +207,11 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
             if (totalHarga>usersmoney)
             {
                 cout<<"Uang Anda kurang, gulden yang dibutuhkan : "<<totalHarga<<endl;
-                return 0;
+                return make_pair(0, item);
             }
             if (totalHarga>0)
             {
-                item = &plant;
-                return totalHarga;
+                return make_pair(totalHarga, new Plant(plant.getKode(), plant.getname(), plant.gettype(), plant.getdurationtoharvest(), plant.getprice(), 0," "));
             }
             
         }
@@ -223,12 +223,11 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
             if (totalHarga>usersmoney)
             {
                 cout<<"Uang Anda kurang, gulden yang dibutuhkan : "<<totalHarga<<endl;
-                return 0;
+                return make_pair(0, item);
             }
             if (totalHarga>0)
             {
-                item = &animal;
-                return totalHarga;
+                return make_pair(totalHarga, new Animal(animal.getKode(), animal.getname(), animal.gettype(), animal.getweighttoharvest(), animal.getprice(), animal.getberat(), ""));
             }
             
             
@@ -246,25 +245,26 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
             if (!quantityEnough){
                 // UNTUK QUANTITY ASKED MODE THAN THE STORE HAS
                 cout<<"Quantity barang yang ingin dibeli tidak cukup."<<endl;
-                return 0;
+                return make_pair(0, item);
             }
             totalHarga = product.getprice()*quantity;
             if (totalHarga>usersmoney)
             {
                 cout<<"Uang Anda kurang, gulden yang dibutuhkan : "<<totalHarga<<endl;
-                return 0;
+                return make_pair(0, item);
             }
             
             
             if (totalHarga>0)
-            {
-                item = &product;
+            {   
+       
                 for (int i =0;i<quantity;i++)
                 {
                     deleteProduct(product);
                 }
-                
-                return totalHarga;
+
+            
+                return make_pair(totalHarga, new Product(product.getKode(), product.getname(), product.gettipe(), product.getorigin(), product.getadded_weight(), product.getprice()));
             }
             
         }
@@ -281,22 +281,21 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
             if (!quantityEnough){
                 // UNTUK QUANTITY ASKED MODE THAN THE STORE HAS
                 cout<<"Quantity barang yang ingin dibeli tidak cukup."<<endl;
-                return 0;
+                return make_pair(0, item);
             }
             totalHarga = building.getprice()*quantity;
             if (totalHarga>usersmoney)
             {
                 cout<<"Uang Anda kurang, gulden yang dibutuhkan : "<<totalHarga<<endl;
-                return 0;
+                return make_pair(0, item);
             }
             if (totalHarga>0)
             {
-                item = &building;
                 for (int i =0;i<quantity;i++)
                 {
                 deleteBuilding(building);
                 }
-                return totalHarga;
+                return make_pair(totalHarga, new Building(building.getKode(), building.getname(), building.getprice(), building.getmaterials()));
             }
             
             
@@ -307,27 +306,17 @@ int Store::buyItem(const string  kode, int quantity,int usersmoney, Item*& item)
         // untuk kode tidak ditemukan
         // item = NULL;
         cout <<"Kode barang tidak terdapat di toko."<<endl;
-        return 0;
+        return make_pair(0, item);
     }
 }
 // template <typename T>
 int Store::sellItem(Item* item) {
-    if (item->getclassname() == "Building") {
-        Building* buildingItem = dynamic_cast<Building*>(item);
-        if (buildingItem) {
-            addBuilding(*buildingItem);
-        } else {
-            cout << "Gagal cast ke Building!" << endl;
-        }
-    } else if (item->getclassname() == "Product") {
-        Product* productItem = dynamic_cast<Product*>(item);
-        if (productItem) {
-            addProduct(*productItem);
-        } else {
-            cout << "Gagal cast ke Product!" << endl;
-        }
-    } else {
-        cout << "Tipe barang tidak didukung!" << endl;
+    if (Building* buildingItem = dynamic_cast<Building*>(item)) {
+        // cout<<"KDKDK";
+        addBuilding(*buildingItem);
+    } else if (Product* productItem = dynamic_cast<Product*>(item)) {
+        // cout<<"ASSS";
+        addProduct(*productItem);
     }
     cout << item->getprice();
     return item->getprice(); // Jika ada kesalahan, kembalikan 0

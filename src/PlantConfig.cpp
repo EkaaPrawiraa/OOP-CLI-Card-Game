@@ -14,23 +14,23 @@ std::cout << "ID: " << id << ", "
             << "Price: " << price << std::endl;
 }
 
-int PlantConfig::getid(){
+int PlantConfig::getid() const{
     return id;
 }
-std::string PlantConfig::getcode(){
+std::string PlantConfig::getcode() const{
     return kodeHuruf;
 }
-std::string PlantConfig::getname(){
+std::string PlantConfig::getname() const{
     return name;
 }
-std::string PlantConfig::gettype(){
+std::string PlantConfig::gettype() const{
     return type;
 }
-int PlantConfig::getdurationtoharvest(){
+int PlantConfig::getdurationtoharvest() const{
     return durationToHarvest;
 }
 
-int PlantConfig::getprice(){
+int PlantConfig::getprice() const{
     return price;
 }
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE

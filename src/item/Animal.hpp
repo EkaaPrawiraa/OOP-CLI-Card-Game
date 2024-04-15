@@ -14,7 +14,7 @@ public:
     Animal(const Animal&);
     ~Animal();
     Animal(const std::vector<AnimalConfig>& configs, const std::string& name);
-    string getclassname() override;
+    virtual string getclassname();
     string gettype();
     int getweighttoharvest();
     int getberat(); 
