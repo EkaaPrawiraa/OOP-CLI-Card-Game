@@ -14,7 +14,7 @@ Walikota::Walikota(string username, float weight, int uang, int storrows, int st
 }
 
 // panggil constructor pakai ini
-Walikota conditionalConstructor(string username, float weight, int uang, int storrows, int storcols)
+Walikota Walikota::conditionalConstructor(string username, float weight, int uang, int storrows, int storcols)
 {
     if (Walikota::jumlah == 0)
     {
@@ -23,7 +23,7 @@ Walikota conditionalConstructor(string username, float weight, int uang, int sto
     }
     else // walikota sudah dibuat (exception)
     {
-        std::cout << "Walikota sudah ada!" << std::endl;
+        throw std::runtime_error("Walikota sudah ada!");
     }
 }
 
@@ -62,10 +62,11 @@ void Walikota::pungutPajak(std::vector<Role *> daftarPemain)
     std::cout << "Pajak sudah dipungut!" << std::endl;
     std::cout << std::endl;
     std::cout << "Berikut adalah detil dari pemungutan pajak:" << std::endl;
-    int totalPajak;
+    int totalPajak = 0;
     // vector pajak untuk pengurutan
     std::vector<std::tuple<Role *, int>> vectorPajak;
     // iterasi setiap pemain
+    int pajakTemp = 0;
     for (int i = 0; i < daftarPemain.size(); i++)
     {
         // pengecekan apakah Role berupa walikota
@@ -73,17 +74,21 @@ void Walikota::pungutPajak(std::vector<Role *> daftarPemain)
         if (daftarPemain[i]->getRoleType() != "Walikota")
         {
             // hitung pajak setiap pemain
-            int pajakTemp = daftarPemain[i]->calculate_tax();
-            // pengecekan ketersediaan gulden
-            if (daftarPemain[i]->getGulden() < pajakTemp)
-            {
-                pajakTemp = daftarPemain[i]->getGulden();
-            }
+            pajakTemp = daftarPemain[i]->calculate_tax();
+            // testing
+            // std::cout << daftarPemain[i]->getUsername() << "pajak " << pajakTemp << std::endl;
+            // std::cout << "sisa gulden" << daftarPemain[i]->getGulden() << std::endl;
+            // // pengecekan ketersediaan gulden (dalam petani farmer / pungutPajak)
+            // if (daftarPemain[i]->getGulden() < pajakTemp)
+            // {
+            //     pajakTemp = daftarPemain[i]->getGulden();
+            // }
             // tambah dalam vector pajak
             vectorPajak.push_back(std::make_tuple(daftarPemain[i], pajakTemp));
-            // aplikasikan pada pemain
-            daftarPemain[i]->setGulden(daftarPemain[i]->getGulden() - pajakTemp);
+            // // aplikasikan pada pemain
+            // daftarPemain[i]->setGulden(daftarPemain[i]->getGulden() - pajakTemp);
             // total jumlah pajak
+
             totalPajak += pajakTemp;
         }
     }
@@ -124,7 +129,7 @@ bool Walikota::sortUsername(Role *a, Role *b)
     return a->getUsername() < b->getUsername();
 }
 
-void Walikota::tambahPemain(std::vector<Role *> daftarPemain)
+void Walikota::tambahPemain(std::vector<Role *> &daftarPemain)
 {
     if (getGulden() < 50) // kurang uang untuk menambah pemain (exception)
     {
@@ -135,35 +140,37 @@ void Walikota::tambahPemain(std::vector<Role *> daftarPemain)
         std::cout << "Masukkan jenis pemain: ";
         std::string jenis;
         std::cin >> jenis;
-        std::string nama;
-        std::cout << "Masukkan nama pemain: ";
-        std::cin >> nama;
-        if (nameExists(nama, daftarPemain)) // nama sudah ada (exception)
+        if (jenis != "peternak" && jenis != "petani") // jenis tidak valid (exception)
         {
-            std::cout << "Nama pemain sudah ada!" << std::endl;
+            throw std::runtime_error("jenis tidak valid!");
         }
-        else
+        else // lanjut
         {
-            if (jenis == "peternak")
+            std::string nama;
+            std::cout << "Masukkan nama pemain: ";
+            std::cin >> nama;
+            if (nameExists(nama, daftarPemain)) // nama sudah ada (exception)
             {
-                // Role *tempPetani = new Petani(nama, 50, 40, 8, 8, 8, 8);
-                // daftarPemain.push_back(*tempPetani);
+                std::cout << "Nama pemain sudah ada!" << std::endl;
             }
-            else if (jenis == "petani")
+            else
             {
-                // Role *tempPetani = new Petani(nama, 50, 40, 8, 8, 8, 8); // bingung constructor petani
-                // daftarPemain.push_back(*tempPetani);
-            }
-            else // tipe tidak valid (exception)
-            {
-                std::cout << "Tipe tidak valid!" << std::endl;
-            }
-            // pengurutan urutan pemain (jika ada pemain baru yang ditambahkan)
-            if (jenis == "peternak" || jenis == "petani")
-            {
+                if (jenis == "peternak")
+                {
+                    Farmer *tempPeternak = new Farmer(nama, 50, 40, 8, 8, 8, 8);
+                    daftarPemain.push_back(tempPeternak);
+                }
+                else if (jenis == "petani")
+                {
+                    Petani *tempPetani = new Petani(nama, 50, 40, 8, 8, 8, 8); // bingung constructor petani
+                    daftarPemain.push_back(tempPetani);
+                }
+                // pengurutan urutan pemain (jika ada pemain baru yang ditambahkan)
                 std::cout << "Pemain baru ditambahkan!" << std::endl;
                 std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;
                 std::sort(daftarPemain.begin(), daftarPemain.end(), Walikota::sortUsername);
+                // mengurangi uang dari walikota
+                setGulden(getGulden() - 50);
             }
         }
     }
@@ -208,9 +215,9 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
     else // prosedur pembangunan
     {
         // vektor material bangunan yang ingin dibuat (pengecekan penghapusan bahan pada inventory)
-        std::vector<std::tuple<std::string, int>> materials = tempBuildingConfig->getmaterials();
+        std::vector<std::pair<std::string, int>> materials = tempBuildingConfig->getmaterials();
         // vektor material bangunan yang ingin dibuat juga (pengecekan ketersediaan bahan dari inventory)
-        std::vector<std::tuple<std::string, int>> copyMaterials = tempBuildingConfig->getmaterials();
+        std::vector<std::pair<std::string, int>> copyMaterials = tempBuildingConfig->getmaterials();
         // pengecekan ketersediaan jumlah material pada inventory sesuai daftar material bangunan
         for (int row = 0; row < inventory.getRows(); row++)
         {
@@ -234,15 +241,15 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
             }
         }
         // case material dan gulden
-        if (!cukupMaterial || gulden < tempBuilding->getHarga()) // tidak cukup material atau gulden
+        if (!cukupMaterial || gulden < tempBuilding->getprice()) // tidak cukup material atau gulden
         {
             std::cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
             // pengecekan bahan yang kurang
-            if (gulden < tempBuilding->getHarga() && cukupMaterial) // uang tidak cukup (exception)
+            if (gulden < tempBuilding->getprice() && cukupMaterial) // uang tidak cukup (exception)
             {
-                std::cout << tempBuilding->getHarga() - gulden << " gulden" << std::endl;
+                std::cout << tempBuilding->getprice() - gulden << " gulden" << std::endl;
             }
-            else if (gulden >= tempBuilding->getHarga() && !cukupMaterial) // tidak cukup material (exception)
+            else if (gulden >= tempBuilding->getprice() && !cukupMaterial) // tidak cukup material (exception)
             {
                 for (auto &material : copyMaterials)
                 {
@@ -255,7 +262,7 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
             }
             else // keduanya tidak cukup (exception)
             {
-                std::cout << tempBuilding->getHarga() - gulden << " gulden, ";
+                std::cout << tempBuilding->getprice() - gulden << " gulden, ";
                 for (auto &material : copyMaterials)
                 {
                     if (std::get<1>(material) > 0)
@@ -296,4 +303,12 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
 string Walikota::getRoleType()
 {
     return "Walikota";
+}
+
+void Walikota::displayRoleNamesGulden(std::vector<Role *> &daftarPemain)
+{
+    for (const auto &Role : daftarPemain)
+    {
+        std::cout << Role->getUsername() << Role->getGulden() << std::endl;
+    }
 }
