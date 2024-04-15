@@ -203,3 +203,13 @@ void Petani::Memanen(){
     } 
     std::cout << " telah dipanen!" << std::endl;
 }
+
+
+void Petani::updateUmurTumbuhan(){
+    for (const auto &row : Ladang.getmatrix()) {
+        for (const auto &cell : row.second) {
+            cell.second->setumur(cell.second->getumur()+1);
+        }
+    }     
+    
+}

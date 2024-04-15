@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <tuple>
+
 using namespace std;
 
 WordMachine::WordMachine(const string &filename)
@@ -114,7 +116,7 @@ std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
         std::istringstream iss(line);
         int id, price;
         std::string kodeHuruf, name, materialName;
-        std::vector<std::tuple<std::string, int>> materials;
+        std::vector<std::tuple<std::string, int> > materials;
 
         if (!(iss >> id >> kodeHuruf >> name >> price))
         {

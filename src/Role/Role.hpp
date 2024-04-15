@@ -33,7 +33,7 @@ public:
     virtual void membeli();
     virtual void menjual();
     virtual int calculate_tax() = 0;
-    std::string getUsername();
+    std::string getUsername() const;
     int getGulden();
     float getWeight();
     void setGulden(int);

@@ -13,6 +13,7 @@ class Plant : public Item {
         int getdurationtoharvest() const;
         string getlocation() const;
         int getumur() const;
+        void setumur(int n const);
         bool operator==(const Plant& other) const;
         Plant& operator=(const Plant& other);
         virtual Product* gethasilpanen();

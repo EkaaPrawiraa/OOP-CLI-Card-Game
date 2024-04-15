@@ -23,6 +23,7 @@ public:
     int calculate_tax();
     void setLadang(int row, char col, Plant *p);
     string getRoleType() override;
+    void updateUmurTumbuhan();
 };
 
 #endif

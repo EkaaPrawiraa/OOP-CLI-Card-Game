@@ -83,7 +83,7 @@ void Role::menjual()
 {
 }
 
-std::string Role::getUsername()
+std::string Role::getUsername() const
 {
     return username;
 }

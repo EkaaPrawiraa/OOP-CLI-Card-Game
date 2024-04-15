@@ -1,6 +1,8 @@
 #include "Configuration/BuildingRecipeConfig.hpp"
 #include <iostream>
 
+#include <tuple>
+
 BuildingRecipeConfig::BuildingRecipeConfig(int id, const std::string &kodeHuruf, const std::string &name, int price, const std::vector<std::tuple<std::string, int>> &materials)
     : id(id), kodeHuruf(kodeHuruf), name(name), price(price), materials(materials)
 {
