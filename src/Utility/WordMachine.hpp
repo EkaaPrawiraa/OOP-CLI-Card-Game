@@ -24,7 +24,7 @@ public:
     std::vector<AnimalConfig> readAnimals();
     std::vector<ProductConfig> readProducts();
     MiscConfig readConfig();
-    // std::vector<BuildingRecipeConfig> readRecipes();
+    std::vector<BuildingRecipeConfig> readRecipes();
 };
 
 #endif 

@@ -99,37 +99,44 @@ MiscConfig WordMachine::readConfig()
 
     return MiscConfig(winningMoney, winningWeight, storageRows, storageCols, landRows, landCols, farmRows, farmCols);
 }
-// vector<BuildingRecipeConfig> WordMachine::readRecipes()
-// {
-//     vector<BuildingRecipeConfig> recipes;
-//     string line;
 
-//     while(getline(file, line))
-//     {
-//         istringstream iss(line);
-//         int id, price;
-//         string kodeHuruf, name, materialName;
-//         vector<std::tuple<std::string, int>> materials;
 
-//         if (!(iss >> id >> kodeHuruf >> name >> price))
-//         {
-//             throw FileException("Format file plants tidak sesuai.");
-//             continue;
-//         }
 
-//         while (iss >> materialName)
-//         {
-//             int quantity;
-//             if (!(iss >> quantity))
-//             {
-//                 throw FileException("Format file plants tidak sesuai.");
-//                 break;
-//             }
-//             materials.push_back(Material(materialName, quantity));
-//         }
 
-//         recipes.emplace_back(id, kodeHuruf, name, price, materials);
-//     }
-    
-//     return recipes;
-// }
+
+std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
+{
+    std::vector<BuildingRecipeConfig> recipes;
+    std::string line;
+
+    while (std::getline(file, line))
+    {
+        std::istringstream iss(line);
+        int id, price;
+        std::string kodeHuruf, name, materialName;
+        std::vector<std::tuple<std::string, int>> materials;
+
+        if (!(iss >> id >> kodeHuruf >> name >> price))
+        {
+            throw FileException("Format file tidak sesuai.");
+            continue;
+        }
+
+        while (iss >> materialName)
+        {
+            int quantity;
+            if (!(iss >> quantity))
+            {
+                throw FileException("Format file tidak sesuai.");
+                break;
+            }
+            materials.push_back(std::make_tuple(materialName, quantity));
+        }
+
+        BuildingRecipeConfig recipe(id, kodeHuruf, name, price, materials);
+        recipes.push_back(recipe);
+    }
+
+    file.close();
+    return recipes;
+}
