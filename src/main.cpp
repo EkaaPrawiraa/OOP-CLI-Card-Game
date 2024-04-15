@@ -40,6 +40,8 @@ int main()
     WordMachine machine3("Configuration//config//product.txt");
     WordMachine machine4("Configuration//config//recipe.txt");
     WordMachine machine5("Configuration//config//misc.txt");
+
+    WordMachine machine6("Configuration//config//state.txt");
     
 
     vector<AnimalConfig> animalconfig = machine1.readAnimals();
@@ -52,7 +54,7 @@ int main()
     int targetGulden = miscconfig.getWinningMoney();
     int targetWeight = miscconfig.getWinningWeight();
 
-    vector<Role*> Players;
+    vector<Role*> Players = machine6.read_input(miscconfig,productconfig,animalconfig,plantconfig,buildingconfig,Toko);
 
     // muat
     
@@ -198,6 +200,10 @@ int main()
         else if(inputCommand =="EXIT")
         {
             break;
+        }
+        else if (inputCommand=="DAFTAR_MENU")
+        {
+            cout<<"============MENU==========="<<endl;
         }
         else{
             cout<<"Command List salah!";
