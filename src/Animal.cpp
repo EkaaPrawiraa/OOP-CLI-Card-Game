@@ -101,3 +101,6 @@ vector<Product*> Animal::gethasilpanen() {
     vector<Product*> hasilPanen;
     return hasilPanen;
 }
+void Animal::setberat(int n){
+    berat=n;
+}

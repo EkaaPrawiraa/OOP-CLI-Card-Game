@@ -23,9 +23,11 @@ public:
     Farmer(string username, int gulden, float weight, int storrow, int storcol, int petrow, int petcol);    
     ~Farmer();
     void cetakPeternakan();
+    
+    
     void Ternak();
     void Memanen();
-    void memberiPangan(int baris, int kolom);
+    void memberiPangan();
 
 
     void menjual(Store& Toko);
@@ -33,6 +35,7 @@ public:
 
     int calculate_tax();
     string getRoleType() override;
+    void setTernak(int row, char col, Animal *a);
 };
 // #include "../Farmer.cpp"
 #endif // FARMER_HPP

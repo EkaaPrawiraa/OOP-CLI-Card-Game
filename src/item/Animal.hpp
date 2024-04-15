@@ -21,7 +21,7 @@ public:
     Animal& operator=(const Animal& other);
     virtual vector<Product*> gethasilpanen();
     pair<char, int> getColumnAndRowIndex(const string& location) const;
-
+    void setberat(int );
 protected:
     string type;
     int weightToHarvest;
