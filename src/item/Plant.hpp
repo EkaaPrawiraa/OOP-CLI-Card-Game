@@ -15,6 +15,7 @@ class Plant : public Item {
         string getlocation() const;
         int getumur() const;
         void setumur(int n);
+     
         bool operator==(const Plant& other) const;
         Plant& operator=(const Plant& other);
         virtual Product* gethasilpanen();

@@ -33,4 +33,18 @@ int AnimalConfig::getweighttoharvest() const{
 int AnimalConfig::getprice() const{
     return price;
 }
+AnimalConfig& AnimalConfig::operator=(const AnimalConfig& other)
+{
+    if (this != &other) // prevent self-assignment
+    {
+        id = other.id;
+        kodeHuruf = other.kodeHuruf;
+        name = other.name;
+        type = other.type;
+        weightToHarvest = other.weightToHarvest;
+        price = other.price;
+    }
+    return *this;
+}
+
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE

@@ -14,6 +14,7 @@ public:
     std::string gettype() const;
     int getdurationtoharvest() const;
     int getprice() const;
+    PlantConfig& operator=(const PlantConfig& other);
 
 private:
     int id;

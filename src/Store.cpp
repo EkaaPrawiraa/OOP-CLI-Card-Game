@@ -7,9 +7,23 @@
 using namespace std;
 
 // buat startgame karna plant dan animal tak hingga jumlahnya
-Store::Store(const vector<Plant> &plants,const vector<Animal> &animals ){
-    this->plants=plants;
-    this->animals=animals;
+Store::Store(const vector<PlantConfig> &plantConfigs,const vector<AnimalConfig> &animalConfigs ){
+    
+    animals.clear(); 
+    for (const auto& config : animalConfigs)
+    {
+        
+        Animal animal(config.getcode(), config.getname(), config.gettype(), config.getweighttoharvest(), config.getprice(),0, ""); // 0 or another value depending on your needs
+        animals.push_back(animal);
+    }
+   
+    plants.clear(); 
+    for (const auto& config : plantConfigs)
+    {
+        Plant plant(config.getcode(), config.getname(), config.gettype(), config.getdurationtoharvest(), config.getprice(), 0,"");
+        plants.push_back(plant);
+    }
+    
 }
 
 // buat dari state txt

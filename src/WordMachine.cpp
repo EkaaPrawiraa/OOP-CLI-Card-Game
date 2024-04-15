@@ -4,6 +4,8 @@
 #include <iostream>
 #include <tuple>
 
+
+
 using namespace std;
 
 WordMachine::WordMachine(const string &filename)
@@ -142,6 +144,7 @@ std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
     file.close();
     return recipes;
 }
+
 std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<ProductConfig>& pco, const std::vector<AnimalConfig>& aco, const std::vector<PlantConfig>& plco, const std::vector<BuildingRecipeConfig> bco , Store& toko) {
     std::vector<Role*> roles;
     // std::ifstream file;

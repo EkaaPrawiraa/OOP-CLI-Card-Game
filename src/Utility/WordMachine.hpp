@@ -2,12 +2,41 @@
 #define WORDMACHINE_HPP
 
 #include "Exception.hpp"
-#include "../Configuration/PlantConfig.hpp"
-#include "../Configuration/AnimalConfig.hpp"
+
+#include "../Menu/Menu.hpp"
 #include "../Configuration/ProductConfig.hpp"
 #include "../Configuration/MiscConfig.hpp"
+#include "../Configuration/AnimalConfig.hpp"
 #include "../Configuration/BuildingRecipeConfig.hpp"
-#include "../Menu/Menu.hpp"
+#include "../Configuration/PlantConfig.hpp"
+
+#include "../Utility/WordMachine.hpp"
+#include "../Utility/Exception.hpp"
+
+#include "../Role/Role.hpp"
+#include "../Role/Farmer.hpp"
+#include "../Role/Petani.hpp"
+#include "../Role/Walikota.hpp"
+
+#include "../item/Item.hpp"
+
+#include "../item/Animal.hpp"
+#include "../item/Karnivora.hpp"
+#include "../item/Herbivora.hpp"
+#include "../item/Omnivora.hpp"
+
+#include "../item/Plant.hpp"
+#include "../item/MaterialPlant.hpp"
+#include "../item/FruitPlant.hpp"
+
+#include "../item/Building.hpp"
+#include "../item/Product.hpp"
+
+#include "../color/pcolor.hpp"
+
+#include "../Storage/Storage.hpp"
+#include "../Store/Store.hpp"
+
 #include <string>
 #include <vector>
 #include <fstream>

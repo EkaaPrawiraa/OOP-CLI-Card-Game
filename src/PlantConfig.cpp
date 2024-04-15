@@ -33,4 +33,18 @@ int PlantConfig::getdurationtoharvest() const{
 int PlantConfig::getprice() const{
     return price;
 }
+PlantConfig& PlantConfig::operator=(const PlantConfig& other)
+{
+    if (this != &other) // prevent self-assignment
+    {
+        id = other.id;
+        kodeHuruf = other.kodeHuruf;
+        name = other.name;
+        type = other.type;
+        durationToHarvest = other.durationToHarvest;
+        price = other.price;
+    }
+    return *this;
+}
+
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE

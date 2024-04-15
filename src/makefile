@@ -1,31 +1,21 @@
+CC = g++
+CFLAGS = -std=c++11 -Wall -w
+LDFLAGS =
 
-PROGRAM = TUBES_OOP
+SRCDIR = .
+SRCS = $(wildcard $(SRCDIR)/*.cpp)
+OBJS = $(patsubst $(SRCDIR)/%.cpp,output/%.o,$(SRCS))
+EXEC = TUBES_OOP
 
+all: $(EXEC)
 
-CXX = g++
+$(EXEC): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@
 
-
-CXXFLAGS = -std=c++11 -Wall
-
-
-SRCDIR = src
-
-
-SRCS = $(shell find $(SRCDIR) -type f -name '*.cpp')
-
-
-OBJS = $(SRCS:%.cpp=%.o)
-
-
-all: $(PROGRAM)
-
-$(PROGRAM): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
-
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
+output/%.o: $(SRCDIR)/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(PROGRAM)
+	rm -f output/*.o $(EXEC)
+
+.PHONY: all clean

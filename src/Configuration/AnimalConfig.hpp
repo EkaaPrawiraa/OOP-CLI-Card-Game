@@ -21,6 +21,8 @@ public:
     std::string gettype() const;
     int getweighttoharvest() const;
     int getprice() const;
+    AnimalConfig& operator=(const AnimalConfig& other);
+
 };
 
 #endif

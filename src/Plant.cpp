@@ -65,6 +65,7 @@ Product* Plant::gethasilpanen() {
 
     return nullptr;
 }
-void Plant::setumur(int n){
+
+void Plant::setumur(int n ){
     umur=n;
 }

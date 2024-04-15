@@ -24,12 +24,17 @@ void urutPemain(std::vector<Role*>& roles) {
 }
 
 void next(vector<Role*>& Players){
-    for(Role* Player:Players)
-    [
-        if (Player->GetRoleType()=="Petani"){
+    for(Role* Player : Players)
+    {
+        if (Player->getRoleType() == "Petani")
+        {
             Player->updateUmurTumbuhan();
         }
-    ]
+    }
+}
+
+bool isWinner(){
+    return 1==0;
 }
 
 int main()
@@ -58,10 +63,10 @@ int main()
 
     // muat
     
-
-    urutPemain(Player);
+    urutPemain(Players);
     int currentPlayerIndex = 0;
     while(true){
+       
         string inputCommand;
         cout <<"> ";
         cin>>inputCommand;
@@ -76,6 +81,7 @@ int main()
         else if(inputCommand == "CETAK_PENYIMPANAN")
         {
             Players[currentPlayerIndex]->cetak_penyimpanan();
+            
         }
         else if(inputCommand == "PUNGUT_PAJAK")
         {
@@ -192,10 +198,11 @@ int main()
             else{
                 Role* currentPlayer = Players[currentPlayerIndex];
                 Players[currentPlayerIndex]->tambahPemain(Players);
-                auto it = std::find(players.begin(), players.end(), currentPlayer);
-                if (it != players.end()) {
-                currentPlayerIndex = std::distance(players.begin(), it);
+                auto it = std::find(Players.begin(), Players.end(), currentPlayer);
+                if (it != Players.end()) {
+                currentPlayerIndex = std::distance(Players.begin(), it);
                 }
+        }
         }
         else if(inputCommand =="EXIT")
         {

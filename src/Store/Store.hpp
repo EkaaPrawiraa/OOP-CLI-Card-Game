@@ -19,7 +19,7 @@ class Store{
     // berisi nama barang, harga, dan kuantiti barng
     // vector < tuple<string,int,int> > items;
     public:
-    Store(const vector<Plant> &plants,const vector<Animal> &animals);
+    Store(const vector<PlantConfig> &plants,const vector<AnimalConfig> &animals);
     Store(const vector<Building> &buildings,const vector<Plant> &plants,const vector<Animal> &animals,const vector<Product> &products);
     ~Store();
 
