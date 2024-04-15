@@ -191,7 +191,7 @@ int Store::getPriceProduct(const string kode) {
 }
 
 // template <typename T>
-std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmoney)
+std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmoney,string role)
 {
     Item* item;
     bool quantityEnough = true;
@@ -273,6 +273,11 @@ std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmo
     {
         if (building.getKode() == kode)
         {
+            if (role=="Walikota")
+            {
+                cout<<"Walikota tidak dapat membeli bangunan!"<<endl;
+                return make_pair(0, item);
+            }
             if (getJumlah(building.getKode())<quantity)
             {
                 quantityEnough = false;

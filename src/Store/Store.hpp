@@ -39,7 +39,7 @@ class Store{
     int getPriceAnimal(const string kode);
     int getPriceProduct(const string kode);
     int getJumlah(string kode);
-    std::pair<int, Item*> buyItem(const string kode,const int quantity,const int usersmoney);
+    std::pair<int, Item*> buyItem(const string kode,const int quantity,const int usersmoney,string role);
     int sellItem(Item* item);
     void display();
 };

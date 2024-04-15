@@ -37,6 +37,7 @@ std::vector<Role*> read_input(const std::string& filename, MiscConfig misc, cons
             iss >> username;
             std::string role_type;
             iss >> role_type;
+            
             if (role_type == "Petani") {
                 std::string lokasi;            float weight;
                 int money, storrows, storcols, ladrows, ladcols, loop, umur;
