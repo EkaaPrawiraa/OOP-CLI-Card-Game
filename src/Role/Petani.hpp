@@ -2,9 +2,12 @@
 #define PETANI_HPP
 #include <string>
 #include <iostream>
+#include <cmath>
+#include <regex>
 #include "Role.hpp"
 #include "../Storage/Storage.hpp"
-
+#include "../item/Building.hpp"
+#include "../Store/Store.hpp"
 using namespace std;
 class Petani : public Role
 {
@@ -13,10 +16,10 @@ private:
 
 public:
     Petani(string username, float weight, int uang, int storrows, int storcols, int ladrows, int ladcols);
-    virtual ~Petani();
-    virtual void next();
-    virtual void membeli();
-    virtual void menjual();
+     ~Petani();
+    
+     void membeli(Store&);
+     void menjual(Store&);
     void CetakLadang();
     void Tanam();
     void Memanen();

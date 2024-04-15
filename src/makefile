@@ -3,7 +3,8 @@ CFLAGS = -std=c++11 -Wall -w
 LDFLAGS =
 
 SRCDIR = .
-SRCS = $(wildcard $(SRCDIR)/*.cpp)
+# Include Storage/Storage.hpp and exclude Storage.cpp from the list of source files
+SRCS = $(filter-out $(SRCDIR)/Storage.cpp, $(wildcard $(SRCDIR)/*.cpp)) $(SRCDIR)/Storage/Storage.hpp
 OBJS = $(patsubst $(SRCDIR)/%.cpp,output/%.o,$(SRCS))
 EXEC = TUBES_OOP
 

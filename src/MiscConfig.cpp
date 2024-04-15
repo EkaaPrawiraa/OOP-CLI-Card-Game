@@ -10,7 +10,7 @@ MiscConfig::MiscConfig(int winningMoney, int winningWeight, int storageRows, int
 
 MiscConfig::~MiscConfig()
 {
-    std::cout << "MiscConfig dihapus" << std::endl;
+    // std::cout << "MiscConfig dihapus" << std::endl;
 }
 
 MiscConfig &MiscConfig::operator=(const MiscConfig &original)

@@ -9,14 +9,213 @@ Petani::Petani(string username, float weight, int uang, int storrows, int storco
 Petani::~Petani() {}
 
 // Virtual function implementations
-void Petani::next() {}
-void Petani::membeli() {}
-void Petani::menjual() {}
+void Petani::membeli(Store& Toko) {
+    if (invent.isFull())
+    {
+        cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
+    }
+    else
+    {
+
+        Toko.display();
+        cout<<"\n\n";
+        cout <<"Uang Anda : "<<this->gulden<<endl;
+        cout<<"Slot penyimpanan tersedia: "<<invent.getSize()-invent.countElement()<<endl;
+        string boughtItem;
+        cout << "Kode barang yang ingin dibeli : ";
+        cin >> boughtItem;
+        int quantity = 0;
+        cout<<"Kuantitas : ";
+        cin >>quantity;
+        while(invent.countElement()+quantity>invent.getSize())
+        {
+            cout<<"Penyimpanan anda tidak cukup!"<<endl;
+            cout<<"Sisa penyimpanan : "<<invent.getSize()-invent.countElement()<<endl;
+            cout<<"Kuantitas : ";
+            cin >>quantity;
+        }
+        std::pair<int, Item*> passsss=Toko.buyItem(boughtItem,quantity,gulden,getRoleType());
+        Item* item=passsss.second;
+        int totalpaid = passsss.first;
+        cout<<item->getname()<<endl;
+        if (totalpaid>0)
+        {
+            
+            this->gulden -= totalpaid;
+            cout << endl;
+            cout << "Selamat Anda berhasil membeli " << quantity << " " << boughtItem << ". Uang Anda tersisa " << this->gulden << " gulden." << endl;
+            cout << endl;
+            cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
+            // belum tau cetak penyimpanan
+            invent.display("Penyimpanan");
+            // atur cetak penyimpanan
+            cout<<endl;
+            
+
+            for(int i =1;i<=quantity;i++)
+            {
+                inputpetak:
+                cout<<"Petak slot barang ke-"<<i<<" : ";
+                string tok;
+                cin.ignore();
+                cin>>tok;
+                std::regex pattern("^[a-zA-Z][0-9]+");
+                if ((!std::regex_match(tok, pattern))){
+                    cout << "Format salah !"<< endl;  
+                    goto inputpetak;
+                }
+                int col = toupper(tok[0]) - 'A';
+                int row = std::stoi(tok.substr(1));
+                if (( col>invent.getCols() || row>invent.getRows() ) ) {
+                    cout<<"Melebihi ukuran penyimpanan!"<<endl;
+                    goto inputpetak;
+                 }
+                if (!invent.isemptyslot(row,tok[0]))
+                {
+                    cout << "Petak tersebut telah terisi!"<<endl;
+                    cout << "Isi ulang!" <<endl;
+                    goto inputpetak;
+                }
+                else {
+                    invent.setValue(row,tok[0],item);
+                    cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
+                    invent.display("Penyimpanan");
+                    cout<<item->getclassname();
+
+                }
+                
+            }
+          
+        }  
+    }
+    
+}
+void Petani::menjual(Store& Toko) {
+    if (invent.countElement() == 0) {
+        cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
+        return;
+    }
+    
+    int totalPrice = 0;
+    
+    int quanti;
+    invent.display("Penyimpanan");
+    cout << "Jumlah barang yang ingin anda jual : ";
+    cin>>quanti;
+    while (quanti>invent.countElement())
+    {
+        cout<<"Barang yang Anda miliki kurang!"<<endl;
+        cout << "Jumlah barang yang ingin anda jual : ";
+        cin>>quanti;
+    }
+    for(int i =1;i<=quanti;i++)
+    {
+                inputpetak:
+                cout<<"Petak slot barang ke-"<<i<<" : ";
+                string tok;
+                cin.ignore();
+                cin>>tok;
+                cout<<tok<<endl;
+                std::regex pattern("^[a-zA-Z][0-9]+");
+                if ((!std::regex_match(tok, pattern))){
+                    cout << "Format salah !"<< endl;  
+                    goto inputpetak;
+                }
+                int col = toupper(tok[0]) - 'A';
+                int row = std::stoi(tok.substr(1));
+                if (( col>invent.getCols() || row>invent.getRows() ) ) {
+                    cout<<"Melebihi ukuran penyimpanan!"<<endl;
+                    goto inputpetak;
+                 }
+                if (invent.isemptyslot(row, tok[0])) {
+                     cout << "Petak tersebut kosong!" << endl;
+                     cout << "Isi ulang!" <<endl;
+                     goto inputpetak;
+                } 
+                else if(invent.getValue(row,tok[0])->getclassname()=="Building")
+                {
+                    cout<<"Peternak tidak dapat menjual bangunan!"<<endl;
+                }
+                else {
+                    // cout << invent.getValue(row, tok[0])->getprice() << endl;
+                    // Periksa tipe objek dan jualnya
+                    totalPrice += Toko.sellItem(invent.getValue(row, tok[0]));
+                    invent.deleteValue(row,tok[0]);
+
+                }
+                
+    }
+    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
+
+    
+}
 
 int Petani::calculate_tax()
 {
-    // Implementation of tax calculation goes here
-    return 0; // Placeholder return value
+    int KTKP = 13;
+    int KKP = 0;
+    int pajak = 0;
+    int netoKekayaan = gulden;
+    
+    // Hitung Neto
+    for (const auto &row : invent.getmatrix())
+    {
+        for (const auto &cell : row.second)
+        {
+            netoKekayaan+=cell.second->getprice();
+        }
+        
+    }
+    for (const auto &row : Ladang.getmatrix())
+    {
+        for (const auto &cell : row.second)
+        {
+            netoKekayaan+=cell.second->getprice();
+        }
+        
+    }
+
+      
+    // hitung neto kekayaan
+    KKP = netoKekayaan - KTKP;
+
+    if (KKP <= 0)
+    {
+        pajak = 0;
+    }
+    else if (KKP <= 6)
+    {
+        pajak = 0.05;
+    }
+    else if (KKP <= 25)
+    {
+        pajak = 0.15;
+    }
+    else if (KKP <= 50)
+    {
+        pajak = 0.25;
+    }
+    else if (KKP <= 500)
+    {
+        pajak = 0.30;
+    }
+    else
+    {
+        pajak = 0.35;
+    }
+
+    int bayarPajak = round(pajak * KKP);
+    if (getGulden() - bayarPajak < 0)
+    {
+        bayarPajak = getGulden();
+        setGulden(0);
+        return bayarPajak;
+    }
+    else
+    {
+        setGulden(getGulden() - bayarPajak);
+        return bayarPajak;
+    }
 }
 
 void Petani::setLadang(int row, char col, Plant *p)

@@ -45,6 +45,6 @@ public:
     int getCols();
 };
 
-// #include "../Storage.cpp"
+#include "../Storage.cpp"
 
 #endif

@@ -1,6 +1,5 @@
 #ifndef ROLE_HPP
 #define ROLE_HPP
-
 #include <string>
 #include <iostream>
 #include "../Storage/Storage.hpp"
@@ -28,18 +27,11 @@ protected:
 public:
     Role(string username, float weight, int uang, int storrows, int storcols);
     virtual ~Role();
-    virtual void next() = 0; // virtual pure method
-    virtual void membeli() = 0; // virtual pure method
-    virtual void menjual() = 0; // virtual pure method
-    virtual void cetakPeternakan() = 0; // virtual pure method
-    virtual void cetakLadang() = 0; // virtual pure method
-    virtual void Tanam() = 0; // virtual pure method
-    virtual void Memanen() = 0; // virtual pure method
-    virtual void bangunBangunan(std::vector<BuildingRecipeConfig>) = 0; // virtual pure method
-    virtual void pungutPajak(std::vector<Role *>) = 0; // virtual pure method
-    virtual void memberiPangan() = 0; // virtual pure method
-    virtual void updateUmurTumbuhan() = 0; // virtual pure method
-    virtual void tambahPemain(std::vector<Role *> &) = 0; // virtual pure method
+    virtual void next();
+    void cetak_penyimpanan();
+    void makan();
+    virtual void membeli();
+    virtual void menjual();
     virtual int calculate_tax() = 0;
     std::string getUsername() const;
     int getGulden();
@@ -48,9 +40,7 @@ public:
     void setWeight(float weight);
     virtual string getRoleType();
     Matrix<Item*>& getInventory();
-
-     void cetak_penyimpanan();
-     void makan();
+    
 };
-
-#endif // NAMA_FILE_HPP
+Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::vector<PlantConfig>& plantConfigs, const std::vector<AnimalConfig>& animalConfigs, const std::vector<BuildingRecipeConfig>& buildingConfigs, const std::string& itemName);
+#endif

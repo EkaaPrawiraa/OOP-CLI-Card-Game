@@ -14,11 +14,7 @@ void Role::cetak_penyimpanan()
 }
 void Role::makan()
 {
-    // if (invent.isempty())
-    // {
-    //     // EXCEPTION
-    //     throw MatrixKosongException();
-    // }
+    
     bool foundfood = false;
     for (const auto &row : invent.getmatrix())
     {
@@ -38,43 +34,56 @@ void Role::makan()
             break;
         }
     }
-    // if (!foundfood)
-    // {
-    //     // EXCEPTION BUAT
-    //     throw NofoodException();
-    // }
-    cout << "Pilih makanan dari penyimpanan" << endl;
-    cetak_penyimpanan();
-    cout << endl
-         << endl;
-    string lokasi;
-    bool found;
-    int gain;
-    do
+  
+    if (!foundfood){
+        cout<<"Minimal punya makan dek.."<<endl;
+    }
+    else 
     {
-        std::cout << "Slot: ";
-        std::cin >> lokasi;
-        char column = lokasi[0];
-        int row = stoi(lokasi.substr(1));
-        found = false;
-        if (auto product = dynamic_cast<Product *>(invent.getmatrix()[row][column]))
+        cout << "Pilih makanan dari penyimpanan" << endl;
+        cetak_penyimpanan();
+        cout << endl<< endl;
+        
+        
+        int gain;
+        bool found;
+        do
         {
-            if (product->getadded_weight() != 0)
+            
+            string lokasi;
+            std::cout << "Slot: ";
+            std::cin >> lokasi;
+            char column = lokasi[0];
+            int row = stoi(lokasi.substr(1));
+            found = false;
+            if (invent.isemptyslot(row,column))
             {
-                found = true;
-                gain = product->getadded_weight();
-                invent.deleteValue(row, column);
+                cout<<"Kamu mengambil harapan kosong dari penyimpanan."<<endl;
+                cout<<"Silahkan masukan slot yang berisi makanan."<<endl;
+
             }
-        }
+            else if (auto product = dynamic_cast<Product *>(invent.getValue(row,column)))
+            {
+                
+                if (product->getadded_weight() != 0)
+                {
+                    found = true;
+                    gain = product->getadded_weight();
+                    cout<<"Dengan lahapnya, kamu memakanan hidangan itu"<<endl;
+                    invent.deleteValue(row, column);
+                }
+                else{
+                    cout <<"Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!"<<endl;
+                    cout<<"Silahkan masukan slot yang berisi makanan."<<endl;
+                }
+            }
+            
 
-        // if (!found)
-        // {
-        //     // THROW EXCEPTION
-        //     throw NofoodException();
-        // }
-
-    } while (!found);
-    this->weight += gain;
+        }while (!found);
+        this->weight += gain;
+        cout<<"Alhasil, berat badan kamu naik menjadi "<<this->weight<<endl;
+    }
+    
 }
 void Role::membeli()
 {

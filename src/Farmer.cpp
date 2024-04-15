@@ -48,11 +48,11 @@ void Farmer::Ternak(){
     }
     // atasin kalo ladang penuh belum
     cout << "Pilih hewan dari penyimpanan" << endl;
-    vector<Product*> pr;
-    pr.push_back(new Product("ABW", "Bewe", "Material_Plant", "GNSH", 25.5, 15));
-    Karnivora* sample = new Karnivora("ABD", "ABC", "TYPE", 15, 10, 15, "A02", pr);
+    // vector<Product*> pr;
+    // pr.push_back(new Product("ABW", "Bewe", "Material_Plant", "GNSH", 25.5, 15));
+    // Karnivora* sample = new Karnivora("ABD", "ABC", "TYPE", 15, 10, 15, "A02", pr);
     // Item* sample = new Item("ABD", "ABC", 15);
-    invent.setValue(2, 'A', sample);
+    // invent.setValue(2, 'A', sample);
     cetak_penyimpanan();
     inputpetak:
     cout<<"Slot: ";
@@ -76,7 +76,7 @@ void Farmer::Ternak(){
             cout << "Isi ulang!" <<endl;
             goto inputpetak;
     } 
-    if(invent.getValue(row,col2)->getclassname() != "Karnivora" && invent.getValue(row,col2)->getclassname() != "Herbivora"&& invent.getValue(row,col2)->getclassname() != "Omnivora")
+    if(invent.getValue(row,location[0])->getclassname() != "Karnivora" && invent.getValue(row,location[0])->getclassname() != "Herbivora"&& invent.getValue(row,location[0])->getclassname() != "Omnivora")
     {   
         cout << "Pastikan Item berupa Hewan" << endl;
         cout << "Isi ulang!" <<endl;

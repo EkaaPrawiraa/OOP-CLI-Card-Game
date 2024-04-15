@@ -1,0 +1,10 @@
+3
+Petani1 Petani 50 40
+0
+0
+Peternak1 Peternak 50 40
+0
+0
+Walikota1 Walikota 50 40
+0
+0

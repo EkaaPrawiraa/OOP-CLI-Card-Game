@@ -328,8 +328,9 @@ std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmo
         cout <<"Kode barang tidak terdapat di toko."<<endl;
         return make_pair(0, item);
     }
+ return make_pair(0,item);
 }
-// template <typename T>
+
 int Store::sellItem(Item* item) {
     if (Building* buildingItem = dynamic_cast<Building*>(item)) {
         // cout<<"KDKDK";

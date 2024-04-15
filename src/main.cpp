@@ -26,15 +26,16 @@ void urutPemain(std::vector<Role*>& roles) {
 void next(vector<Role*>& Players){
     for(Role* Player : Players)
     {
-        if (Player->getRoleType() == "Petani")
+        Petani* petani = dynamic_cast<Petani*>(Player);
+        if (petani)
         {
-            Player->updateUmurTumbuhan();
+            petani->updateUmurTumbuhan();
         }
     }
 }
 
-bool isWinner(){
-    return 1==0;
+bool isWinner(int moneyplayer,int weightplayer ,int targetmoney, int targetweight){
+    return moneyplayer>=targetmoney && weightplayer >=targetweight
 }
 
 int main()
@@ -46,7 +47,7 @@ int main()
     WordMachine machine4("Configuration//config//recipe.txt");
     WordMachine machine5("Configuration//config//misc.txt");
 
-    WordMachine machine6("Configuration//config//state.txt");
+    
     
 
     vector<AnimalConfig> animalconfig = machine1.readAnimals();
@@ -56,17 +57,35 @@ int main()
     MiscConfig miscconfig =machine5.readConfig();
 
     Store Toko(plantconfig,animalconfig);
-    int targetGulden = miscconfig.getWinningMoney();
-    int targetWeight = miscconfig.getWinningWeight();
+    
 
+    std::char answer;
+    cout<<"Apakah Anda ingin memuat state? (y/n)";
+    cin>>answer;
+    std::string lokasi;
+    if(toupper(answer)=='Y')
+    {
+        std::ifstream file;
+        cout<<"Masukkan lokasi berkas state : "
+        cin>>lokasi;
+        
+    }
+    else{
+        cout<<"Anda memulai dengan  mode default!"<<endl;
+        lokasi = "Configuration//config//default.txt"
+    }
+    WordMachine machine6(lokasi);
     vector<Role*> Players = machine6.read_input(miscconfig,productconfig,animalconfig,plantconfig,buildingconfig,Toko);
 
-    // muat
-    
     urutPemain(Players);
     int currentPlayerIndex = 0;
+
+
     while(true){
-       
+       Role* curplay = Players[currentPlayerIndex];
+       Walikota* walikota = dynamic_cast<Walikota*>(curplay);
+       Petani* petani = dynamic_cast<Petani*>(curplay);
+       Farmer* farmer = dynamic_cast<Farmer*>(curplay);
         string inputCommand;
         cout <<"> ";
         cin>>inputCommand;
@@ -85,69 +104,69 @@ int main()
         }
         else if(inputCommand == "PUNGUT_PAJAK")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Walikota")
+            if ( !walikota)
             {
                 cout<<"Command hanya bisa dilakukan oleh walikota!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->pungutPajak(Players);
+                walikota->pungutPajak(Players);
             }
             
         }
         else if(inputCommand == "CETAK_LADANG")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Petani")
+            if (!petani)
             {
                 cout<<"Command hanya bisa dilakukan oleh Petani!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->cetakLadang();
+                petani->CetakLadang();
             }
         }
         else if(inputCommand == "CETAK_PETERNAKAN")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Farmer")
+            if (!farmer)
             {
                 cout<<"Command hanya bisa dilakukan oleh Peternak!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->cetakPeternakan();
+                farmer->cetakPeternakan();
             }
         }
         else if(inputCommand == "TANAM")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Petani")
+            if (!petani)
             {
                 cout<<"Command hanya bisa dilakukan oleh Petani!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->Tanam();
+                petani->Tanam();
             }
         }
         else if(inputCommand == "TERNAK")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Farmer")
+            if (!farmer)
             {
                 cout<<"Command hanya bisa dilakukan oleh Peternak!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->Tanam();
+                farmer->Ternak();
             }
         }
         else if(inputCommand == "BANGUN")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Walikota")
+            if (!walikota)
             {
                 cout<<"Command hanya bisa dilakukan oleh Walikota!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->bangunBangunan(buildingconfig);
+                walikota->bangunBangunan(buildingconfig);
             }
         }
         else if(inputCommand == "MAKAN")
@@ -157,28 +176,52 @@ int main()
         }
         else if(inputCommand == "KASIH_MAKAN")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Farmer")
+            if (!farmer)
             {
                 cout<<"Command hanya bisa dilakukan oleh Peternak!"<<endl;
                 
             }
             else{
-                Players[currentPlayerIndex]->memberiPangan();
+                farmer->memberiPangan();
             }
         }
         else if(inputCommand == "BELI")
         {
-            Players[currentPlayerIndex]->membeli();
+            if (farmer)
+            {
+               farmer->membeli(Toko);   
+            }
+            else if(petani)
+            {
+                petani->membeli(Toko);
+            }
+            else{
+                walikota->membeli(Toko);
+            }
         }
         else if(inputCommand == "JUAL")
         {
-            Players[currentPlayerIndex]->menjual();
+            if (farmer )
+            {
+               farmer->menjual(Toko);   
+            }
+            else if(petani)
+            {
+                petani->menjual(Toko);
+            }
+            else{
+                walikota->menjual(Toko);
+            }
         }
         else if(inputCommand == "PANEN")
         {
-            if (Players[currentPlayerIndex]->getRoleType()=="Farmer" || Players[currentPlayerIndex]->getRoleType()=="Petani")
+            if (farmer )
             {
-                Players[currentPlayerIndex]->Memanen();   
+               farmer->Memanen();   
+            }
+            else if(petani)
+            {
+                petani->Memanen();
             }
             else{
                 cout<<"Command hanya bisa dilakukan oleh Peternak dan Petani!"<<endl;
@@ -186,18 +229,23 @@ int main()
         }
         else if(inputCommand == "SIMPAN")
         {
-            cout<<"Menyimpan...";
+            string file;
+            cout<<"Masukkan file yang ingin disave: ";
+            cin>>file;
+            machine6.save_input(file, Players, miscconfig, productconfig, animalconfig, plantconfig, buildingconfig, Toko);
+            cout<<"Menyimpan..."<<endl;
+
         }
         else if(inputCommand == "TAMBAH_PEMAIN")
         {
-            if (Players[currentPlayerIndex]->getRoleType()!="Walikota")
+            if (!walikota)
             {
                 cout<<"Command hanya bisa dilakukan oleh Walikota!"<<endl;
                 
             }
             else{
                 Role* currentPlayer = Players[currentPlayerIndex];
-                Players[currentPlayerIndex]->tambahPemain(Players);
+                walikota->tambahPemain(Players,miscconfig);
                 auto it = std::find(Players.begin(), Players.end(), currentPlayer);
                 if (it != Players.end()) {
                 currentPlayerIndex = std::distance(Players.begin(), it);
@@ -212,11 +260,18 @@ int main()
         {
             cout<<"============MENU==========="<<endl;
         }
+        else if(inputCommand=="INFO"){
+            cout<<curplay->getUsername()<<endl;
+            // kasihh buat display cnfig
+        }
         else{
-            cout<<"Command List salah!";
+            cout<<"Command List salah!"<<endl;
         }
         
-
+        if(isWinner(curplay->getGulden(),curplay->getWeight(),miscconfig.getWinningMoney(),miscconfig.getWinningWeight()))
+        {
+            cout<<curplay->getUsername()<<" is winning the game!!"<<endl;
+        }
 
     }
     return 0;

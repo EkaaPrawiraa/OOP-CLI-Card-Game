@@ -169,7 +169,7 @@ std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<Pr
             iss >> username;
             std::string role_type;
             iss >> role_type;
-            std::cout<<username<<"USERNAME"<<role_type<<"ROLE"<<std::endl;
+            // std::cout<<username<<"USERNAME"<<role_type<<"ROLE"<<std::endl;
             if (role_type == "Petani") {
                 std::string lokasi;float weight;
                 int money, storrows, storcols, ladrows, ladcols, loop, umur;
