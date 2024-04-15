@@ -7,7 +7,7 @@ else
 endif
 
 CC = g++
-CFLAGS = -std=c++11 -Wall -w
+CFLAGS = -std=c++11 -Wall -w -g
 LDFLAGS =
 
 SRCDIR = .

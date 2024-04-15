@@ -165,6 +165,10 @@ void Walikota::tambahPemain(std::vector<Role *> &daftarPemain, MiscConfig &confi
                     Petani *tempPetani = new Petani(nama, 40, 50, configGame.getStorageRows(), configGame.getStorageCols(), configGame.getLandRows(), configGame.getLandCols());
                     daftarPemain.push_back(tempPetani);
                 }
+                else{
+                    cout<<"Format salah!"<<endl;
+                    return;
+                }
                 // pengurutan urutan pemain (jika ada pemain baru yang ditambahkan)
                 std::cout << "Pemain baru ditambahkan!" << std::endl;
                 std::cout << "Selamat datang " << nama << " di kota ini!" << std::endl;

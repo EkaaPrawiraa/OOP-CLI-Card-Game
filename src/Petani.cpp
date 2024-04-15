@@ -77,7 +77,7 @@ void Petani::membeli(Store& Toko) {
                     goto inputpetak;
                 }
                 else {
-                    invent.setValue(row,tok[0],item);
+                    invent.setValue(row,toupper(tok[0]),item);
                     cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
                     invent.display("Penyimpanan");
                     cout<<item->getclassname();

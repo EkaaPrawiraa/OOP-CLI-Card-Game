@@ -74,7 +74,10 @@ void Farmer::Ternak(){
             cout << "Isi ulang!" <<endl;
             goto inputpetak;
     } 
-    if(invent.getValue(row,location[0])->getclassname() != "Karnivora" && invent.getValue(row,location[0])->getclassname() != "Herbivora"&& invent.getValue(row,location[0])->getclassname() != "Omnivora")
+    
+    Animal* animal = dynamic_cast<Animal*>(invent.getValue(row,location[0]));
+    cout<<animal->gettype()<<endl;
+    if(!animal)
     {   
         cout << "Pastikan Item berupa Hewan" << endl;
         cout << "Isi ulang!" <<endl;
@@ -86,8 +89,8 @@ void Farmer::Ternak(){
     row = stoi(location.substr(1));
     cout << "Kamu memilih " << invent.getValue(row,toupper(col))->getname() << endl;
 
-    std::cout << "Pilih petak tanah yang akan ditanami" << std::endl;
-    Peternakan.display("Ladang");
+    std::cout << "Pilih petak kandang yang akan ditinggali" << std::endl;
+    Peternakan.display("Peternakan");
     std::cout << "\n\n";
 
     std::string loc;
@@ -105,22 +108,30 @@ void Farmer::Ternak(){
         row1 = stoi(loc.substr(1));
     }
 
-    if(invent.getValue(row, col)->getclassname() == "Karnivora"){
-        Peternakan.setValue(row1, col1, dynamic_cast<Karnivora*>(invent.getValue(row, col)));
+    if(animal->gettype() == "CARNIVORE"){
+        // Karnivora* karnivora = dynamic_cast<Karnivora*>(animal);
+        // if (karnivora)
+        Peternakan.setValue(row1, toupper(col1), animal);
     }
-    else if (invent.getValue(row, col)->getclassname() == "Herbivora")
+    else if (animal->gettype() == "HERBIVORE")
     {
-        Peternakan.setValue(row1, col1, dynamic_cast<Herbivora*>(invent.getValue(row, col)));
+        // Herbivora* herbivora = dynamic_cast<Herbivora*>(animal);
+        // if (herbivora)
+        Peternakan.setValue(row1, toupper(col1), animal);
     
     }
     else
     {
-        Peternakan.setValue(row1, col1, dynamic_cast<Omnivora*>(invent.getValue(row, col)));
+        // Omnivora* omnivora = dynamic_cast<Omnivora*>(animal);
+        // if (omnivora) {
+            Peternakan.setValue(row1, toupper(col1), animal);
+        
     }
     
+    
+    std::cout << "Dengan hati-hati, kamu meletakkan seekor "<< animal->getname()<<" di kandang." << std::endl;
+    std::cout << animal->getname() << " telah menjadi peliharaanmu sekarang!" << endl;
     invent.deleteValue(row,col);
-    std::cout << "Dengan hati-hati, kamu meletakkan seekor "<< Peternakan.getValue(row1,col1)->getname()<<" di kandang." << std::endl;
-    std::cout << Peternakan.getValue(row1,col1)->getname() << " telah menjadi peliharaanmu sekarang!" << endl;
 
 }
 
@@ -152,7 +163,7 @@ void Farmer::menjual(Store& Toko) {
                 string tok;
                 cin.ignore();
                 cin>>tok;
-                cout<<tok<<endl;
+                // cout<<tok<<endl;
                 std::regex pattern("^[a-zA-Z][0-9]+");
                 if ((!std::regex_match(tok, pattern))){
                     cout << "Format salah !"<< endl;  
@@ -182,6 +193,7 @@ void Farmer::menjual(Store& Toko) {
                 }
                 
     }
+    this->gulden+=totalPrice;
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
 
     }
@@ -254,10 +266,10 @@ void Farmer::membeli(Store& Toko){
                     goto inputpetak;
                 }
                 else {
-                    invent.setValue(row,tok[0],item);
+                    invent.setValue(row,toupper(tok[0]),item);
                     cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
                     invent.display("Penyimpanan");
-                    cout<<item->getclassname();
+                    // cout<<item->getclassname();
 
                 }
                 
@@ -401,6 +413,7 @@ void Farmer::Memanen(vector<ProductConfig> config){
     while(no > list.size() || no <= 0){
         std::cout << "Masukkan Nomor yang Valid!\n";
         std::cout << "Nomor hewan yang ingin dipanen:";
+        cin.clear();
         std::cin >> no;
     }
 
@@ -412,6 +425,7 @@ void Farmer::Memanen(vector<ProductConfig> config){
     while(petak > it->second || petak <= 0){
         std::cout << "Masukkan Jumlah Petak yang Valid!\n";
         std::cout << "Berapa petak yang ingin dipanen:";
+        cin.clear();
         std::cin >> petak;
     }
 
@@ -435,16 +449,23 @@ void Farmer::Memanen(vector<ProductConfig> config){
         {   
             cout << "Masukkan Letak Petak yang Valid!" << endl;
             std::cout << "Petak ke-" << i+1 << ": ";
+            cin.clear();
             std::cin >> loc;
-
             col = toupper(loc[0]);
             row = stoi(loc.substr(1));
         }
 
+        Animal* animal = dynamic_cast<Animal*>(Peternakan.getValue(row,col));
+        
         listloc.insert(loc);
-        for (Product* P : (Peternakan.getValue(row, col)->gethasilpanen(config)))
+        // cout<<animal->getKode()<<endl;
+        for (Product* P : (animal->gethasilpanen(config)))
         {
-            invent.setfirstempty(dynamic_cast<Product*>(P));
+            
+            // cout<<P->getname()<<endl;
+            Product* temp=dynamic_cast<Product*>(P);
+            invent.setfirstempty(temp);
+            // invent.setValue(3,'A',temp);
             
         }
         Peternakan.deleteValue(row,col);
@@ -469,11 +490,17 @@ void Farmer::memberiPangan()
     Peternakan.display("Peternakan");
 
     inputpetak:
+    cout<<"Ketik cancel untuk batal~"<<endl;
     cout<<"Petak kandang: ";
     string tok;
     cin.ignore();
     cin>>tok;
     std::regex pattern("^[a-zA-Z][0-9]+");
+    if (tok =="cancel")
+    {
+        return;
+    }
+    
     if ((!std::regex_match(tok, pattern))){
         cout << "Format salah !"<< endl;  
         goto inputpetak;
@@ -491,7 +518,7 @@ void Farmer::memberiPangan()
         goto inputpetak;
     }
 
-    Animal* choosed = Peternakan.getValue(row,tok[0]);
+    Animal* choosed = dynamic_cast<Animal*> (Peternakan.getValue(row,toupper(tok[0])));
     // check ada makan di inventory atau engga
     bool adamakan = false;
     for (const auto &row : invent.getmatrix())
@@ -501,17 +528,19 @@ void Farmer::memberiPangan()
             
             if (auto product = dynamic_cast<Product *>(cell.second))
             {
-                if (product->gettipe() == "PRODUCT_ANIMAL" && choosed->getclassname()=="Karnivora")
+                cout<<product->gettipe()<<endl;
+                cout<<choosed->gettype()<<endl;
+                if (product->gettipe() == "PRODUCT_ANIMAL" && choosed->gettype()=="CARNIVORE")
                 {
                     adamakan = true;
                     break;
                 }
-                if (product->gettipe() == "PRODUCT_FRUIT_PLANT" && choosed->getclassname()=="Herbivora")
+                if (product->gettipe() == "PRODUCT_FRUIT_PLANT" && choosed->gettype()=="HERBIVORE")
                 {
                     adamakan = true;
                     break;
                 }
-                if ((product->gettipe() == "PRODUCT_ANIMAL" ||product->gettipe() == "PRODUCT_FRUIT_PLANT") && choosed->getclassname()=="Omnivora")
+                if ((product->gettipe() == "PRODUCT_ANIMAL" ||product->gettipe() == "PRODUCT_FRUIT_PLANT") && choosed->gettype()=="OMNIVORE")
                 {
                     adamakan = true;
                     break;
@@ -531,6 +560,7 @@ void Farmer::memberiPangan()
 
     cout<< "Kamu memilih "<<choosed->getname()<<" untuk diberi makan."<<endl;
     cout<<"Pilih pangan yang akan diberikan: "<<endl;
+
     invent.display("Penyimpanan");
 
     inputslot:
@@ -538,6 +568,7 @@ void Farmer::memberiPangan()
     string slot;
     cin.ignore();
     cin>>slot;
+    // cout<<slot<<endl;
     // std::regex pattern("^[a-zA-Z][0-9]+");
     if ((!std::regex_match(slot, pattern))){
         cout << "Format salah !"<< endl;  
@@ -549,28 +580,32 @@ void Farmer::memberiPangan()
         cout<<"Melebihi ukuran Penyimpanan!"<<endl;
         goto inputslot;
         }
-    if (Peternakan.isemptyslot(rows,slot[0]))
+    if (invent.isemptyslot(rows,toupper(slot[0])))
     {
+        // cout<<slot[0]<<endl<<rows<<endl;
         cout << "Petak tersebut kosong!"<<endl;
         cout << "Isi ulang!" <<endl;
         goto inputslot;
     }
-    Product* item = dynamic_cast<Product*> (invent.getValue(rows,slot[0]));
-    if  (item->gettipe() == "PRODUCT_ANIMAL" && choosed->getclassname()=="Karnivora")
-    {
-        Peternakan.getValue(row,tok[0])->setberat(choosed->getberat()+item->getadded_weight());
-        invent.deleteValue(rows,slot[0]);
+    Product* item = dynamic_cast<Product*>(invent.getValue(rows, slot[0]));
+    if (item){
+        if  (item->gettipe() == "PRODUCT_ANIMAL" && choosed->gettype()=="CARNIVORE")
+        {
+            Peternakan.getValue(row,tok[0])->setberat(choosed->getberat()+item->getadded_weight());
+            invent.deleteValue(rows,slot[0]);
+        }
+        else if  (item->gettipe() == "PRODUCT_FRUIT_PLANT" && choosed->gettype()=="HERBIVORE")
+        {
+            Peternakan.getValue(row,tok[0])->setberat(choosed->getberat()+item->getadded_weight());
+            invent.deleteValue(rows,slot[0]);
+        }
+        else if  ((item->gettipe() == "PRODUCT_FRUIT_PLANT"|| item->gettipe() == "PRODUCT_ANIMAL" )&& choosed->gettype()=="OMNIVORE")
+        {
+            Peternakan.getValue(row,tok[0])->setberat(choosed->getberat()+item->getadded_weight());
+            invent.deleteValue(rows,slot[0]);
+        }
     }
-    else if  (item->gettipe() == "PRODUCT_FRUIT_PLANT" && choosed->getclassname()=="Herbivora")
-    {
-        Peternakan.getValue(row,tok[0])->setberat(choosed->getberat()+item->getadded_weight());
-        invent.deleteValue(rows,slot[0]);
-    }
-    else if  ((item->gettipe() == "PRODUCT_FRUIT_PLANT"|| item->gettipe() == "PRODUCT_ANIMAL" )&& choosed->getclassname()=="Omnivora")
-    {
-        Peternakan.getValue(row,tok[0])->setberat(choosed->getberat()+item->getadded_weight());
-        invent.deleteValue(rows,slot[0]);
-    }
+    
     else{
         cout<<"Makanan yang diberikan salah!"<<endl;
         cout<<"Piih ulang dari penyimpanan!"<<endl;

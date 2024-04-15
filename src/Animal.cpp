@@ -117,7 +117,7 @@ Animal& Animal::operator=(const Animal& other) {
 vector<Product*> Animal::gethasilpanen(vector<ProductConfig> config) {
     vector<Product*> hasilPanen;
     for (ProductConfig& P : config) {
-        if (P.getorigin() == this->getKode()) {
+        if (P.getorigin() == this->getname()) {
             Product* newProduct = new Product(
                 P.getcode(),
                 P.getname(),

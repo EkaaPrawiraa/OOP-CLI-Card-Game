@@ -27,8 +27,10 @@ void Matrix<T>::setfirstempty(T value)
     {
         for (char col = 'A'; col < 'A' + cols; ++col)
         {
-            if (matrix[row].find(col) == matrix[row].end())
+            if (matrix.find(row) == matrix.end() || matrix[row].find(col) == matrix[row].end())
             {
+                // setValue(row,col,value);
+                // cout<<"MASUK"<<endl;
                 matrix[row][col] = value;
                 return;
             }

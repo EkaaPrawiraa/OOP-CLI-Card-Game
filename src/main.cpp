@@ -66,6 +66,20 @@ void displayconfig(vector<AnimalConfig> a,
     cout << "\Misc Configuration:" << endl;
     m.display();
                     }
+void printGameTitle() {
+    cout << "  ______   ________  ________         ______    ______   __       __  ________ " << endl;
+    cout << " /      \\ |        \\|        \\       /      \\  /      \\ |  \\     /  \\|        \\" << endl;
+    cout << "|  $$$$$$\\| $$$$$$$$| $$$$$$$$      |  $$$$$$\\|  $$$$$$\\| $$\\   /  $$| $$$$$$$$" << endl;
+    cout << "| $$   \\$$| $$__    | $$__          | $$ __\\$$| $$__| $$| $$$\\ /  $$$| $$__    " << endl;
+    cout << "| $$      | $$  \\   | $$  \\         | $$|    \\| $$    $$| $$$\\$  $$$$| $$  \\   " << endl;
+    cout << "| $$   __ | $$$$$   | $$$$$         | $$ \\$$$$| $$$$$$$$| $$\\$$ $$ $$| $$$$$   " << endl;
+    cout << "| $$__/  \\| $$      | $$_____       | $$__| $$| $$  | $$| $$ \\$$$| $$| $$_____ " << endl;
+    cout << " \\$$    $$| $$      | $$     \\       \\$$    $$| $$  | $$| $$  \\$ | $$| $$     \\" << endl;
+    cout << "  \\$$$$$$  \\$$       \\$$$$$$$$        \\$$$$$$  \\$$   \\$$ \\$$     \\$$ \\$$$$$$$$" << endl;
+    cout << "                                                                                " << endl;
+    cout << "                                                                                " << endl;
+    cout << "                                                                                " << endl;
+}
 
 int main()
 {
@@ -89,12 +103,12 @@ int main()
     
 
     char answer;
-    cout<<"Apakah Anda ingin memuat state? (y/n)";
+    cout<<"Apakah Anda ingin memuat state? (y/n): ";
     cin>>answer;
     std::string lokasi;
     if(toupper(answer)=='Y')
     {
-        std::ifstream file;
+        
         cout<<"Masukkan lokasi berkas state : ";
         cin>>lokasi;
         
@@ -103,19 +117,22 @@ int main()
         cout<<"Anda memulai dengan  mode default!"<<endl;
         lokasi = "Configuration//config//default.txt";
     }
+    lokasi ="Configuration/config/state.txt";
     WordMachine machine6(lokasi);
     vector<Role*> Players = machine6.read_input(miscconfig,productconfig,animalconfig,plantconfig,buildingconfig,Toko);
 
     urutPemain(Players);
     int currentPlayerIndex = 0;
 
-
+    printGameTitle();
+    cout<<"Masukkan DAFTAR_MENU untuk melihat daftar command list."<<endl;
     while(true){
        Role* curplay = Players[currentPlayerIndex];
        Walikota* walikota = dynamic_cast<Walikota*>(curplay);
        Petani* petani = dynamic_cast<Petani*>(curplay);
        Farmer* farmer = dynamic_cast<Farmer*>(curplay);
         string inputCommand;
+        cout<<"||INPUT COMMAND||"<<endl;
         cout <<"> ";
         cin>>inputCommand;
         inputCommand = toUpper(inputCommand);
@@ -286,25 +303,66 @@ int main()
         {
             break;
         }
-        else if (inputCommand=="DAFTAR_MENU")
+        else if (inputCommand == "DAFTAR_MENU")
         {
-            cout<<"============MENU==========="<<endl;
+            cout << "============ MENU ==========" << endl;
+            cout << "1.  NEXT - Melanjutkan giliran pemain" << endl;
+            cout << "2.  CETAK_PENYIMPANAN - Mencetak penyimpanan pemain saat ini" << endl;
+            cout << "3.  PUNGUT_PAJAK - Hanya untuk Walikota, mengumpulkan pajak dari pemain" << endl;
+            cout << "4.  CETAK_LADANG - Hanya untuk Petani, mencetak ladang" << endl;
+            cout << "5.  CETAK_PETERNAKAN - Hanya untuk Peternak, mencetak peternakan" << endl;
+            cout << "6.  TANAM - Hanya untuk Petani, menanam tanaman" << endl;
+            cout << "7.  TERNAK - Hanya untuk Peternak, beternak hewan" << endl;
+            cout << "8.  BANGUN - Hanya untuk Walikota, membangun bangunan" << endl;
+            cout << "9.  MAKAN - Pemain saat ini makan" << endl;
+            cout << "10. KASIH_MAKAN - Hanya untuk Peternak, memberi makan hewan" << endl;
+            cout << "11. BELI - Pemain membeli barang dari toko" << endl;
+            cout << "12. JUAL - Pemain menjual barang ke toko" << endl;
+            cout << "13. PANEN - Hanya untuk Petani dan Peternak, memanen hasil" << endl;
+            cout << "14. SIMPAN - Menyimpan game ke file state" << endl;
+            cout << "15. TAMBAH_PEMAIN - Hanya untuk Walikota, menambah pemain baru" << endl;
+            cout << "16. INFO - Menampilkan informasi pemain saat ini" << endl;
+            cout << "17. KONFIGURASI - Menampilkan konfigurasi game" << endl;
+            cout << "18. EXIT - Keluar dari game" << endl;
         }
+
         else if(inputCommand=="INFO"){
+            cout<<"=======List Player======="<<endl;
+            for(Role* r :Players){
+                cout<<r->getUsername()<<endl;
+            }
+            std::string roleCur;
+            if (farmer )
+            {
+               roleCur= farmer->getRoleType();   
+            }
+            else if(petani)
+            {
+                roleCur= petani->getRoleType();
+            }
+            else{
+                roleCur=walikota->getRoleType();
+            }
             cout<<"=======Bio Player======="<<endl;
-            cout<<"Informasi Player: "<<endl;
+            cout<<"Informasi Player : "<<endl;
             cout << "Username: " << curplay->getUsername() << endl;
             cout << "Gulden: " << curplay->getGulden() << endl;
             cout << "Weight: " << curplay->getWeight()  << endl;
+            cout << "Role: "<<roleCur<<endl;
             curplay->cetak_penyimpanan();
 
-            cout<<"\n\n\n";
+            
+        }
+        else if (inputCommand =="KONFIGURASI")
+        {
+            
             cout<<"=======Konfigurasi Game======="<<endl;
-            displayconfig(animalconfig,plantconfig,productconfig,BuildingRecipeConfig,miscconfig);
+            displayconfig(animalconfig,plantconfig,productconfig,buildingconfig,miscconfig);
             // kasihh buat display cnfig
         }
         else{
             cout<<"Command List salah!"<<endl;
+            cout<<"Masukkan DAFTAR_MENU untuk melihat daftar command list."<<endl;
         }
         
         if(isWinner(curplay->getGulden(),curplay->getWeight(),miscconfig.getWinningMoney(),miscconfig.getWinningWeight()))
@@ -316,3 +374,4 @@ int main()
     return 0;
 }
 // NOTES INI HANYA KELAS COBA COBA UNTUK TEST WORDMACHINE
+// Configuration/config/state.txt
