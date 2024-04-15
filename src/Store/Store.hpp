@@ -6,6 +6,7 @@
 #include "../item/Animal.hpp"
 #include "../item/Product.hpp"
 #include "../item/Building.hpp"
+#include "../Role/Role.hpp"
 
 using namespace std;
 // clear
@@ -38,7 +39,7 @@ class Store{
     int getPriceAnimal(const string kode);
     int getPriceProduct(const string kode);
     int getJumlah(string kode);
-    int buyItem(const string kode,const int quantity,const int usersmoney,Item*& item);
+    std::pair<int, Item*> buyItem(const string kode,const int quantity,const int usersmoney);
     int sellItem(Item* item);
     void display();
 };

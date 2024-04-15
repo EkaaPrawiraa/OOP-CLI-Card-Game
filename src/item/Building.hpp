@@ -4,6 +4,7 @@
 #include "Item.hpp"
 #include <vector>
 #include <utility> 
+#include <tuple>
 
 class Building : public Item {
 public:
@@ -11,7 +12,7 @@ public:
     Building(const Building&);
     ~Building();
 
-    std::string getclassname() override;
+    virtual std::string getclassname();
     std::vector< pair<string,int> > getmaterials() const;
     bool operator==(const Building& other) const;
     Building& operator=(const Building& other);

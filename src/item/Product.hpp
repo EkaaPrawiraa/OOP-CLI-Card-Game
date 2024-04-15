@@ -3,13 +3,16 @@
 
 #include "Item.hpp"
 #include <string>
+#include "../Configuration/ProductConfig.hpp"
+#include <vector>
 
 class Product : public Item {
 public:
     Product(const std::string &kodeHuruf, const std::string &name, const std::string &type, const std::string &origin, int added_weight, int price);
     Product(const Product&);
+    Product(const std::vector<ProductConfig>& configs, const std::string& name);
     ~Product();
-    std::string getclassname() override;
+    std::string getclassname();
 
     std::string gettipe() const;
     std::string getorigin() const;

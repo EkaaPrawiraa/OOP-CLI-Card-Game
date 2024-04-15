@@ -7,6 +7,22 @@ Product::Product(const std::string &kodeHuruf, const std::string &name, const st
 Product::Product(const Product& other)
     : Item(other), type(other.type), added_weight(other.added_weight), origin(other.origin) {}
 
+Product::Product(const std::vector<ProductConfig>& configs, const std::string& name)
+    : Item("", name, 0), type(""), origin(""), added_weight(0) {
+    // Search for the ProductConfig with the given name
+    for (const auto& config : configs) {
+        if (config.getname() == name) {
+            // Found the matching ProductConfig, initialize the Product object
+            kodeHuruf = config.getcode();
+            type = config.gettype();
+            origin = config.getorigin();
+            added_weight = config.getaddedtoweight();
+            price = config.getprice();
+            break; // Stop searching once a match is found
+        }
+    }
+}
+
 Product::~Product() {}
 
 std::string Product::gettipe() const {
@@ -59,3 +75,4 @@ Product& Product::operator=(const Product& other) {
 std::string Product::getclassname() {
     return "Product";
 }
+

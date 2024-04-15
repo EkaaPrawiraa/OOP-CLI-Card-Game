@@ -179,7 +179,7 @@ void Matrix<T>::display(std::string tipe)
                 {
                     std::cout << currentValue;
                 }
-                std::cout << "  |";
+                std::cout << " |";
             }
             else
             {

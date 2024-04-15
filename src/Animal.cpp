@@ -7,6 +7,22 @@ Animal::Animal(const string &kodeHuruf, const string &name, const string &type, 
 Animal::Animal(const Animal& other)
     : Item(other), type(other.type), weightToHarvest(other.weightToHarvest), berat(other.berat), location(other.location) {}
 
+Animal::Animal(const std::vector<AnimalConfig>& configs, const std::string& name)
+    : Item("", name, 0), type(""), weightToHarvest(0), berat(0), location("") {
+    // Search for the AnimalConfig with the given name
+    for (const auto& config : configs) {
+        if (config.name == name) {
+
+            kodeHuruf = config.kodeHuruf;
+            type = config.type;
+            weightToHarvest = config.weightToHarvest;
+            berat = 0;
+            location = ""; 
+            price = config.price;
+            break;
+        }
+    }
+}
 Animal::~Animal() {}
 
 pair<char, int> Animal::getColumnAndRowIndex(const string& location) const{
@@ -22,6 +38,7 @@ string Animal::gettype() {
 int Animal::getweighttoharvest() {
     return weightToHarvest;
 }
+
 
 
 

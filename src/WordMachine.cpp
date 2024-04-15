@@ -116,7 +116,7 @@ std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
         std::istringstream iss(line);
         int id, price;
         std::string kodeHuruf, name, materialName;
-        std::vector<std::tuple<std::string, int> > materials;
+        std::vector<std::pair<std::string, int>> materials;
 
         if (!(iss >> id >> kodeHuruf >> name >> price))
         {
@@ -132,7 +132,7 @@ std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
                 throw FileException("Format file tidak sesuai.");
                 break;
             }
-            materials.push_back(std::make_tuple(materialName, quantity));
+            materials.push_back(std::make_pair(materialName, quantity));
         }
 
         BuildingRecipeConfig recipe(id, kodeHuruf, name, price, materials);

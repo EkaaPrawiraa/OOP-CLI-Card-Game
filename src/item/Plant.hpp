@@ -3,12 +3,13 @@
 
 #include "Item.hpp"
 #include "Product.hpp"
+#include "../Configuration/PlantConfig.hpp"
 class Plant : public Item {
     public:
         Plant(const string &kodeHuruf,const string &name, const string &type, int durationToHarvest, int price, int umur, const string &location);
         Plant(const Plant&);
         ~Plant();
-        string getclassname() override;
+        virtual string getclassname();
         std::string gettype() const;
         int getdurationtoharvest() const;
         string getlocation() const;

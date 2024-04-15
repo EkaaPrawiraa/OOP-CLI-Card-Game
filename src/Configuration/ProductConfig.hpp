@@ -17,12 +17,12 @@ private:
 public:
     ProductConfig(int id, const std::string &kodeHuruf, const std::string &name, const std::string &type, const std::string &origin, int addedWeight, int price);
     void display() const;
-    std::string getcode();
-    std::string getname();
-    std::string gettype();
-    std::string getorigin();
-    int getaddedtoweight();
-    int getprice();
+    std::string getcode() const;
+    std::string getname() const;
+    std::string gettype() const;
+    std::string getorigin() const;
+    int getaddedtoweight() const;
+    int getprice() const;
 };
 
 #endif

@@ -42,5 +42,5 @@ public:
     Matrix<Item*>& getInventory();
     
 };
-
+Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::vector<PlantConfig>& plantConfigs, const std::vector<AnimalConfig>& animalConfigs, const std::vector<BuildingRecipeConfig>& buildingConfigs, const std::string& itemName);
 #endif

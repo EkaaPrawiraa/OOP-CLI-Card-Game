@@ -22,7 +22,7 @@ public:
     int getWinningMoney() const;
     int getWinningWeight() const;
     int getStorageRows() const;
-    int getStorageCols() const;
+    int getStorageCols() const;;
     int getLandRows() const;
     int getLandCols() const;
     int getFarmRows() const;
