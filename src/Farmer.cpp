@@ -46,13 +46,8 @@ void Farmer::Ternak(){
         cout << "Peternakan Anda sudah penuh!"<<endl;
         return;
     }
-    // atasin kalo ladang penuh belum
     cout << "Pilih hewan dari penyimpanan" << endl;
-    // vector<Product*> pr;
-    // pr.push_back(new Product("ABW", "Bewe", "Material_Plant", "GNSH", 25.5, 15));
-    // Karnivora* sample = new Karnivora("ABD", "ABC", "TYPE", 15, 10, 15, "A02", pr);
-    // Item* sample = new Item("ABD", "ABC", 15);
-    // invent.setValue(2, 'A', sample);
+    
     cetak_penyimpanan();
     inputpetak:
     cout<<"Slot: ";
