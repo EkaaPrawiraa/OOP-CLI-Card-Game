@@ -7,8 +7,22 @@ Herbivora::Herbivora(const Herbivora& other): Animal(other), hasilpanen(other.ha
 
 Herbivora::~Herbivora(){}
 
-vector<Product*> Herbivora::gethasilpanen() {
-    return hasilpanen;
+vector<Product*> Herbivora::gethasilpanen(vector<ProductConfig> config) {
+    vector<Product*> hasilPanen;
+    for (ProductConfig& P : config) {
+        if (P.getorigin() == this->getKode()) {
+            Product* newProduct = new Product(
+                P.getcode(),
+                P.getname(),
+                P.gettype(),
+                P.getorigin(),
+                P.getaddedtoweight(),
+                P.getprice()
+            );
+            hasilPanen.push_back(newProduct);
+        }
+    }
+    return hasilPanen;
 }
 
 string Herbivora::getclassname(){

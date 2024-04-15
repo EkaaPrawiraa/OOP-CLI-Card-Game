@@ -24,7 +24,7 @@ public:
     ~Farmer();
     void cetakPeternakan();
     void Ternak();
-    void Memanen();
+    void Memanen(vector<ProductConfig> config);
     void memberiPangan();
     void menjual(Store& Toko);
     void membeli(Store& Toko);

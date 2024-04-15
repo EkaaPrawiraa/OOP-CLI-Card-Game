@@ -12,13 +12,12 @@ Product::Product(const std::vector<ProductConfig>& configs, const std::string& n
     // Search for the ProductConfig with the given name
     for (const auto& config : configs) {
         if (config.getname() == name) {
-            // Found the matching ProductConfig, initialize the Product object
             kodeHuruf = config.getcode();
             type = config.gettype();
             origin = config.getorigin();
             added_weight = config.getaddedtoweight();
             price = config.getprice();
-            break; // Stop searching once a match is found
+            break; 
         }
     }
 }

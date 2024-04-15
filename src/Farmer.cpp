@@ -22,21 +22,18 @@ void Farmer::cetakPeternakan(){
     std::set<std::string> uniqueCodes;
     std::string code;
     std::string name;
-    for (const auto &row : invent.getmatrix())
+    for (const auto &row : Peternakan.getmatrix())
     {
         for (const auto &cell : row.second)
-        { 
+        {
             code = cell.second->getKode();
             name = cell.second->getname();
-            if (code != "   ") { 
-                if (uniqueCodes.find(code) == uniqueCodes.end()){
-                    std::cout << "- " << code << ": " << name << std::endl; 
-                    uniqueCodes.insert(code); 
-                }
+            if (uniqueCodes.find(code) == uniqueCodes.end()){
+                std::cout << "- " << code << ": " << name << std::endl; 
+                uniqueCodes.insert(code); 
             }
         }
     }
-
 }
 
 
@@ -44,18 +41,24 @@ void Farmer::Ternak(){
     if (Peternakan.isFull())
     {
         cout << "Peternakan Anda sudah penuh!"<<endl;
+        
         return;
     }
     cout << "Pilih hewan dari penyimpanan" << endl;
     
     cetak_penyimpanan();
     inputpetak:
+    cout<<"Ketik cancel jika ingin batalkan~"<<endl;
     cout<<"Slot: ";
     string location;
     cin.ignore();
     cin>>location;
     int row = 0;
     std::regex pattern("^[a-zA-Z][0-9]+");
+    if(location == "cancel")
+    {
+        return;
+    }
     if ((!std::regex_match(location, pattern))){
         cout << "Format salah !"<< endl;  
         goto inputpetak;
@@ -78,9 +81,10 @@ void Farmer::Ternak(){
         goto inputpetak;
         
     }
+
     char col = location[0];
     row = stoi(location.substr(1));
-    cout << "Kamu memilih " << invent.getValue(row,col)->getname() << endl;
+    cout << "Kamu memilih " << invent.getValue(row,toupper(col))->getname() << endl;
 
     std::cout << "Pilih petak tanah yang akan ditanami" << std::endl;
     Peternakan.display("Ladang");
@@ -348,17 +352,21 @@ void Farmer::setTernak(int row, char col, Animal* a)
 
 
 
-void Farmer::Memanen(){
+void Farmer::Memanen(vector<ProductConfig> config){
+    if(Peternakan.isempty()){
+        cout<<"Tidak ada yang bisa dipanen. Peternakan kosong."<<endl;
+        
+        return;
+    }
+    
     this->cetakPeternakan();
-    std::cout << "\n\n";
-    std::cout << "Pilih hewan siap panen yang kamu miliki\n";
 
-    //get listharvest()
     std::map<std::string, int> list;
-
+    bool adapanen = false;
     for (const auto &row : Peternakan.getmatrix()) {
         for (const auto &cell : row.second) {
-            if (cell.second->getberat() == cell.second->getweighttoharvest()) {
+            if (cell.second->getberat() >= cell.second->getweighttoharvest()) {
+                adapanen=true;
                 auto it = list.find(cell.second->getKode());
                 if (it != list.end()) {
                     // Jika sudah ada, tambahkan jumlahnya
@@ -369,6 +377,15 @@ void Farmer::Memanen(){
             }
         }
     }
+    if (!adapanen){
+        cout<<"Tidak ada yang bisa dipanen!"<<endl;
+        return;
+    }
+    std::cout << "\n\n";
+    std::cout << "Pilih hewan siap panen yang kamu miliki\n";
+
+    //get listharvest()
+    
 
     // Menampilkan daftar tanaman siap panen
     int i = 1;
@@ -412,7 +429,7 @@ void Farmer::Memanen(){
         std::cout << "Petak ke-" << i+1 << ": ";
         std::cin >> loc;
         
-        col = loc[0];
+        col = toupper(loc[0]);
         row = stoi(loc.substr(1));
         while(Peternakan.isemptyslot(row,col) || Peternakan.getValue(row,col)->getKode() != it->first )
         {   
@@ -420,12 +437,12 @@ void Farmer::Memanen(){
             std::cout << "Petak ke-" << i+1 << ": ";
             std::cin >> loc;
 
-            col = loc[0];
+            col = toupper(loc[0]);
             row = stoi(loc.substr(1));
         }
 
         listloc.insert(loc);
-        for (Product* P:(Peternakan.getValue(row, col)->gethasilpanen()))
+        for (Product* P : (Peternakan.getValue(row, col)->gethasilpanen(config)))
         {
             invent.setfirstempty(dynamic_cast<Product*>(P));
             

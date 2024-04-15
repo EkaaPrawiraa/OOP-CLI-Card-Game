@@ -35,3 +35,13 @@ int ProductConfig::getaddedtoweight() const{
 int ProductConfig::getprice() const{
     return price;
 }
+
+// ProductConfig::ProductConfig(const std::vector<ProductConfig>& configs, const std::string& name)
+// {
+//     for(ProductConfig& Prod:configs)
+//     {
+//         if (Prod.getname()==name){
+
+//         }
+//     }
+// }

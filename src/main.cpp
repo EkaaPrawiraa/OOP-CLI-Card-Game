@@ -38,6 +38,35 @@ bool isWinner(int moneyplayer,int weightplayer ,int targetmoney, int targetweigh
     return moneyplayer>=targetmoney && weightplayer >=targetweight;
 }
 
+void displayconfig(vector<AnimalConfig> a, 
+                    vector<PlantConfig> p,
+                    vector<ProductConfig> pr,
+                    vector<BuildingRecipeConfig> b, 
+                    MiscConfig m){
+                    cout << "Animal Configurations:" << endl;
+    for (const auto& animal : a) {
+        animal.display();
+    }
+    
+    cout << "\nPlant Configurations:" << endl;
+    for (const auto& plant : p) {
+        plant.display();
+    }
+    
+    cout << "\nProduct Configurations:" << endl;
+    for (const auto& product : pr) {
+        product.display();
+    }
+    
+    cout << "\nBuilding Recipe Configurations:" << endl;
+    for (const auto& building : b) {
+        building.display();
+    }
+    
+    cout << "\Misc Configuration:" << endl;
+    m.display();
+                    }
+
 int main()
 {
     Menu MenuGame;
@@ -217,7 +246,7 @@ int main()
         {
             if (farmer )
             {
-               farmer->Memanen();   
+               farmer->Memanen(productconfig);   
             }
             else if(petani)
             {
@@ -230,10 +259,11 @@ int main()
         else if(inputCommand == "SIMPAN")
         {
             string file;
-            cout<<"Masukkan file yang ingin disave: ";
+            cout<<"Masukkan lokasi berkas state : ";
             cin>>file;
             machine6.save_input(file, Players, miscconfig, productconfig, animalconfig, plantconfig, buildingconfig, Toko);
             cout<<"Menyimpan..."<<endl;
+            cout<<"State berhasil disimpan"<<endl;
 
         }
         else if(inputCommand == "TAMBAH_PEMAIN")
@@ -261,7 +291,16 @@ int main()
             cout<<"============MENU==========="<<endl;
         }
         else if(inputCommand=="INFO"){
-            cout<<curplay->getUsername()<<endl;
+            cout<<"=======Bio Player======="<<endl;
+            cout<<"Informasi Player: "<<endl;
+            cout << "Username: " << curplay->getUsername() << endl;
+            cout << "Gulden: " << curplay->getGulden() << endl;
+            cout << "Weight: " << curplay->getWeight()  << endl;
+            curplay->cetak_penyimpanan();
+
+            cout<<"\n\n\n";
+            cout<<"=======Konfigurasi Game======="<<endl;
+            displayconfig(animalconfig,plantconfig,productconfig,BuildingRecipeConfig,miscconfig);
             // kasihh buat display cnfig
         }
         else{

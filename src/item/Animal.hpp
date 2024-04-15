@@ -21,7 +21,7 @@ public:
     string getlocation();
     bool operator==(const Animal& other) const;
     Animal& operator=(const Animal& other);
-    virtual vector<Product*> gethasilpanen();
+    virtual vector<Product*> gethasilpanen(vector<ProductConfig> config);
     pair<char, int> getColumnAndRowIndex(const string& location) const;
     void setberat(int );
 protected:

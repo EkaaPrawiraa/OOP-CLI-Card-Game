@@ -12,7 +12,7 @@ public:
     ~Herbivora();
 
     string getclassname() override;
-    vector<Product*> gethasilpanen()  override;
+    vector<Product*> gethasilpanen(vector<ProductConfig> config)  override;
 
 
 protected:
