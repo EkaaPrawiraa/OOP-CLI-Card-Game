@@ -132,10 +132,12 @@ int main()
        Petani* petani = dynamic_cast<Petani*>(curplay);
        Farmer* farmer = dynamic_cast<Farmer*>(curplay);
         string inputCommand;
-        cout<<"\n||INPUT COMMAND||\n"<<endl;
+        // cout<<"\n||INPUT COMMAND||\n"<<endl;
+        cout<<endl<<endl;
         cout <<">> ";
         cin>>inputCommand;
         inputCommand = toUpper(inputCommand);
+        cout<<endl;
         if (inputCommand == "NEXT")
         {
             next(Players);
