@@ -31,7 +31,7 @@ Kalian, para jin, diminta oleh Bondowoso untuk membuat sebuah gim simulasi seder
 
 ## Usage
 ```shell
-git clone https://github.com/Akmal2205/Algeo02-22009
+git clone https://github.com/EkaaPrawiraa/TUBES-OOP
 ```
 Use the makefile tools to compile the code
 
