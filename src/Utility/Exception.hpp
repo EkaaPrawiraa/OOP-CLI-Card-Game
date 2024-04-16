@@ -8,14 +8,8 @@
 using namespace std;
 
 
-class GameException : public exception {
-public:
-    /* Pure virtual method */
-    virtual const char* what() const throw() = 0;
-};
 
-/* Exception Children */
-class GameInvalidExc : public GameException {
+class GameInvalidExc : public exception {
 private:
     string message;
 
