@@ -153,8 +153,9 @@ void Petani::menjual(Store& Toko) {
 int Petani::calculate_tax()
 {
     int KTKP = 13;
-    int KKP = 0;
-    int pajak = 0;
+   
+    double KKP = 0.0;
+    double pajak = 0.0;
     int netoKekayaan = gulden;
     
     // Hitung Neto

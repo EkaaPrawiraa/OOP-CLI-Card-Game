@@ -125,15 +125,15 @@ int main()
     int currentPlayerIndex = 0;
 
     printGameTitle();
-    cout<<"Masukkan DAFTAR_MENU untuk melihat daftar command list."<<endl;
+    cout<<"Masukkan HELP untuk melihat daftar command list."<<endl;
     while(true){
        Role* curplay = Players[currentPlayerIndex];
        Walikota* walikota = dynamic_cast<Walikota*>(curplay);
        Petani* petani = dynamic_cast<Petani*>(curplay);
        Farmer* farmer = dynamic_cast<Farmer*>(curplay);
         string inputCommand;
-        cout<<"||INPUT COMMAND||"<<endl;
-        cout <<"> ";
+        cout<<"\n||INPUT COMMAND||\n"<<endl;
+        cout <<">> ";
         cin>>inputCommand;
         inputCommand = toUpper(inputCommand);
         if (inputCommand == "NEXT")
@@ -303,7 +303,7 @@ int main()
         {
             break;
         }
-        else if (inputCommand == "DAFTAR_MENU")
+        else if (inputCommand == "HELP")
         {
             cout << "============ MENU ==========" << endl;
             cout << "1.  NEXT - Melanjutkan giliran pemain" << endl;
@@ -362,7 +362,7 @@ int main()
         }
         else{
             cout<<"Command List salah!"<<endl;
-            cout<<"Masukkan DAFTAR_MENU untuk melihat daftar command list."<<endl;
+            cout<<"Masukkan HELP untuk melihat daftar command list."<<endl;
         }
         
         if(isWinner(curplay->getGulden(),curplay->getWeight(),miscconfig.getWinningMoney(),miscconfig.getWinningWeight()))

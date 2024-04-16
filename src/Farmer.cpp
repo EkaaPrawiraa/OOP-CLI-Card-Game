@@ -287,8 +287,8 @@ void Farmer::membeli(Store& Toko){
 int Farmer::calculate_tax()
 {
     int KTKP = 11;
-    int KKP = 0;
-    int pajak = 0;
+    double KKP = 0.0;
+    double pajak = 0.0;
     int netoKekayaan = gulden;
     
     // Hitung Neto
@@ -312,7 +312,7 @@ int Farmer::calculate_tax()
       
     // hitung neto kekayaan
     KKP = netoKekayaan - KTKP;
-
+    // cout<<"KKP"<<KKP<<endl;
     if (KKP <= 0)
     {
         pajak = 0;
@@ -337,8 +337,10 @@ int Farmer::calculate_tax()
     {
         pajak = 0.35;
     }
+    
 
     int bayarPajak = round(pajak * KKP);
+    // cout<<pajak<<endl;
     if (getGulden() - bayarPajak < 0)
     {
         bayarPajak = getGulden();
