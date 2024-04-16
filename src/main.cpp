@@ -117,7 +117,6 @@ void printGameTitle() {
 
 int main()
 {
-    Menu MenuGame;
     WordMachine machine1("Configuration//config//animal.txt");
     WordMachine machine2("Configuration//config//plant.txt");
     WordMachine machine3("Configuration//config//product.txt");

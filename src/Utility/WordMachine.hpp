@@ -3,7 +3,7 @@
 
 #include "Exception.hpp"
 
-#include "../Menu/Menu.hpp"
+
 #include "../Configuration/ProductConfig.hpp"
 #include "../Configuration/MiscConfig.hpp"
 #include "../Configuration/AnimalConfig.hpp"
