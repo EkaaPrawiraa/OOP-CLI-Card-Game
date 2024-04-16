@@ -10,7 +10,7 @@ Petani::~Petani() {}
 
 // Virtual function implementations
 void Petani::membeli(Store& Toko) {
-    if (invent.isFull())
+ if (invent.isFull())
     {
         cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
     }
@@ -34,10 +34,12 @@ void Petani::membeli(Store& Toko) {
             cout<<"Kuantitas : ";
             cin >>quantity;
         }
+
         std::pair<int, Item*> passsss=Toko.buyItem(boughtItem,quantity,gulden,getRoleType());
         Item* item=passsss.second;
         int totalpaid = passsss.first;
         cout<<item->getname()<<endl;
+
         if (totalpaid>0)
         {
             
@@ -46,51 +48,60 @@ void Petani::membeli(Store& Toko) {
             cout << "Selamat Anda berhasil membeli " << quantity << " " << boughtItem << ". Uang Anda tersisa " << this->gulden << " gulden." << endl;
             cout << endl;
             cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
-            // belum tau cetak penyimpanan
+
             cetak_penyimpanan();
-            // atur cetak penyimpanan
+
             cout<<endl;
             
-
+            std::string location, kode;
+            char col;
+            int row;
             for(int i =1;i<=quantity;i++)
             {
-                inputpetak:
                 cout<<"Petak slot barang ke-"<<i<<" : ";
-                string tok;
-                cin.ignore();
-                cin>>tok;
-                std::regex pattern("^[a-zA-Z][0-9]+");
-                if ((!std::regex_match(tok, pattern))){
-                    cout << "Format salah !"<< endl;  
-                    goto inputpetak;
-                }
-                int col = toupper(tok[0]) - 'A';
-                int row = std::stoi(tok.substr(1));
-                if (( col>invent.getCols() || row>invent.getRows() ) ) {
-                    cout<<"Melebihi ukuran penyimpanan!"<<endl;
-                    goto inputpetak;
-                 }
-                if (!invent.isemptyslot(row,tok[0]))
-                {
-                    cout << "Petak tersebut telah terisi!"<<endl;
-                    cout << "Isi ulang!" <<endl;
-                    goto inputpetak;
-                }
-                else {
-                    invent.setValue(row,toupper(tok[0]),item);
-                    cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
-                    cetak_penyimpanan();
-                    cout<<item->getclassname();
-
-                }
+                std::cin >> location;
                 
+                col = std::toupper(location[0]);
+                row = stoi(location.substr(1));
+                std::regex pattern("^[a-zA-Z][0-9]+");
+                while(!regex_match(location, pattern) || invent.isemptyslot(row,col) ||  toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
+                {   
+                    if ((!regex_match(location, pattern))){
+                        cout << "Format salah !"<< endl;  
+                    }
+                    else if(invent.isemptyslot(row,col)){
+                        cout << "Petak tersebut kosong!" << endl;
+                    }
+                    else if( toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows() ){
+                        cout<<"Melebihi ukuran penyimpanan!"<<endl;
+                    }
+                    else{
+                        cout << "Pastikan Item berupa Tumbuhan" << endl;
+                    }
+                    
+                    cout << "Isi ulang!" <<endl;
+                    cout<<"Petak slot barang ke-"<<i<<" : ";
+                    cin >> location;
+                    col = std::toupper(location[0]);
+                    row = stoi(location.substr(1));
+                    
+                }
+
+                invent.setValue(row,toupper(location[0]),item);
+                cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
+                cetak_penyimpanan();
+                // cout<<item->getclassname();
+  
             }
           
         }  
     }
     
 }
+    
+
 void Petani::menjual(Store& Toko) {
+     // Validasi tidak bisa menjual bangunan jika bukan walikota
     if (invent.countElement() == 0) {
         cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
         return;
@@ -108,43 +119,55 @@ void Petani::menjual(Store& Toko) {
         cout << "Jumlah barang yang ingin anda jual : ";
         cin>>quanti;
     }
+
+    std::string location, kode;
+    char col;
+    int row;
     for(int i =1;i<=quanti;i++)
     {
-                inputpetak:
                 cout<<"Petak slot barang ke-"<<i<<" : ";
-                string tok;
-                cin.ignore();
-                cin>>tok;
-                cout<<tok<<endl;
+                std::cin >> location;
+                
+                col = std::toupper(location[0]);
+                row = stoi(location.substr(1));
                 std::regex pattern("^[a-zA-Z][0-9]+");
-                if ((!std::regex_match(tok, pattern))){
-                    cout << "Format salah !"<< endl;  
-                    goto inputpetak;
+                while(!regex_match(location, pattern) || invent.isemptyslot(row,col) ||  toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
+                {   
+                    if ((!regex_match(location, pattern))){
+                        cout << "Format salah !"<< endl;  
+                    }
+                    else if(invent.isemptyslot(row,col)){
+                        cout << "Petak tersebut kosong!" << endl;
+                    }
+                    else if( toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows() ){
+                        cout<<"Melebihi ukuran penyimpanan!"<<endl;
+                    }
+                    else{
+                        cout << "Pastikan Item berupa Tumbuhan" << endl;
+                    }
+                    
+                    cout << "Isi ulang!" <<endl;
+                    cout<<"Petak slot barang ke-"<<i<<" : ";
+                    cin >> location;
+                    col = std::toupper(location[0]);
+                    row = stoi(location.substr(1));
+                    
                 }
-                int col = toupper(tok[0]) - 'A';
-                int row = std::stoi(tok.substr(1));
-                if (( col>invent.getCols() || row>invent.getRows() ) ) {
-                    cout<<"Melebihi ukuran penyimpanan!"<<endl;
-                    goto inputpetak;
-                 }
-                if (invent.isemptyslot(row, tok[0])) {
-                     cout << "Petak tersebut kosong!" << endl;
-                     cout << "Isi ulang!" <<endl;
-                     goto inputpetak;
-                } 
-                else if(invent.getValue(row,tok[0])->getclassname()=="Building")
+
+                if(invent.getValue(row,location[0])->getclassname()=="Building")
                 {
-                    cout<<"Peternak tidak dapat menjual bangunan!"<<endl;
+                    cout<<"Petani tidak dapat menjual bangunan!"<<endl;
                 }
                 else {
                     // cout << invent.getValue(row, tok[0])->getprice() << endl;
                     // Periksa tipe objek dan jualnya
-                    totalPrice += Toko.sellItem(invent.getValue(row, tok[0]));
-                    invent.deleteValue(row,tok[0]);
+                    totalPrice += Toko.sellItem(invent.getValue(row, location[0]));
+                    invent.deleteValue(row,location[0]);
 
                 }
                 
     }
+    this->gulden+=totalPrice;
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
 
     
@@ -253,27 +276,42 @@ void Petani::CetakLadang()
 
 
 void Petani::Tanam(){
+    if (Ladang.isFull())
+    {
+        cout << "Peternakan Anda sudah penuh!"<<endl;
+        
+        return;
+    }
     cout << "Pilih tanaman dari penyimpanan" << endl;
-    Product pr("ABW", "Bewe", "Material_Plant", "GNSH", 25.5, 15);
-    MaterialPlant* sample = new MaterialPlant("ABD", "ABC", "TYPE", 15, 10, 15, "A02", pr);
-    // Item* sample = new Item("ABD", "ABC", 15);
-    invent.setValue(2, 'A', sample);
-    cetak_penyimpanan();
 
+    cetak_penyimpanan();
     std::string location;
-    cout << "Slot: ";
+    cout << "\n\nSlot: ";
     cin >> location;
 
-    char col = location[0];
+    char col = std::toupper(location[0]);
     int row = stoi(location.substr(1));
+    regex pattern("^[a-zA-Z][0-9]+");
 
-
-    while(invent.isemptyslot(row,col) || invent.getValue(row,col)->getclassname() != "MaterialPlant" && invent.getValue(row,col)->getclassname() != "FruitPlant")
+    while(!regex_match(location, pattern) || invent.isemptyslot(row,col) || invent.getValue(row,col)->getclassname() != "MaterialPlant" && invent.getValue(row,col)->getclassname() != "FruitPlant" || toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
     {   
-        cout << "Pastikan Item berupa Tumbuhan" << endl;
+        if ((!regex_match(location, pattern))){
+            cout << "Format salah !"<< endl;  
+        }
+        else if(invent.isemptyslot(row,col)){
+            cout << "Petak tersebut kosong!" << endl;
+        }
+        else if( toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows() ){
+            cout<<"Melebihi ukuran penyimpanan!"<<endl;
+        }
+        else{
+            cout << "Pastikan Item berupa Tumbuhan" << endl;
+        }
+        
+        cout << "Isi ulang!" <<endl;
         cout << "Slot: ";
         cin >> location;
-        col = location[0];
+        col = std::toupper(location[0]);
         row = stoi(location.substr(1));
         
     }
@@ -288,22 +326,22 @@ void Petani::Tanam(){
     std::cout << "Pilih Petak: ";
     std::cin >> loc;
 
-    char col1 = loc[0];
+    char col1 = std::toupper(loc[0]);
     int row1 = stoi(loc.substr(1));
 
     while(!Ladang.isemptyslot(row1,col1)){
         std::cout << "Pastikan Petak Kosong" << std::endl;
         std::cout << "Pilih Petak: ";
         std::cin >> loc;
-        col1 = loc[0];
+        col1 = std::toupper(loc[0]);
         row1 = stoi(loc.substr(1));
     }
 
     if(invent.getValue(row, col)->getclassname() == "MaterialPlant"){
-        Ladang.setValue(row1, col1, dynamic_cast<MaterialPlant*>(invent.getValue(row, col)));
+        setLadang(row1, col1, dynamic_cast<MaterialPlant*>(invent.getValue(row, col)));
     }
     else{
-        Ladang.setValue(row1, col1, dynamic_cast<FruitPlant*>(invent.getValue(row, col)));
+        setLadang(row1, col1, dynamic_cast<FruitPlant*>(invent.getValue(row, col)));
     }
     
     invent.deleteValue(row,col);
@@ -311,16 +349,22 @@ void Petani::Tanam(){
     std::cout << Ladang.getValue(row1,col1)->getname() << " berhasil ditanam!" << endl;
 }
 void Petani::Memanen(){
+    if(Ladang.isempty()){
+        cout<<"Tidak ada yang bisa dipanen. Peternakan kosong."<<endl;
+        return;
+    }
+
     this->CetakLadang();
     std::cout << "\n\n";
     std::cout << "Pilih tanaman siap panen yang kamu miliki\n";
 
     //get listharvest()
     std::map<std::string, int> list;
-
+    bool harvest = false;
     for (const auto &row : Ladang.getmatrix()) {
         for (const auto &cell : row.second) {
-            if (cell.second->getumur() == cell.second->getdurationtoharvest()) {
+            if (cell.second->getumur() >= cell.second->getdurationtoharvest()) {
+                harvest = true;
                 auto it = list.find(cell.second->getKode());
                 if (it != list.end()) {
                     // Jika sudah ada, tambahkan jumlahnya
@@ -332,6 +376,11 @@ void Petani::Memanen(){
         }
     }
 
+    if (!harvest){
+        cout<<"Tidak ada yang bisa dipanen!"<<endl;
+        return;
+    }
+    
     // Menampilkan daftar tanaman siap panen
     int i = 1;
     for (auto it = list.begin(); it != list.end(); ++it) {
@@ -365,6 +414,7 @@ void Petani::Memanen(){
         std::cout << "Jumlah Penyimpanan Tidak Cukup!" << std::endl;
         return;
     }
+
     std::cout << "Pilih petak yang ingin dipanen:" << std::endl;
     std::string loc, kode;
     std::set<std::string> listloc;
@@ -374,7 +424,7 @@ void Petani::Memanen(){
         std::cout << "Petak ke-" << i+1 << ": ";
         std::cin >> loc;
         
-        col = loc[0];
+        col = std::toupper(loc[0]);
         row = stoi(loc.substr(1));
         while(Ladang.isemptyslot(row,col) || Ladang.getValue(row,col)->getKode() != it->first )
         {   
@@ -382,13 +432,12 @@ void Petani::Memanen(){
             std::cout << "Petak ke-" << i+1 << ": ";
             std::cin >> loc;
 
-            col = loc[0];
+            col = std::toupper(loc[0]);
             row = stoi(loc.substr(1));
         }
 
         listloc.insert(loc);
         invent.setfirstempty(dynamic_cast<Product*>(Ladang.getValue(row, col)->gethasilpanen()));
-        setWeight(getWeight()+Ladang.getValue(row, col)->gethasilpanen()->getadded_weight());
         Ladang.deleteValue(row,col);
         
     }
@@ -413,6 +462,7 @@ void Petani::updateUmurTumbuhan(){
     }     
     
 }
+
 Matrix<Plant*> Petani::getLadang() const{
     return Ladang;
 }

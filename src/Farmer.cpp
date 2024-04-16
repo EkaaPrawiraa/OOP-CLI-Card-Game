@@ -75,7 +75,7 @@ void Farmer::Ternak(){
             goto inputpetak;
     } 
     
-    Animal* animal = dynamic_cast<Animal*>(invent.getValue(row,location[0]));
+    Animal* animal = dynamic_cast<Animal*>(invent.getValue(row,std::toupper(location[0])));
     cout<<animal->gettype()<<endl;
     if(!animal)
     {   
@@ -97,14 +97,14 @@ void Farmer::Ternak(){
     std::cout << "Pilih Petak: ";
     std::cin >> loc;
 
-    char col1 = loc[0];
+    char col1 = std::toupper(loc[0]);
     int row1 = stoi(loc.substr(1));
 
     while(!Peternakan.isemptyslot(row1,col1)){
         std::cout << "Pastikan Petak Kosong" << std::endl;
         std::cout << "Pilih Petak: ";
         std::cin >> loc;
-        col1 = loc[0];
+        col1 = std::toupper(loc[0]);
         row1 = stoi(loc.substr(1));
     }
 
@@ -398,10 +398,10 @@ void Farmer::Memanen(vector<ProductConfig> config){
     std::cout << "\n\n";
     std::cout << "Pilih hewan siap panen yang kamu miliki\n";
 
-    //get listharvest()
+
     
 
-    // Menampilkan daftar tanaman siap panen
+    // Menampilkan daftar hewan siap panen
     int i = 1;
     for (auto it = list.begin(); it != list.end(); ++it) {
         std::cout << "  " << i << ". " << it->first << " (" << it->second << " Petak Siap Dipanen)" << std::endl;

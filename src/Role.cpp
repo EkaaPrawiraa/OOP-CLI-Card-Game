@@ -147,16 +147,42 @@ Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::ve
             return new Product(productConfig.getcode(), productConfig.getname(), productConfig.gettype(), productConfig.getorigin(), productConfig.getaddedtoweight(), productConfig.getprice());
         }
     }
+
+    vector<Product*> harvest;
+    for (const auto& productConfig : productConfigs) {
+        if (productConfig.getorigin() == itemName) {
+            harvest.push_back(new Product(productConfig.getcode(), productConfig.getname(), productConfig.gettype(), productConfig.getorigin(), productConfig.getaddedtoweight(), productConfig.getprice()));
+        }
+    }
+
     for (const auto& plantConfig : plantConfigs) {
         if (plantConfig.getname() == itemName) {
-            return new Plant(plantConfig.getcode(), plantConfig.getname(), plantConfig.gettype(), plantConfig.getdurationtoharvest(), plantConfig.getprice(), 0, " ");
+            if (plantConfig.gettype() == "MATERIAL_PLANT") {
+                return new MaterialPlant(plantConfig.getcode(), plantConfig.getname(), plantConfig.gettype(), plantConfig.getdurationtoharvest(), plantConfig.getprice(), 0, " ", *harvest.front());
+            } else {
+                return new FruitPlant(plantConfig.getcode(), plantConfig.getname(), plantConfig.gettype(), plantConfig.getdurationtoharvest(), plantConfig.getprice(), 0, " ", *harvest.front());
+            }
         }
     }
+    
+
+    
+    
     for (const auto& animalConfig : animalConfigs) {
         if (animalConfig.getname() == itemName) {
-            return new Animal(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "");
+            if(animalConfig.gettype() == "HERBIVORE"){
+                return new Herbivora(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "", harvest);
+            }
+            else if(animalConfig.gettype() == "CARNIVORE"){
+                return new Karnivora(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "", harvest);
+            }
+            else{
+                return new Omnivora(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "", harvest);
+            }
         }
     }
+    
+
     for (const auto& buildingConfig : buildingConfigs) {
         if (buildingConfig.getname() == itemName) {
             return new Building(buildingConfig.getcode(), buildingConfig.getname(),  buildingConfig.getprice(), buildingConfig.getmaterials());

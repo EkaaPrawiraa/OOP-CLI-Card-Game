@@ -70,7 +70,7 @@ void displayconfig(vector<AnimalConfig> a,
         building.display();
     }
     
-    cout << "\Misc Configuration:" << endl;
+    cout << "\nMisc Configuration:" << endl;
     m.display();
                     }
 void printGameTitle() {
