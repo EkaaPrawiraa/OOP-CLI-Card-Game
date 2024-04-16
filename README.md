@@ -2,110 +2,55 @@
 Tugas Besar Pemrograman Berbasis Objek ITB 2024
 
 
-![image](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/ec33518a-79f2-4525-85d1-8c4b2698dff6)![image](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/cb52d42d-0034-437b-b076-d957a2cf2207)# Content Based Image Retrieval (Reverse Search Image)
-> Program untuk mencari gambar dari sebuah dataset berdasarkan persentase kemiripannya melalui metode perbandingan warna dan perbandingan tekstur.
-
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
-* [Features](#features)
-* [Screenshots](#screenshots)
-* [Setup](#setup)
 * [Usage](#usage)
 * [Project Status](#project-status)
-* [Room for Improvement](#room-for-improvement)
 * [Contact](#contact)
 <!-- * [License](#license) -->
 
 
 ## General Information
-- Projek ini mencari tingkat kemiripan suatu gambar referensi dengan gambar lain dalam jumlah banyak.
-- Projek ini diharapkan menyelesaikan masalah-masalah yang biasa dihadapi dengan gambar yang berada di Internet, seperti copyright gambar, mencari asal gambar, dll.
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+- Bondowoso kini sudah menikah dengan Roro setelah berhasil menjadi kampiun dalam kompetisi membangun 1000 candi. Akan tetapi, hingga kini Roro belum bahagia setelah menikah dengan Bondowoso meskipun Bondowoso sudah memberikannya sebuah griya tawang yang elok. Dia kerap kali terbayang-bayang bagaimana seronoknya mengelola kerajaan seperti zaman dahulu. 
+Melihat hal ini, terbesit pikiran di hati Bondowoso untuk mengijinkan Roro mengelola kerajaannya. Akan tetapi, Bondowoso belum tahu apakah Roro sudah cukup berkapabilitas dalam mengelola kerajaannya, yang tentunya karakteristik masyarakat pada kerajaannya berbeda dengan kerajaan Roro dahulu. Oleh karena itu, Bondowoso ingin membuat terlebih dahulu sebuah gim simulasi sederhana mengelola kerajaan yang sudah disesuaikan dengan kondisi masyarakatnya.
+Kalian, para jin, diminta oleh Bondowoso untuk membuat sebuah gim simulasi sederhana menggunakan bahasa pemrograman C++. Mulanya, Bondowoso ingin membantu kalian dalam membuat gim sederhana ini. Akan tetapi, Bondowoso ternyata kerap kali tidak menghadiri tutorial praktikum IF2210 Pemrograman Berorientasi Objek sehingga dia tidak paham mengenai konsep OOP yang digunakan dalam membuat simulasi gim sederhana tersebut. Yuk, bantu Bondowoso dalam membuat gim!  
+
+- Program ini dibuat untuk membantu Bondowoso dengan membuat game berdasarkan Pemrograman Berorientasi Objek
 
 
 ## Tech Stacks
-- Reactjs - version 18
-- Django - version 4.2.7
-- Python - version 3.12
+- C++ 
 
 
-## Features
-Fitur per Page:
-- Main page; insert-upload reference image, insert-upload image dataset, display reference image, display dataset image.
-- About Us Page; kontribusi masing-masing anggota, identitas singkat masing-masing anggota.
-- How to Use; instruksi penggunaan program.
 
 
-## Screenshots
-### Web View
-![Screenshot 2023-11-19 215612](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/c57d875b-69f6-4082-a140-fb5e7d47f6ed)
-### Color Results
-![Screenshot 2023-11-19 122149](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/93008701-e7c3-44b0-b825-75ad19f71b60)
-![Screenshot 2023-11-19 122202](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/37b2f910-0b76-43c0-82d0-15d39a0e974c)
-### Texture Results
-![Screenshot 2023-11-19 122657](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/7a553842-6964-40f8-89e0-9eb6ac1309ee)
-![Screenshot 2023-11-19 122800](https://github.com/Akmal2205/Algeo02-22009/assets/118907510/e4c76aa2-0238-4a8e-be80-61620673ed89)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
-
-## Setup
-1. Python latest version
-2. Django latest version
-3. npm latest version
 
 
 ## Usage
 ```shell
-git clone https://github.com/Akmal2205/Algeo02-22009
+git clone https://github.com/EkaaPrawiraa/TUBES-OOP
 ```
-Buka folder tersebut dalam vscode atau ketik
+Use the makefile tools to compile the code
+
 ```shell
-code .
-```
-### Buka terminal lalu,
-```shell
-cd Backend
+make
 ```
 ```shell
-cd project
+TUBES_OOP
 ```
-```shell
-pip install django
-```
-```shell
-python manage.py runserver
-```
-### Buka terminal baru lalu,
-```shell
-cd FEALGEO
-```
-```shell
-npm create vite@latest
-```
-```shell
-npm run dev
-```
-### Akan muncul link local host yang dapat dibuka di browser.
 
 
 ## Project Status
 Project ini : Selesai.
 
 
-## Room for Improvement
-1. Menangani kasus-kasus frontend website yang tak tertutupi seperti saat loading saat melakukan search, membuat frontend dengan lebih terstruktur.
-
-Room for improvement:
-- Menangani kasus-kasus frontend website yang tak tertutupi seperti saat loading saat melakukan search.
-- Membuat frontend dengan lebih terstruktur.
-
-To do:
-- Tampilan loading
 
 
 ## Contact
-Created by (cupski) Muhammad Yusuf Rafi/13522009, (fabianradenta) Fabian Radenta Bangun/13522105, (Akmal2205) Muhammad Syarafi Akmal/13522076.
+Created by (cupski) Muhammad Yusuf Rafi/13522009, (EkaaPrawiraa) Mohammad Nugraha Eka Prawira/13522001, (frdmmm)Ahmad Farid Mudrika/13522008, (ZachS17)Zachary Samuel Tobing/13522016, (fuadnugraha)Muhammad Fuad Nugraha/10023520.
 
 
 <!-- Optional -->
@@ -114,13 +59,6 @@ Created by (cupski) Muhammad Yusuf Rafi/13522009, (fabianradenta) Fabian Radenta
 
 <!-- You don't have to include all sections - just the one's relevant to your project -->
 
-## Installation
-
-Use the makefile tools to compile the code
-
-```bash
-make
-```
 
 
 
