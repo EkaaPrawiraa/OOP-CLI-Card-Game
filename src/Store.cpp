@@ -207,7 +207,7 @@ int Store::getPriceProduct(const string kode) {
 // template <typename T>
 std::pair<int,Item*> Store::buyItem(const string  kode, int quantity,int usersmoney,string role)
 {
-    Item* item;
+    Item* item  = new Item(animals.front());
     bool quantityEnough = true;
     int totalHarga =0;
     if (quantity <= 0 || usersmoney <= 0) {
@@ -339,7 +339,6 @@ int Store::sellItem(Item* item) {
         // cout<<"ASSS";
         addProduct(*productItem);
     }
-    cout << item->getprice();
     return item->getprice(); // Jika ada kesalahan, kembalikan 0
 }
 

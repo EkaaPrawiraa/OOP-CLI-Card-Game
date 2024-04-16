@@ -40,9 +40,7 @@ void Farmer::cetakPeternakan(){
 void Farmer::Ternak(){
     if (Peternakan.isFull())
     {
-        cout << "Peternakan Anda sudah penuh!"<<endl;
-        
-        return;
+        throw GameInvalidExc("Peternakan Anda sudah penuh!");
     }
     cout << "Pilih hewan dari penyimpanan" << endl;
     
@@ -69,69 +67,54 @@ void Farmer::Ternak(){
         cout<<"Melebihi ukuran penyimpanan!"<<endl;
         goto inputpetak;
         }
-    if (invent.isemptyslot(row, location[0])) {
+    if (invent.isemptyslot(row, std::toupper(location[0]))) {
             cout << "Petak tersebut kosong!" << endl;
             cout << "Isi ulang!" <<endl;
             goto inputpetak;
     } 
     
-    Animal* animal = dynamic_cast<Animal*>(invent.getValue(row,std::toupper(location[0])));
-    cout<<animal->gettype()<<endl;
-    if(!animal)
+    
+    if(Animal* animal = dynamic_cast<Animal*>(invent.getValue(row,std::toupper(location[0]))))
     {   
+        char col = location[0];
+        row = stoi(location.substr(1));
+        cout << "Kamu memilih " << invent.getValue(row,toupper(col))->getname() << endl;
+
+        std::cout << "Pilih petak kandang yang akan ditinggali" << std::endl;
+        Peternakan.display("Peternakan");
+        std::cout << "\n\n";
+
+        std::string loc;
+        std::cout << "Pilih Petak: ";
+        std::cin >> loc;
+
+        char col1 = std::toupper(loc[0]);
+        int row1 = stoi(loc.substr(1));
+
+        while(!Peternakan.isemptyslot(row1,col1)){
+            std::cout << "Pastikan Petak Kosong" << std::endl;
+            std::cout << "Pilih Petak: ";
+            std::cin >> loc;
+            col1 = std::toupper(loc[0]);
+            row1 = stoi(loc.substr(1));
+        }
+
+        
+        Peternakan.setValue(row1, toupper(col1), animal);
+
+        
+        
+        std::cout << "Dengan hati-hati, kamu meletakkan seekor "<< animal->getname()<<" di kandang." << std::endl;
+        std::cout << animal->getname() << " telah menjadi peliharaanmu sekarang!" << endl;
+        invent.deleteValue(row,col);
+    }
+    else{
         cout << "Pastikan Item berupa Hewan" << endl;
         cout << "Isi ulang!" <<endl;
         goto inputpetak;
-        
     }
 
-    char col = location[0];
-    row = stoi(location.substr(1));
-    cout << "Kamu memilih " << invent.getValue(row,toupper(col))->getname() << endl;
 
-    std::cout << "Pilih petak kandang yang akan ditinggali" << std::endl;
-    Peternakan.display("Peternakan");
-    std::cout << "\n\n";
-
-    std::string loc;
-    std::cout << "Pilih Petak: ";
-    std::cin >> loc;
-
-    char col1 = std::toupper(loc[0]);
-    int row1 = stoi(loc.substr(1));
-
-    while(!Peternakan.isemptyslot(row1,col1)){
-        std::cout << "Pastikan Petak Kosong" << std::endl;
-        std::cout << "Pilih Petak: ";
-        std::cin >> loc;
-        col1 = std::toupper(loc[0]);
-        row1 = stoi(loc.substr(1));
-    }
-
-    if(animal->gettype() == "CARNIVORE"){
-        // Karnivora* karnivora = dynamic_cast<Karnivora*>(animal);
-        // if (karnivora)
-        Peternakan.setValue(row1, toupper(col1), animal);
-    }
-    else if (animal->gettype() == "HERBIVORE")
-    {
-        // Herbivora* herbivora = dynamic_cast<Herbivora*>(animal);
-        // if (herbivora)
-        Peternakan.setValue(row1, toupper(col1), animal);
-    
-    }
-    else
-    {
-        // Omnivora* omnivora = dynamic_cast<Omnivora*>(animal);
-        // if (omnivora) {
-            Peternakan.setValue(row1, toupper(col1), animal);
-        
-    }
-    
-    
-    std::cout << "Dengan hati-hati, kamu meletakkan seekor "<< animal->getname()<<" di kandang." << std::endl;
-    std::cout << animal->getname() << " telah menjadi peliharaanmu sekarang!" << endl;
-    invent.deleteValue(row,col);
 
 }
 
@@ -140,8 +123,7 @@ void Farmer::Ternak(){
 void Farmer::menjual(Store& Toko) {
     // Validasi tidak bisa menjual bangunan jika bukan walikota
     if (invent.countElement() == 0) {
-        cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
-        return;
+        throw GameInvalidExc("Penyimpanan Anda kosong tidak bisa melakukan penjualan");
     }
     
     int totalPrice = 0;
@@ -183,6 +165,7 @@ void Farmer::menjual(Store& Toko) {
                 else if(invent.getValue(row,tok[0])->getclassname()=="Building")
                 {
                     cout<<"Peternak tidak dapat menjual bangunan!"<<endl;
+                    return;
                 }
                 else {
                     // cout << invent.getValue(row, tok[0])->getprice() << endl;
@@ -201,7 +184,7 @@ void Farmer::menjual(Store& Toko) {
 void Farmer::membeli(Store& Toko){
     if (invent.isFull())
     {
-        cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
+        throw GameInvalidExc("Penyimpanan Anda Penuh tidak bisa melakukan pembelian");
     }
     else
     {
@@ -226,7 +209,6 @@ void Farmer::membeli(Store& Toko){
         std::pair<int, Item*> passsss=Toko.buyItem(boughtItem,quantity,gulden,getRoleType());
         Item* item=passsss.second;
         int totalpaid = passsss.first;
-        cout<<item->getname()<<endl;
         if (totalpaid>0)
         {
             
@@ -269,7 +251,6 @@ void Farmer::membeli(Store& Toko){
                     invent.setValue(row,toupper(tok[0]),item);
                     cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
                     cetak_penyimpanan();
-                    // cout<<item->getclassname();
 
                 }
                 
@@ -368,7 +349,7 @@ void Farmer::setTernak(int row, char col, Animal* a)
 
 void Farmer::Memanen(vector<ProductConfig> config){
     if(Peternakan.isempty()){
-        cout<<"Tidak ada yang bisa dipanen. Peternakan kosong."<<endl;
+        throw GameInvalidExc("Tidak ada yang bisa dipanen. Peternakan kosong.");
         
         return;
     }
@@ -392,8 +373,7 @@ void Farmer::Memanen(vector<ProductConfig> config){
         }
     }
     if (!adapanen){
-        cout<<"Tidak ada yang bisa dipanen!"<<endl;
-        return;
+        throw GameInvalidExc("Tidak ada yang bisa dipanen!");
     }
     std::cout << "\n\n";
     std::cout << "Pilih hewan siap panen yang kamu miliki\n";
@@ -433,8 +413,7 @@ void Farmer::Memanen(vector<ProductConfig> config){
 
     if(petak+invent.countElement() > invent.getSize()){
         //Throw Exception
-        std::cout << "Jumlah Penyimpanan Tidak Cukup!" << std::endl;
-        return;
+        throw GameInvalidExc("Jumlah Penyimpanan Tidak Cukup!");
     }
     std::cout << "Pilih petak yang ingin dipanen:" << std::endl;
     std::string loc, kode;
@@ -513,7 +492,7 @@ void Farmer::memberiPangan()
         cout<<"Melebihi ukuran Peternakan!"<<endl;
         goto inputpetak;
         }
-    if (Peternakan.isemptyslot(row,tok[0]))
+    if (Peternakan.isemptyslot(row,toupper(tok[0])))
     {
         cout << "Petak tersebut kosong!"<<endl;
         cout << "Isi ulang!" <<endl;
@@ -589,7 +568,7 @@ void Farmer::memberiPangan()
         cout << "Isi ulang!" <<endl;
         goto inputslot;
     }
-    Product* item = dynamic_cast<Product*>(invent.getValue(rows, slot[0]));
+    Product* item = dynamic_cast<Product*>(invent.getValue(rows, toupper(slot[0])));
     if (item){
         if  (item->gettipe() == "PRODUCT_ANIMAL" && choosed->gettype()=="CARNIVORE")
         {
@@ -615,6 +594,7 @@ void Farmer::memberiPangan()
     }
     cout<<choosed->getname()<<" sudah diberi makan dan beratnya menjadi "<< choosed->getberat()<<endl;
 }
+
 Matrix<Animal*> Farmer::getpeternakan() const {
     return Peternakan;
 }

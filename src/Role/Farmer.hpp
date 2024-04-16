@@ -2,9 +2,6 @@
 #define FARMER_HPP
 
 #include "../Store/Store.hpp"
-#include "../item/Karnivora.hpp"
-#include "../item/Herbivora.hpp"
-#include "../item/Omnivora.hpp"
 #include "../item/Building.hpp"
 #include "../item/Product.hpp"
 #include "Role.hpp"

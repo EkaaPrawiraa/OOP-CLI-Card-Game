@@ -54,7 +54,7 @@ void Role::makan()
     }
   
     if (!foundfood){
-        cout<<"Minimal punya makan dek.."<<endl;
+        throw GameInvalidExc("Minimal punya makan dek..");
     }
     else 
     {
@@ -148,20 +148,10 @@ Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::ve
         }
     }
 
-    vector<Product*> harvest;
-    for (const auto& productConfig : productConfigs) {
-        if (productConfig.getorigin() == itemName) {
-            harvest.push_back(new Product(productConfig.getcode(), productConfig.getname(), productConfig.gettype(), productConfig.getorigin(), productConfig.getaddedtoweight(), productConfig.getprice()));
-        }
-    }
 
     for (const auto& plantConfig : plantConfigs) {
         if (plantConfig.getname() == itemName) {
-            if (plantConfig.gettype() == "MATERIAL_PLANT") {
-                return new MaterialPlant(plantConfig.getcode(), plantConfig.getname(), plantConfig.gettype(), plantConfig.getdurationtoharvest(), plantConfig.getprice(), 0, " ", *harvest.front());
-            } else {
-                return new FruitPlant(plantConfig.getcode(), plantConfig.getname(), plantConfig.gettype(), plantConfig.getdurationtoharvest(), plantConfig.getprice(), 0, " ", *harvest.front());
-            }
+            return new Plant(plantConfig.getcode(), plantConfig.getname(), plantConfig.gettype(), plantConfig.getdurationtoharvest(), plantConfig.getprice(), 0, " ");
         }
     }
     
@@ -170,15 +160,7 @@ Item* createItem(const std::vector<ProductConfig>& productConfigs, const std::ve
     
     for (const auto& animalConfig : animalConfigs) {
         if (animalConfig.getname() == itemName) {
-            if(animalConfig.gettype() == "HERBIVORE"){
-                return new Herbivora(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "", harvest);
-            }
-            else if(animalConfig.gettype() == "CARNIVORE"){
-                return new Karnivora(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "", harvest);
-            }
-            else{
-                return new Omnivora(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "", harvest);
-            }
+            return new Animal(animalConfig.getcode(), animalConfig.getname(), animalConfig.gettype(), animalConfig.getweighttoharvest(), animalConfig.getprice(), 0, "");
         }
     }
     

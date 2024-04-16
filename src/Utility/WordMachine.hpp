@@ -21,13 +21,8 @@
 #include "../item/Item.hpp"
 
 #include "../item/Animal.hpp"
-#include "../item/Karnivora.hpp"
-#include "../item/Herbivora.hpp"
-#include "../item/Omnivora.hpp"
 
 #include "../item/Plant.hpp"
-#include "../item/MaterialPlant.hpp"
-#include "../item/FruitPlant.hpp"
 
 #include "../item/Building.hpp"
 #include "../item/Product.hpp"

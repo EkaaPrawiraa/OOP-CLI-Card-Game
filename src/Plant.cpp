@@ -61,9 +61,20 @@ Plant& Plant::operator=(const Plant& other) {
     return *this;
 }
 
-Product* Plant::gethasilpanen() {
+Product* Plant::gethasilpanen(vector<ProductConfig> config) {
+    for (ProductConfig& P : config) {
+        if (P.getorigin() == this->getname()) {
+            return new Product(
+                P.getcode(),
+                P.getname(),
+                P.gettype(),
+                P.getorigin(),
+                P.getaddedtoweight(),
+                P.getprice()
+            );
+        }
+    }
 
-    return nullptr;
 }
 
 void Plant::setumur(int n ){

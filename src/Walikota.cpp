@@ -23,7 +23,7 @@ Walikota Walikota::conditionalConstructor(string username, float weight, int uan
     }
     else // walikota sudah dibuat (exception)
     {
-        throw std::runtime_error("Walikota sudah ada!");
+        throw GameInvalidExc("Walikota sudah ada!");
     }
 }
 
@@ -133,7 +133,7 @@ void Walikota::tambahPemain(std::vector<Role *> &daftarPemain, MiscConfig &confi
 {
     if (getGulden() < 50) // kurang uang untuk menambah pemain (exception)
     {
-        std::cout << "Uang tidak cukup!" << std::endl;
+        throw GameInvalidExc("Uang tidak cukup!");
     }
     else
     {
@@ -142,7 +142,7 @@ void Walikota::tambahPemain(std::vector<Role *> &daftarPemain, MiscConfig &confi
         std::cin >> jenis;
         if (jenis != "peternak" && jenis != "petani") // jenis tidak valid (exception)
         {
-            throw std::runtime_error("jenis tidak valid!");
+            throw GameInvalidExc("jenis tidak valid!");
         }
         else // lanjut
         {
@@ -151,7 +151,7 @@ void Walikota::tambahPemain(std::vector<Role *> &daftarPemain, MiscConfig &confi
             std::cin >> nama;
             if (nameExists(nama, daftarPemain)) // nama sudah ada (exception)
             {
-                std::cout << "Nama pemain sudah ada!" << std::endl;
+                throw GameInvalidExc("Nama pemain sudah ada!");
             }
             else
             {
@@ -218,7 +218,7 @@ void Walikota::bangunBangunan(vector<BuildingRecipeConfig> recipes)
     // pengecekan ditemukannya kode bangunan
     if (!(ditemukan)) // tidak ada (exception)
     {
-        std::cout << "Kamu tidak punya resep bangunan tersebut!" << std::endl;
+        throw GameInvalidExc("Kamu tidak punya resep bangunan tersebut!");
     }
     else // prosedur pembangunan
     {
@@ -315,8 +315,7 @@ void Walikota::menjual(Store &Toko)
     // Validasi tidak bisa menjual bangunan jika bukan walikota
     if (invent.countElement() == 0)
     {
-        cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
-        return;
+        throw GameInvalidExc("Penyimpanan Anda kosong tidak bisa melakukan penjualan");
     }
 
     int totalPrice = 0;
@@ -338,7 +337,7 @@ void Walikota::menjual(Store &Toko)
         string tok;
         cin.ignore();
         cin >> tok;
-        cout << tok << endl;
+
         std::regex pattern("^[a-zA-Z][0-9]+");
         if ((!std::regex_match(tok, pattern)))
         {
@@ -366,6 +365,7 @@ void Walikota::menjual(Store &Toko)
             invent.deleteValue(row, tok[0]);
         }
     }
+    this->gulden+=totalPrice;
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalPrice << " gulden!" << endl;
 }
 
@@ -373,7 +373,7 @@ void Walikota::membeli(Store &Toko)
 {
     if (invent.isFull())
     {
-        cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
+        throw GameInvalidExc("Penyimpanan Anda Penuh tidak bisa melakukan pembelian");
     }
     else
     {
@@ -398,7 +398,7 @@ void Walikota::membeli(Store &Toko)
         std::pair<int, Item *> passsss = Toko.buyItem(boughtItem, quantity, gulden, getRoleType());
         Item *item = passsss.second;
         int totalpaid = passsss.first;
-        cout << item->getname() << endl;
+        
         if (totalpaid > 0)
         {
 
@@ -414,7 +414,7 @@ void Walikota::membeli(Store &Toko)
 
             for (int i = 1; i <= quantity; i++)
             {
-            inputpetak:
+                inputpetak:
                 cout << "Petak slot barang ke-" << i << " : ";
                 string tok;
                 cin.ignore();
@@ -442,8 +442,6 @@ void Walikota::membeli(Store &Toko)
                 {
                     invent.setValue(row, tok[0], item);
                     cout << boughtItem << " berhasil disimpan dalam penyimpanan!" << endl;
-                    cetak_penyimpanan();
-                    cout << item->getclassname();
                 }
             }
         }

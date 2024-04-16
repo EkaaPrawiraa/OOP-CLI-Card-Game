@@ -18,7 +18,7 @@ class Plant : public Item {
      
         bool operator==(const Plant& other) const;
         Plant& operator=(const Plant& other);
-        virtual Product* gethasilpanen();
+        virtual Product* gethasilpanen(vector<ProductConfig> config);
         pair<char, int> getColumnAndRowIndex(const std::string& location) const;
 
     protected:

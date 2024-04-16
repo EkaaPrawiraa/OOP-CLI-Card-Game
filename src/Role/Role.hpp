@@ -8,12 +8,8 @@
 #include "../item/Product.hpp"
 #include "../item/Animal.hpp"
 #include "../item/Building.hpp"
-#include "../item/MaterialPlant.hpp"
-#include "../item/FruitPlant.hpp"
-#include "../item/Karnivora.hpp"
-#include "../item/Omnivora.hpp"
-#include "../item/Herbivora.hpp"
-// #include "../Utility/Exception.hpp"
+#include "../item/Plant.hpp"
+#include "../Utility/Exception.hpp"
 using namespace std;
 
 class Role

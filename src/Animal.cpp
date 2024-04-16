@@ -53,43 +53,6 @@ string Animal::getclassname()const{
     return "Animal";
 }
 
-// Herbivora class implementation
-// Herbivora::Herbivora(const string &kodeHuruf, const string &name, const string &type, int weightToHarvest, int price, int berat, string location)
-//     : Animal(kodeHuruf, name, type, weightToHarvest, price, berat, location), hasilpanen(1) {}
-
-// Herbivora::Herbivora(const Animal& other)
-//     : Animal(other), hasilpanen(1) {}
-
-// Herbivora::~Herbivora() {}
-
-// int Herbivora::gethasilpanen() {
-//     return hasilpanen;
-// }
-
-// // Karnivora class implementation
-// Karnivora::Karnivora(const string &kodeHuruf, const string &name, const string &type, int weightToHarvest, int price, int berat, string location) : Animal(kodeHuruf, name, type, weightToHarvest, price, berat, location), hasilpanen(1) {}
-
-// Karnivora::Karnivora(const Animal& other)
-//     : Animal(other), hasilpanen(1) {}
-
-// Karnivora::~Karnivora() {}
-
-// int Karnivora::gethasilpanen() {
-//     return hasilpanen;
-// }
-
-// // Omnivora class implementation
-// Omnivora::Omnivora(const string &kodeHuruf, const string &name, const string &type, int weightToHarvest, int price, int berat, string location)
-//     : Animal(kodeHuruf, name, type, weightToHarvest, price, berat, location), hasilpanen(2) {}
-
-// Omnivora::Omnivora(const Animal& other)
-//     : Animal(other), hasilpanen(1) {}
-
-// Omnivora::~Omnivora() {}
-
-// int Omnivora::gethasilpanen() {
-//     return hasilpanen;
-// }
 
 bool Animal::operator==(const Animal& other) const {
     return (this->kodeHuruf == other.kodeHuruf) &&

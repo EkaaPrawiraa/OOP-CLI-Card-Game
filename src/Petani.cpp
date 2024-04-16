@@ -12,7 +12,7 @@ Petani::~Petani() {}
 void Petani::membeli(Store& Toko) {
  if (invent.isFull())
     {
-        cout << "Penyimpanan Anda Penuh tidak bisa melakukan pembelian" << endl;
+        throw GameInvalidExc("Penyimpanan Anda Penuh tidak bisa melakukan pembelian");
     }
     else
     {
@@ -38,7 +38,6 @@ void Petani::membeli(Store& Toko) {
         std::pair<int, Item*> passsss=Toko.buyItem(boughtItem,quantity,gulden,getRoleType());
         Item* item=passsss.second;
         int totalpaid = passsss.first;
-        cout<<item->getname()<<endl;
 
         if (totalpaid>0)
         {
@@ -64,20 +63,18 @@ void Petani::membeli(Store& Toko) {
                 col = std::toupper(location[0]);
                 row = stoi(location.substr(1));
                 std::regex pattern("^[a-zA-Z][0-9]+");
-                while(!regex_match(location, pattern) || invent.isemptyslot(row,col) ||  toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
+                while(!regex_match(location, pattern) || !invent.isemptyslot(row,col) ||  toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
                 {   
                     if ((!regex_match(location, pattern))){
                         cout << "Format salah !"<< endl;  
                     }
-                    else if(invent.isemptyslot(row,col)){
-                        cout << "Petak tersebut kosong!" << endl;
+                    else if(!invent.isemptyslot(row,col)){
+                        cout << "Petak tersebut telah terisi!" << endl;
                     }
                     else if( toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows() ){
                         cout<<"Melebihi ukuran penyimpanan!"<<endl;
                     }
-                    else{
-                        cout << "Pastikan Item berupa Tumbuhan" << endl;
-                    }
+
                     
                     cout << "Isi ulang!" <<endl;
                     cout<<"Petak slot barang ke-"<<i<<" : ";
@@ -103,8 +100,7 @@ void Petani::membeli(Store& Toko) {
 void Petani::menjual(Store& Toko) {
      // Validasi tidak bisa menjual bangunan jika bukan walikota
     if (invent.countElement() == 0) {
-        cout << "Penyimpanan Anda kosong tidak bisa melakukan penjualan" << endl;
-        return;
+        throw GameInvalidExc( "Penyimpanan Anda kosong tidak bisa melakukan penjualan");
     }
     
     int totalPrice = 0;
@@ -154,9 +150,9 @@ void Petani::menjual(Store& Toko) {
                     
                 }
 
-                if(invent.getValue(row,location[0])->getclassname()=="Building")
+                if(invent.getValue(row,col)->getclassname()=="Building")
                 {
-                    cout<<"Petani tidak dapat menjual bangunan!"<<endl;
+                    throw GameInvalidExc("Petani tidak dapat menjual bangunan!");
                 }
                 else {
                     // cout << invent.getValue(row, tok[0])->getprice() << endl;
@@ -276,11 +272,8 @@ void Petani::CetakLadang()
 
 
 void Petani::Tanam(){
-    if (Ladang.isFull())
-    {
-        cout << "Peternakan Anda sudah penuh!"<<endl;
-        
-        return;
+    if (Ladang.isFull()){
+        throw GameInvalidExc("Peternakan Anda sudah penuh!");
     }
     cout << "Pilih tanaman dari penyimpanan" << endl;
 
@@ -293,7 +286,7 @@ void Petani::Tanam(){
     int row = stoi(location.substr(1));
     regex pattern("^[a-zA-Z][0-9]+");
 
-    while(!regex_match(location, pattern) || invent.isemptyslot(row,col) || invent.getValue(row,col)->getclassname() != "MaterialPlant" && invent.getValue(row,col)->getclassname() != "FruitPlant" || toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
+    while(!regex_match(location, pattern) || invent.isemptyslot(row,col) || invent.getValue(row,col)->getclassname() != "Plant"  || toupper(location[0]) - 'A' >invent.getCols() || row>invent.getRows())
     {   
         if ((!regex_match(location, pattern))){
             cout << "Format salah !"<< endl;  
@@ -337,21 +330,16 @@ void Petani::Tanam(){
         row1 = stoi(loc.substr(1));
     }
 
-    if(invent.getValue(row, col)->getclassname() == "MaterialPlant"){
-        setLadang(row1, col1, dynamic_cast<MaterialPlant*>(invent.getValue(row, col)));
-    }
-    else{
-        setLadang(row1, col1, dynamic_cast<FruitPlant*>(invent.getValue(row, col)));
-    }
-    
+
+    setLadang(row1, col1, dynamic_cast<Plant*>(invent.getValue(row, col)));
+
     invent.deleteValue(row,col);
     std::cout << "Cangkul, cangkul, cangkul yang dalam~!" << std::endl;
     std::cout << Ladang.getValue(row1,col1)->getname() << " berhasil ditanam!" << endl;
 }
-void Petani::Memanen(){
+void Petani::Memanen(vector<ProductConfig> config){
     if(Ladang.isempty()){
-        cout<<"Tidak ada yang bisa dipanen. Peternakan kosong."<<endl;
-        return;
+        throw GameInvalidExc("Tidak ada yang bisa dipanen. Peternakan kosong.");
     }
 
     this->CetakLadang();
@@ -377,8 +365,7 @@ void Petani::Memanen(){
     }
 
     if (!harvest){
-        cout<<"Tidak ada yang bisa dipanen!"<<endl;
-        return;
+        throw GameInvalidExc("Tidak ada yang bisa dipanen!");
     }
     
     // Menampilkan daftar tanaman siap panen
@@ -410,9 +397,7 @@ void Petani::Memanen(){
     }
 
     if(petak+invent.countElement() > invent.getSize()){
-        //Throw Exception
-        std::cout << "Jumlah Penyimpanan Tidak Cukup!" << std::endl;
-        return;
+        throw GameInvalidExc( "Jumlah Penyimpanan Tidak Cukup!");
     }
 
     std::cout << "Pilih petak yang ingin dipanen:" << std::endl;
@@ -437,7 +422,9 @@ void Petani::Memanen(){
         }
 
         listloc.insert(loc);
-        invent.setfirstempty(dynamic_cast<Product*>(Ladang.getValue(row, col)->gethasilpanen()));
+        Plant* plant = dynamic_cast<Plant*>(Ladang.getValue(row,col));
+        Product* p = dynamic_cast<Product*>(plant->gethasilpanen(config));
+        invent.setfirstempty(p);
         Ladang.deleteValue(row,col);
         
     }

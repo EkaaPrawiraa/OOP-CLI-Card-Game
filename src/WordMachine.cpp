@@ -13,7 +13,7 @@ WordMachine::WordMachine(const string &filename)
     file.open(filename);
     if (!file.is_open())
     {
-        throw FileException("Gagal membuka file."); // handle pake exception
+        throw GameInvalidExc("Gagal membuka file."); // handle pake exception
     }
 }
 
@@ -38,7 +38,7 @@ vector<PlantConfig> WordMachine::readPlants()
 
         if (!(iss >> id >> kodeHuruf >> name >> type >> durationToHarvest >> price))
         {
-            throw FileException("Format file plants tidak sesuai.");
+            throw GameInvalidExc("Format file plant tidak sesuai.");
             continue;
         }
 
@@ -60,7 +60,7 @@ vector<AnimalConfig> WordMachine::readAnimals()
 
         if (!(iss >> id >> kodeHuruf >> name >> type >> weightToHarvest >> price))
         {
-            throw FileException("Format file plants tidak sesuai.");
+            throw GameInvalidExc("Format file animal tidak sesuai.");
             continue;
         }
 
@@ -82,7 +82,7 @@ vector<ProductConfig> WordMachine::readProducts()
 
         if (!(iss >> id >> kodeHuruf >> name >> type >> origin >> addedWeight >> price))
         {
-            throw FileException("Format file plants tidak sesuai.");
+            throw GameInvalidExc("Format file product tidak sesuai.");
             continue;
         }
 
@@ -97,7 +97,7 @@ MiscConfig WordMachine::readConfig()
 
     if (!(file >> winningMoney >> winningWeight >> storageRows >> storageCols >> landRows >> landCols >> farmRows >> farmCols))
     {
-        throw FileException("Format file plants tidak sesuai.");
+        throw GameInvalidExc("Format file miscconfig tidak sesuai.");
         return MiscConfig(0, 0, 0, 0, 0, 0, 0, 0);
     }
 
@@ -122,7 +122,7 @@ std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
 
         if (!(iss >> id >> kodeHuruf >> name >> price))
         {
-            throw FileException("Format file tidak sesuai.");
+            throw GameInvalidExc("Format file recipe tidak sesuai.");
             continue;
         }
 
@@ -131,7 +131,7 @@ std::vector<BuildingRecipeConfig> WordMachine::readRecipes()
             int quantity;
             if (!(iss >> quantity))
             {
-                throw FileException("Format file tidak sesuai.");
+                throw GameInvalidExc("Format file recipe tidak sesuai.");
                 break;
             }
             materials.push_back(std::make_pair(materialName, quantity));
@@ -220,7 +220,7 @@ std::vector<Role*> WordMachine::read_input(MiscConfig misc, const std::vector<Pr
                 ladrows = misc.getFarmRows();
                 ladcols = misc.getFarmCols();
                 iss >> weight >> money;
-                Farmer* petani = new Farmer(username, weight, money, storrows, storcols, ladrows, ladcols);
+                Farmer* petani = new Farmer(username, money, weight, storrows, storcols, ladrows, ladcols);
                 std::getline(file, line);
                 iss.clear();
                 iss.str(line);

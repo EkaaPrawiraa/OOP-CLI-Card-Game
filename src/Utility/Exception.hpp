@@ -1,28 +1,30 @@
-#ifndef EXCEPTION_HPP
-#define EXCEPTION_HPP
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
-#include <exception>
 #include <stdexcept>
+#include <iostream>
 #include <string>
 
-class FileException : public std::runtime_error
-{
+using namespace std;
+
+
+class GameException : public exception {
 public:
-    explicit FileException(const std::string &message) : std::runtime_error(message) {}
+    /* Pure virtual method */
+    virtual const char* what() const throw() = 0;
 };
 
- // EXCEPTION_HPP
+/* Exception Children */
+class GameInvalidExc : public GameException {
+private:
+    string message;
 
-class MatrixKosongException : public std::exception{
 public:
-    const char* what() const noexcept override {
-        return "Storage Kosong";
+    GameInvalidExc(const string& msg) : message(msg) {}
+
+    const char* what() const throw() {
+        return message.c_str();
     }
 };
-class NofoodException : public std::exception{
-public:
-    const char* what() const noexcept override {
-        return "Tidak ada makanan!";
-    }
-};
+
 #endif

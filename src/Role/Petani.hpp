@@ -22,7 +22,7 @@ public:
      void menjual(Store&);
     void CetakLadang();
     void Tanam();
-    void Memanen();
+    void Memanen(vector<ProductConfig> config);
     int calculate_tax();
     void setLadang(int row, char col, Plant *p);
     string getRoleType() override;
