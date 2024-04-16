@@ -11,6 +11,24 @@ void Role::next()
 void Role::cetak_penyimpanan()
 {
     invent.display("Penyimpanan");
+    std::cout << "\n\n";
+    std::set<std::string> uniqueCodes;
+    std::string code;
+    std::string name;
+    for (const auto &row : invent.getmatrix())
+    {
+        for (const auto &cell : row.second)
+        { 
+            code = cell.second->getKode();
+            name = cell.second->getname();
+            if (code != "   ") { 
+                if (uniqueCodes.find(code) == uniqueCodes.end()){
+                    std::cout << "- " << code << ": " << name << std::endl; 
+                    uniqueCodes.insert(code); 
+                }
+            }
+        }
+    }
 }
 void Role::makan()
 {

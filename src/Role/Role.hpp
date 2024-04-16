@@ -2,6 +2,7 @@
 #define ROLE_HPP
 #include <string>
 #include <iostream>
+#include <set>
 #include "../Storage/Storage.hpp"
 #include "../item/Item.hpp"
 #include "../item/Product.hpp"

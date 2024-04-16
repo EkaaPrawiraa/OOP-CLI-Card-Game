@@ -147,7 +147,7 @@ void Farmer::menjual(Store& Toko) {
     int totalPrice = 0;
     
     int quanti;
-    invent.display("Penyimpanan");
+    cetak_penyimpanan();
     cout << "Jumlah barang yang ingin anda jual : ";
     cin>>quanti;
     while (quanti>invent.countElement())
@@ -236,7 +236,7 @@ void Farmer::membeli(Store& Toko){
             cout << endl;
             cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
             // belum tau cetak penyimpanan
-            invent.display("Penyimpanan");
+            cetak_penyimpanan();
             // atur cetak penyimpanan
             cout<<endl;
             
@@ -268,7 +268,7 @@ void Farmer::membeli(Store& Toko){
                 else {
                     invent.setValue(row,toupper(tok[0]),item);
                     cout<<boughtItem<<" berhasil disimpan dalam penyimpanan!"<<endl;
-                    invent.display("Penyimpanan");
+                    cetak_penyimpanan();
                     // cout<<item->getclassname();
 
                 }
@@ -563,7 +563,7 @@ void Farmer::memberiPangan()
     cout<< "Kamu memilih "<<choosed->getname()<<" untuk diberi makan."<<endl;
     cout<<"Pilih pangan yang akan diberikan: "<<endl;
 
-    invent.display("Penyimpanan");
+    cetak_penyimpanan();
 
     inputslot:
     cout<<"Slot: ";
