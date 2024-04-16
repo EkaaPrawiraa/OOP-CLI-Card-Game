@@ -157,8 +157,8 @@ void Petani::menjual(Store& Toko) {
                 else {
                     // cout << invent.getValue(row, tok[0])->getprice() << endl;
                     // Periksa tipe objek dan jualnya
-                    totalPrice += Toko.sellItem(invent.getValue(row, location[0]));
-                    invent.deleteValue(row,location[0]);
+                    totalPrice += Toko.sellItem(invent.getValue(row, col));
+                    invent.deleteValue(row,col);
 
                 }
                 

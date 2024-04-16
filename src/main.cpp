@@ -111,18 +111,18 @@ int main()
         cout<<"Apakah Anda ingin memuat state? (y/n): ";
         cin>>answer;
         std::string lokasi;
-        // if(toupper(answer)=='Y')
-        // {
+        if(toupper(answer)=='Y')
+        {
             
-        //     cout<<"Masukkan lokasi berkas state : ";
-        //     cin>>lokasi;
+            cout<<"Masukkan lokasi berkas state : ";
+            cin>>lokasi;
             
-        // }
-        // else{
-        //     cout<<"Anda memulai dengan  mode default!"<<endl;
-        //     lokasi = "Configuration//config//default.txt";
-        // }
-        lokasi ="Configuration/config/state.txt";
+        }
+        else{
+            cout<<"Anda memulai dengan  mode default!"<<endl;
+            lokasi = "Configuration//config//default.txt";
+        }
+        // lokasi ="Configuration/config/state.txt";
         WordMachine machine6(lokasi);
         vector<Role*> Players = machine6.read_input(miscconfig,productconfig,animalconfig,plantconfig,buildingconfig,Toko);
 

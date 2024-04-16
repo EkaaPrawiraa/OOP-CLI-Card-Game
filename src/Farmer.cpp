@@ -153,16 +153,17 @@ void Farmer::menjual(Store& Toko) {
                 }
                 int col = toupper(tok[0]) - 'A';
                 int row = std::stoi(tok.substr(1));
+                char col1 = toupper(tok[0]);
                 if (( col>invent.getCols() || row>invent.getRows() ) ) {
                     cout<<"Melebihi ukuran penyimpanan!"<<endl;
                     goto inputpetak;
                  }
-                if (invent.isemptyslot(row, tok[0])) {
+                if (invent.isemptyslot(row, col1)) {
                      cout << "Petak tersebut kosong!" << endl;
                      cout << "Isi ulang!" <<endl;
                      goto inputpetak;
                 } 
-                else if(invent.getValue(row,tok[0])->getclassname()=="Building")
+                else if(invent.getValue(row,col1)->getclassname()=="Building")
                 {
                     cout<<"Peternak tidak dapat menjual bangunan!"<<endl;
                     return;
@@ -170,8 +171,8 @@ void Farmer::menjual(Store& Toko) {
                 else {
                     // cout << invent.getValue(row, tok[0])->getprice() << endl;
                     // Periksa tipe objek dan jualnya
-                    totalPrice += Toko.sellItem(invent.getValue(row, tok[0]));
-                    invent.deleteValue(row,tok[0]);
+                    totalPrice += Toko.sellItem(invent.getValue(row, col1));
+                    invent.deleteValue(row,col1);
 
                 }
                 
