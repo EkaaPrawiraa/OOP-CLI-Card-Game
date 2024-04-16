@@ -530,8 +530,8 @@ void Farmer::memberiPangan()
             
             if (auto product = dynamic_cast<Product *>(cell.second))
             {
-                cout<<product->gettipe()<<endl;
-                cout<<choosed->gettype()<<endl;
+            //     cout<<product->gettipe()<<endl;
+            //     cout<<choosed->gettype()<<endl;
                 if (product->gettipe() == "PRODUCT_ANIMAL" && choosed->gettype()=="CARNIVORE")
                 {
                     adamakan = true;

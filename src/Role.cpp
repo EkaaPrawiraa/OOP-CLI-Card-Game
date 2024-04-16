@@ -72,11 +72,12 @@ void Role::makan()
                     cout<<"Dengan lahapnya, kamu memakanan hidangan itu"<<endl;
                     invent.deleteValue(row, column);
                 }
-                else{
+                
+            }
+            else{
                     cout <<"Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!"<<endl;
                     cout<<"Silahkan masukan slot yang berisi makanan."<<endl;
                 }
-            }
             
 
         }while (!found);

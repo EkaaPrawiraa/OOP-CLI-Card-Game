@@ -34,8 +34,15 @@ void next(vector<Role*>& Players){
     }
 }
 
-bool isWinner(int moneyplayer,int weightplayer ,int targetmoney, int targetweight){
-    return moneyplayer>=targetmoney && weightplayer >=targetweight;
+std::pair<bool,string> isWinner(vector<Role*>& Players,int targetmoney, int targetweight){
+    for(Role* Player : Players)
+    {
+        if (Player->getGulden()>=targetmoney&& Player->getWeight() >=targetweight)
+        {
+            return make_pair(true,Player->getUsername());
+        }
+    }
+    return make_pair(false,"");
 }
 
 void displayconfig(vector<AnimalConfig> a, 
@@ -117,7 +124,7 @@ int main()
         cout<<"Anda memulai dengan  mode default!"<<endl;
         lokasi = "Configuration//config//default.txt";
     }
-    lokasi ="Configuration/config/state.txt";
+    // lokasi ="Configuration/config/state.txt";
     WordMachine machine6(lokasi);
     vector<Role*> Players = machine6.read_input(miscconfig,productconfig,animalconfig,plantconfig,buildingconfig,Toko);
 
@@ -131,6 +138,13 @@ int main()
        Walikota* walikota = dynamic_cast<Walikota*>(curplay);
        Petani* petani = dynamic_cast<Petani*>(curplay);
        Farmer* farmer = dynamic_cast<Farmer*>(curplay);
+       std::pair<bool,std::string> validation = isWinner(Players,miscconfig.getWinningMoney(),miscconfig.getWinningWeight());
+       if(validation.first)
+        {
+            cout<<validation.second<<" is winning the game!!"<<endl;
+            break;
+        }
+
         string inputCommand;
         // cout<<"\n||INPUT COMMAND||\n"<<endl;
         cout<<endl<<endl;
@@ -367,10 +381,7 @@ int main()
             cout<<"Masukkan HELP untuk melihat daftar command list."<<endl;
         }
         
-        if(isWinner(curplay->getGulden(),curplay->getWeight(),miscconfig.getWinningMoney(),miscconfig.getWinningWeight()))
-        {
-            cout<<curplay->getUsername()<<" is winning the game!!"<<endl;
-        }
+        
 
     }
     return 0;
